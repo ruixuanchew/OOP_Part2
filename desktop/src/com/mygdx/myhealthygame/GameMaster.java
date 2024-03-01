@@ -1,5 +1,7 @@
 package com.mygdx.myhealthygame;
 
-public class GameMaster {
+import com.badlogic.gdx.ApplicationAdapter;
+
+public class GameMaster extends ApplicationAdapter{
 
 }
