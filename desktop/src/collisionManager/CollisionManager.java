@@ -1,14 +1,16 @@
 package collisionManager;
 
 import entityManager.Entity;
+import sceneManager.SceneManager;
 
 public class CollisionManager {
+	private SceneManager sceneManager;
 
-	public CollisionManager() {
-
+	public CollisionManager(SceneManager sceneManager) {
+		this.sceneManager = sceneManager;
 	}
 
-	public void checkCollision(Entity player, Entity entity) {
+	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
 		float playerX = player.getPosX();
 		float playerY = player.getPosY();
 		float playerWidth = player.getWidth();
@@ -44,7 +46,33 @@ public class CollisionManager {
 			player.setPosY(player.getPosY() - 1);
 		}
 		System.out.println("\u001B[31m" + "Collision detected between player and entity!" + "\u001B[0m");
-
+		 // Check if the collided entity is a specific type (e.g., a flag)
+		if (entity.getType().equals("flag")) {
+			sceneManager.showAsteroidScene();
+			player.setPosX(0);
+		}
+		if (entity.getType().equals("mercury")) {
+			sceneManager.showMercuryScene();
+			player.setPosX(0);
+		}
+		if (entity.getType().equals("venus")) {
+			sceneManager.showVenusScene();
+		}
+		if (entity.getType().equals("mars")) {
+			sceneManager.showMarsScene();
+		}
+		if (entity.getType().equals("jupiter")) {
+			sceneManager.showJupiterScene();
+		}
+		if (entity.getType().equals("saturn")) {
+			sceneManager.showSaturnScene();
+		}
+		if (entity.getType().equals("uranus")) {
+			sceneManager.showUranusScene();
+		}
+		if(entity.getType().equals("neptune")) {
+			sceneManager.showNeptuneScene();
+		}
 	}
 
 }

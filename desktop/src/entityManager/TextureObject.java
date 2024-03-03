@@ -17,15 +17,15 @@ public class TextureObject extends Entity {
 	}
 
 	// parameterized
-	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer)
+	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer,boolean isVisible, String type)
 	{
-		super(posX, posY, speed, isPlayer);
+		super(posX, posY, speed, isPlayer, isVisible, type);
 		this.tex = new Texture(Gdx.files.internal(tex));
 	}
 	
-	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer, Vector2 velocity)
+	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer, boolean isVisible,Vector2 velocity, String type)
 	{
-		super(posX, posY, speed, isPlayer, velocity);
+		super(posX, posY, speed, isPlayer, isVisible, velocity, type);
 		this.tex = new Texture(Gdx.files.internal(tex));
 	}
 

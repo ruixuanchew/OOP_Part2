@@ -75,7 +75,6 @@ public class PlayerControllerManager {
 				}
 				if (entity.getPosX() >= screenWidth - entity.getWidth()) {
 					entity.getVelocity().x = 0; // Stop movement
-					entity.setPosX(screenWidth - entity.getWidth()); // Reset position to the edge
 				}
 
 				if (entity.getPosY() <= GROUND_LEVEL) {

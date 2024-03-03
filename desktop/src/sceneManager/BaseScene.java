@@ -10,19 +10,47 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import inputOutputManager.InputHandler;
+import playerControllerManager.PlayerControllerManager;
+
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import aiControlManager.AIControlManager;
+import collisionManager.CollisionManager;
+import entityManager.Entity;
+import entityManager.EntityManager;
+import entityManager.TextureObject;
+
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 
 public abstract class BaseScene extends ScreenAdapter {
     protected SceneManager sceneManager;
     protected Stage stage;
     protected InputHandler inputHandler;
+    protected Texture tileMapTexture;
+    private EntityManager entityManager;
+    private PlayerControllerManager pcManager;
+    private CollisionManager cManager;
+    private AIControlManager aiManager;
+    private TextureObject player;
+    private TextureObject entity;
+    private int screenWidth = Gdx.graphics.getWidth();
 
     public BaseScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
         stage = new Stage();
         inputHandler = new InputHandler();
+        
+        this.cManager = new CollisionManager(sceneManager);
+    }
+    
+    public Texture getTileMapTexture() {
+    	return tileMapTexture;
+    }
+    public void setTileMapTexture(Texture tileMapTexture) {
+    	this.tileMapTexture = tileMapTexture;
     }
 
     @Override
@@ -54,6 +82,9 @@ public abstract class BaseScene extends ScreenAdapter {
 
     // Abstract method for background color of scene
     protected abstract Color getBackgroundColor();
+    
+    // Set map background abstract method
+    protected abstract Color getMapBackground();
     
     // Add button for different scenes
     protected void addButton(String text, float x, float y, Runnable action) {
@@ -114,6 +145,7 @@ public abstract class BaseScene extends ScreenAdapter {
 
         return drawable; // Return back to addButton
     }
+    
     
     @Override
     public void dispose() {

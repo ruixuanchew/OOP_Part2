@@ -37,11 +37,11 @@ public class GameMaster extends Game {
         // Initialize the AIControlManager
         aiManager = new AIControlManager(em);
 
-        // Initialize the CollisionManager
-        cManager = new CollisionManager();
-
         // Initialize the SceneManager
         sceneManager = new SceneManager(this);
+        
+     // Initialize the CollisionManager
+        cManager = new CollisionManager(sceneManager);
 
         // Initialize the SimulationLifecycleManager
         slManager = new SimulationLifecycleManager(sceneManager, em);

@@ -12,7 +12,9 @@ public abstract class Entity {
 	private boolean isPlayer; // check if entity is player
 	private Vector2 velocity; // to determine where the entity is currently located on the screen
 	private Vector2 initialPosition; // store initial position of entity
-
+	private String type;
+	private boolean isVisible;
+	
 	abstract void update();
 	public abstract float getWidth();
 	public abstract float getHeight();
@@ -23,20 +25,24 @@ public abstract class Entity {
 	}
 
 	// parameterized constructor
-	public Entity(float posX, float posY, float speed, boolean isPlayer) {
+	public Entity(float posX, float posY, float speed, boolean isPlayer, boolean isVisible, String type) {
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
 		this.isPlayer = isPlayer;
+		this.isVisible = isVisible;
+		this.type = type;
 		this.initialPosition = new Vector2(posX, posY);
 	}
 	
-	public Entity(float posX, float posY, float speed, boolean isPlayer, Vector2 velocity) {
+	public Entity(float posX, float posY, float speed, boolean isPlayer, boolean isVisible,Vector2 velocity, String type) {
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
 		this.isPlayer = isPlayer;
+		this.isVisible = isVisible;
 		this.velocity = velocity;
+		this.type = type;
 		this.initialPosition = new Vector2(posX, posY);
 	}
 	
@@ -83,6 +89,18 @@ public abstract class Entity {
 
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
+	}
+	public String getType() {
+        return type;
+    }
+	public void setType(String type) {
+		this.type = type;
+	}
+	public boolean getVisible() {
+		return isVisible;
+	}
+	public void setVisible(boolean visible) {
+		this.isVisible = visible;
 	}
 
 	public void draw(ShapeRenderer shape) {

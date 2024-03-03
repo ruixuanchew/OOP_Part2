@@ -22,7 +22,7 @@ public class StartScene extends BaseScene {
         float y = Gdx.graphics.getHeight() / 2;
 
         // Add the button
-        addButton(buttonText, x, y, () -> sceneManager.showGameScene());
+        addButton(buttonText, x, y, () -> sceneManager.showEarthScene());
     }
     
     // Override abstract method in BaseScene.java
@@ -37,4 +37,10 @@ public class StartScene extends BaseScene {
         GlyphLayout layout = new GlyphLayout(font, text);
         return layout.width;
     }
+
+	@Override
+	protected Color getMapBackground() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
