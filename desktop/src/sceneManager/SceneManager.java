@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import entityManager.EntityManager;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
+import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 import simulationLifecycleManager.SimulationLifecycleManager;
 
@@ -23,13 +24,15 @@ public class SceneManager {
     private NeptuneScene neptuneScene;
     private BaseScene currentScene;
     private boolean sceneSwitching;
+    private InputOutputManager ioManager;
 
     public SceneManager(Game game) {
         this.game = game;
         this.sceneSwitching = false;
     }
 
-    public synchronized void initializeScenes(EntityManager entityManager, PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager, SimulationLifecycleManager slManager) {
+    public synchronized void initializeScenes(EntityManager entityManager, PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
+        this.ioManager = ioManager;
         startScene = new StartScene(this);
         endScene = new EndScene(this, slManager);
         asteroidScene = new AsteroidScene(this, entityManager, pcManager, cManager, aiManager);
@@ -45,6 +48,7 @@ public class SceneManager {
 
     public synchronized void showStartScene() {
         setCurrentScene(startScene);
+        ioManager.getBgMusic().setVolume(0.2f);
     }
 
     public synchronized void showEndScene() {
@@ -53,6 +57,8 @@ public class SceneManager {
 
     public synchronized void showAsteroidScene() {
         setCurrentScene(asteroidScene);
+        ioManager.changeBackgroundMusic("assets/Maps/Space/space.mp3");
+        ioManager.getBgMusic().setVolume(0.2f);
     }
 
     public synchronized void showMercuryScene() {
@@ -61,10 +67,14 @@ public class SceneManager {
 
     public synchronized void showVenusScene() {
         setCurrentScene(venusScene);
+        ioManager.changeBackgroundMusic("Pixelland.mp3");
+        ioManager.getBgMusic().setVolume(0.2f);
     }
 
     public synchronized void showEarthScene() {
         setCurrentScene(earthScene);
+        ioManager.changeBackgroundMusic("assets/Maps/Earth/city.mp3");
+        ioManager.getBgMusic().setVolume(0.08f);
     }
     public synchronized void showMarsScene() {
         setCurrentScene(marsScene);

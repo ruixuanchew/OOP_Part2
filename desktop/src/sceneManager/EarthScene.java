@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
 import entityManager.TextureObject;
+import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
 public class EarthScene extends BasePlanetScene{
@@ -20,6 +22,7 @@ public class EarthScene extends BasePlanetScene{
     private AIControlManager aiManager;
     private TextureObject player;
     private TextureObject entity;
+	private MapManager mapManager;
     
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -27,10 +30,13 @@ public class EarthScene extends BasePlanetScene{
 		this.entityManager = entityManager;
         this.pcManager = pcManager;
         this.cManager = cManager;
-        
         this.cManager = new CollisionManager(sceneManager);
         this.aiManager = aiManager;
-        
+
+		// call loadMap method from MapManager to load the current map
+		mapManager = new MapManager();
+		mapManager.loadMap("assets/Maps/Earth/Earth.tmx");
+
         initializeScene();
 	}
 	 private void initializeScene() {
@@ -61,6 +67,10 @@ public class EarthScene extends BasePlanetScene{
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
+
+		// call render method from MapManager to render the current map
+		mapManager.getRenderer().setView(mapManager.getCamera());
+		mapManager.getRenderer().render();
 	    
 	    SpriteBatch batch = new SpriteBatch();
 	    

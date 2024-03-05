@@ -23,6 +23,7 @@ public class AsteroidScene extends BasePlanetScene{
     private TextureObject player;
     private TextureObject entity;
     private int screenWidth = Gdx.graphics.getWidth();
+	private MapManager mapManager;
 
 	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager ) {
@@ -34,6 +35,10 @@ public class AsteroidScene extends BasePlanetScene{
         this.cManager = new CollisionManager(sceneManager);
         this.aiManager = aiManager;
         this.sceneManager = sceneManager;
+
+		// call loadMap method from MapManager to load the current map
+		mapManager = new MapManager();
+		mapManager.loadMap("assets/Maps/Space/space.tmx");
 
         initializeScene();
 	}
@@ -76,11 +81,15 @@ public class AsteroidScene extends BasePlanetScene{
 	@Override
 	 public void setTileMapTexture(Texture tileMapTexture) {
 	        super.setTileMapTexture(tileMapTexture);
-	        // Do the tile map stuff here 
+	        // Do the tile map stuff here
 	 }
 	  @Override
 	    public void render(float delta) {
 		  super.render(delta);
+
+		  // call render method from MapManager to render the current map
+		  mapManager.getRenderer().setView(mapManager.getCamera());
+		  mapManager.getRenderer().render();
 
 	        SpriteBatch batch = new SpriteBatch(); // Initialize batch here
 	        String text = "Space";

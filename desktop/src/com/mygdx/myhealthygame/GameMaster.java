@@ -59,14 +59,13 @@ public class GameMaster extends Game {
 
     private void initializeScenes() {
         // Create and set up scenes
-        sceneManager.initializeScenes(em, pcManager, cManager, aiManager, slManager);
+        sceneManager.initializeScenes(em, pcManager, cManager, aiManager, slManager, ioManager);
     }
 
     @Override
     public void render() {
         super.render();
         ioManager.getBgMusic().play();
-        ioManager.getBgMusic().setVolume(0.2f);
     }
 
     @Override

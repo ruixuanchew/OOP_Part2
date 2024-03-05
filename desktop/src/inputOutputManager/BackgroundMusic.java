@@ -10,14 +10,26 @@ import com.badlogic.gdx.audio.Music;
 public class BackgroundMusic implements SoundPlayer {
     private Music bgMusic;
 
-    public BackgroundMusic() {
-        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("Pixelland.mp3"));
+    public BackgroundMusic(String musicFile) {
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal(musicFile));
         bgMusic.setLooping(true);
+    }
+
+    public void changeMusic(String musicFile) {
+        if (bgMusic.isPlaying()) {
+            bgMusic.stop();
+        }
+        bgMusic.dispose();
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal(musicFile));
+        bgMusic.setLooping(true);
+        bgMusic.play();
     }
 
     @Override
     public void play() {
-        bgMusic.play();
+        if (!bgMusic.isPlaying()) {
+            bgMusic.play();
+        }
     }
 
     @Override

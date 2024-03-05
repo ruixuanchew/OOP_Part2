@@ -11,12 +11,18 @@ public class InputOutputManager {
     private InputHandler inputHandler;
 
     public InputOutputManager() {
-        bgMusic = new BackgroundMusic();
+        bgMusic = new BackgroundMusic("Pixelland.mp3");
         inputHandler = new InputHandler();
     }
 
     public SoundPlayer getBgMusic() {
         return bgMusic;
+    }
+
+    public void changeBackgroundMusic(String musicFile) {
+        if (bgMusic != null) {
+            bgMusic.changeMusic(musicFile);
+        }
     }
 
     public InputHandler getInputHandler() {
