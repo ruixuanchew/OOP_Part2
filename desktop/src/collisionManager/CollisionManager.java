@@ -57,21 +57,27 @@ public class CollisionManager {
 		}
 		if (entity.getType().equals("venus")) {
 			sceneManager.showVenusScene();
+			player.setPosX(0);
 		}
 		if (entity.getType().equals("mars")) {
 			sceneManager.showMarsScene();
+			player.setPosX(0);
 		}
 		if (entity.getType().equals("jupiter")) {
 			sceneManager.showJupiterScene();
+			player.setPosX(0);
 		}
 		if (entity.getType().equals("saturn")) {
 			sceneManager.showSaturnScene();
+			player.setPosX(0);
 		}
 		if (entity.getType().equals("uranus")) {
 			sceneManager.showUranusScene();
+			player.setPosX(0);
 		}
 		if(entity.getType().equals("neptune")) {
 			sceneManager.showNeptuneScene();
+			player.setPosX(0);
 		}
 	}
 

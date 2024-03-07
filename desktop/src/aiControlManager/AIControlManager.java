@@ -16,7 +16,7 @@ public class AIControlManager {
 
     public void moveAIControlled() {
         for (Entity entity : entityManager.getEntityList()) {
-            if (!entity.isPlayer()) {
+            if (entity.getType().equals("asteroid")) {
 
             	float deltaX = entity.getSpeed();
 	            

@@ -62,6 +62,7 @@ public class MercuryScene extends BasePlanetScene {
 	    
 	    super.planetRender(batch);
 	    super.addText(text, batch, Color.BLACK);
+	    
 
 	    batch.end();
 	}

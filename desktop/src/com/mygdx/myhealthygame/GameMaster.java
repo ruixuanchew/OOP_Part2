@@ -25,6 +25,12 @@ public class GameMaster extends Game {
 
     @Override
     public void create() {
+        initializeManagers();
+        initializeScenes();
+        startGame();
+    }
+
+    private void initializeManagers() {
         // Initialize the InputOutputManager and Error Handler
         ioManager = new InputOutputManager();
 
@@ -40,26 +46,25 @@ public class GameMaster extends Game {
         // Initialize the SceneManager
         sceneManager = new SceneManager(this);
         
-     // Initialize the CollisionManager
+        // Initialize the CollisionManager
         cManager = new CollisionManager(sceneManager);
 
         // Initialize the SimulationLifecycleManager
         slManager = new SimulationLifecycleManager(sceneManager, em);
+    }
 
-        // Initialize scenes
-        initializeScenes();
+    private void initializeScenes() {
+        // Create and set up scenes
+        sceneManager.initializeScenes(em, pcManager, cManager, aiManager, slManager, ioManager);
+    }
 
+    private void startGame() {
         // Start with start scene
         try {
             slManager.startGame();
         } catch (Exception e) {
             slManager.getErrorHandler().handleException(e, "Failed to start the game");
         }
-    }
-
-    private void initializeScenes() {
-        // Create and set up scenes
-        sceneManager.initializeScenes(em, pcManager, cManager, aiManager, slManager, ioManager);
     }
 
     @Override
@@ -73,3 +78,4 @@ public class GameMaster extends Game {
         sceneManager.dispose();
     }
 }
+

@@ -34,23 +34,19 @@ public abstract class BaseScene extends ScreenAdapter {
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
+    private UIManager uiManager;
     private TextureObject player;
     private TextureObject entity;
+    private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
 
     public BaseScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
         stage = new Stage();
         inputHandler = new InputHandler();
-        
+        uiManager = new UIManager(stage);
+        batch = new SpriteBatch();
         this.cManager = new CollisionManager(sceneManager);
-    }
-    
-    public Texture getTileMapTexture() {
-    	return tileMapTexture;
-    }
-    public void setTileMapTexture(Texture tileMapTexture) {
-    	this.tileMapTexture = tileMapTexture;
     }
 
     @Override
@@ -88,64 +84,8 @@ public abstract class BaseScene extends ScreenAdapter {
     
     // Add button for different scenes
     protected void addButton(String text, float x, float y, Runnable action) {
-        int fontSize = 12; // Define font size of text
-        BitmapFont font = new BitmapFont();
-        // Set font size of text
-        font.getData().setScale(fontSize / font.getCapHeight());
-
-        // To measure the text bounds (width and height)
-        GlyphLayout layout = new GlyphLayout(font, text);
-
-        // Get text width and height
-        float textWidth = layout.width;
-        float textHeight = layout.height;
-
-        // Add padding around the text
-        float paddingX = 20f;
-        float paddingY = 10f; 
-
-        // Calculate button width and height based on text size and padding
-        float buttonWidth = textWidth + 2 * paddingX;
-        float buttonHeight = textHeight + 2 * paddingY;
-        
-        // Call function to draw color of background
-        TextureRegionDrawable drawable = buttonBackgroundColor(Color.YELLOW, (int) buttonWidth, (int) buttonHeight, (int) paddingX, (int) paddingY);
-        
-        // Initialize button style
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.font = font; 
-        buttonStyle.fontColor = Color.BLACK;
-
-        TextButton button = new TextButton(text, buttonStyle);
-        button.setSize(buttonWidth + 20, buttonHeight + 15); // Set the button size
-        button.getStyle().up = drawable; // Set the background color to color 
-        button.setPosition(x, y); 
-        inputHandler.handleButtonEvents(button, action); // Pass the Runnable action
-
-        stage.addActor(button);
+        uiManager.addButton(text, x, y, action);
     }
-
-
-    // Method to create a background color for text button
-    private TextureRegionDrawable buttonBackgroundColor(Color color, int width, int height, int paddingX, int paddingY) {
-    	// Use pixmap to create the background color for button
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        // Set color of background based on color params
-        pixmap.setColor(color);
-
-        // Fill the pixmap rectangle with the color
-        // Defining paddings for button
-        pixmap.fillRectangle(paddingX, paddingY, width - 2 * paddingX, height - 2 * paddingY);
-
-        // Create the texture region drawable
-        Texture texture = new Texture(pixmap);
-        TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
-        
-        pixmap.dispose();
-
-        return drawable; // Return back to addButton
-    }
-    
     
     @Override
     public void dispose() {
