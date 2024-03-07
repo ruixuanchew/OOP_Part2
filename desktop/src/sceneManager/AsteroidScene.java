@@ -38,7 +38,7 @@ public class AsteroidScene extends BasePlanetScene{
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("assets/Maps/Space/space.tmx");
+		mapManager.loadMap("space.tmx");
 
         initializeScene();
 	}

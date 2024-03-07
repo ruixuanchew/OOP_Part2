@@ -57,7 +57,7 @@ public class SceneManager {
 
     public synchronized void showAsteroidScene() {
         setCurrentScene(asteroidScene);
-        ioManager.changeBackgroundMusic("assets/Maps/Space/space.mp3");
+        ioManager.changeBackgroundMusic("space.mp3");
         ioManager.getBgMusic().setVolume(0.2f);
     }
 
@@ -73,7 +73,7 @@ public class SceneManager {
 
     public synchronized void showEarthScene() {
         setCurrentScene(earthScene);
-        ioManager.changeBackgroundMusic("assets/Maps/Earth/city.mp3");
+        ioManager.changeBackgroundMusic("city.mp3");
         ioManager.getBgMusic().setVolume(0.08f);
     }
     public synchronized void showMarsScene() {

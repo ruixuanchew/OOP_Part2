@@ -35,7 +35,7 @@ public class EarthScene extends BasePlanetScene{
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("assets/Maps/Earth/Earth.tmx");
+		mapManager.loadMap("Earth.tmx");
 
         initializeScene();
 	}
