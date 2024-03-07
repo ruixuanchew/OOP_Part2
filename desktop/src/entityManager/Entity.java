@@ -1,8 +1,9 @@
 package entityManager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
@@ -14,18 +15,18 @@ public abstract class Entity {
 	private Vector2 initialPosition; // store initial position of entity
 	private String type;
 	private boolean isVisible;
+	private Texture tex;
 	
 	abstract void update();
-	public abstract float getWidth();
-	public abstract float getHeight();
+//	abstract void create(String tex, float posX, float posY, float speed, boolean isPlayer, boolean isVisible, Vector2 velocity, String type);
 
-	// default constructor
+	// default 
 	public Entity() {
 
 	}
 
-	// parameterized constructor
-	public Entity(float posX, float posY, float speed, boolean isPlayer, boolean isVisible, String type) {
+	// parameterized 
+	public Entity(String tex,float posX, float posY, float speed, boolean isPlayer, boolean isVisible, String type) {
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
@@ -33,9 +34,10 @@ public abstract class Entity {
 		this.isVisible = isVisible;
 		this.type = type;
 		this.initialPosition = new Vector2(posX, posY);
+		this.tex = new Texture(Gdx.files.internal(tex));
 	}
 	
-	public Entity(float posX, float posY, float speed, boolean isPlayer, boolean isVisible,Vector2 velocity, String type) {
+	public Entity(String tex, float posX, float posY, float speed, boolean isPlayer, boolean isVisible, Vector2 velocity, String type) {
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
@@ -44,13 +46,10 @@ public abstract class Entity {
 		this.velocity = velocity;
 		this.type = type;
 		this.initialPosition = new Vector2(posX, posY);
+		this.tex = new Texture(Gdx.files.internal(tex));
 	}
 	
-	public void resetPosition() {
-		posX = initialPosition.x;
-		posY = initialPosition.y;
-	}
-
+	// Getter methods 
 	public float getPosX() {
 		return posX;
 	}
@@ -66,7 +65,35 @@ public abstract class Entity {
 	public Color getColour() {
 		return colour;
 	}
-
+	
+	public Vector2 getVelocity() {
+		return velocity;
+	}
+	
+	public String getType() {
+        return type;
+    }
+	
+	public boolean getVisible() {
+		return isVisible;
+	}
+	
+	public Texture getTexture()
+	{
+		return tex;
+	}
+	
+	public float getWidth() 
+	{
+		return tex.getWidth();
+	}
+	
+	public float getHeight() 
+	{
+		return tex.getHeight();
+	}
+	
+	// Setter methods
 	public void setPosX(float x) {
 		posX = x;
 	}
@@ -83,32 +110,31 @@ public abstract class Entity {
 		this.colour = colour;
 	}
 
-	public Vector2 getVelocity() {
-		return velocity;
-	}
-
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
 	}
-	public String getType() {
-        return type;
-    }
+	
 	public void setType(String type) {
 		this.type = type;
 	}
-	public boolean getVisible() {
-		return isVisible;
-	}
+	
 	public void setVisible(boolean visible) {
 		this.isVisible = visible;
 	}
-
-	public void draw(ShapeRenderer shape) {
-
+	
+	public void setTexture(Texture t)
+	{
+		tex = t;
+	}
+	
+	// Other methods
+	public void resetPosition() {
+		posX = initialPosition.x;
+		posY = initialPosition.y;
 	}
 
 	public void draw(SpriteBatch batch) {
-
+		batch.draw(tex,this.getPosX(),this.getPosY());
 	}
 
 	public void movement() {

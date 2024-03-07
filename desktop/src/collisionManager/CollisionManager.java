@@ -1,5 +1,6 @@
 package collisionManager;
 
+import entityManager.Player;
 import entityManager.Entity;
 import sceneManager.SceneManager;
 
@@ -10,7 +11,7 @@ public class CollisionManager {
 		this.sceneManager = sceneManager;
 	}
 
-	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
+	public void checkCollision(Player player, Entity entity, SceneManager sceneManager) {
 		float playerX = player.getPosX();
 		float playerY = player.getPosY();
 		float playerWidth = player.getWidth();
@@ -34,7 +35,7 @@ public class CollisionManager {
 		    }
 	}
 
-	private void handleCollision(Entity player, Entity entity) {
+	private void handleCollision(Player player, Entity entity) {
 		if (player.getPosX() > entity.getPosX()) {
 			player.setPosX(player.getPosX() + 5);
 		} else if (player.getPosX() < entity.getPosX()) {

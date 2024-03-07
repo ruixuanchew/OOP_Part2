@@ -65,8 +65,8 @@ public class PlayerControllerManager {
 			if (entity.isPlayer()) {
 				entity.setPosX(entity.getPosX() + entity.getVelocity().x * deltaTime);
 				entity.setPosY(entity.getPosY() + entity.getVelocity().y * deltaTime);
-				System.out.println(String.format(ANSI_CYAN + "Player is at %.2f,%.2f position" + ANSI_RESET,
-						entity.getPosX(), entity.getPosY()));
+//				System.out.println(String.format(ANSI_CYAN + "Player is at %.2f,%.2f position" + ANSI_RESET,
+//						entity.getPosX(), entity.getPosY()));
 
 				// Check if the entity is at the left edge of the screen
 				if (entity.getPosX() <= 1) {
@@ -84,8 +84,8 @@ public class PlayerControllerManager {
 				}
 
 			} else {
-				System.out.println(String.format(ANSI_Green + "Entity is at %.2f, %.2f position" + ANSI_RESET,
-						entity.getPosX(), entity.getPosY()));
+//				System.out.println(String.format(ANSI_Green + "Entity is at %.2f, %.2f position" + ANSI_RESET,
+//						entity.getPosX(), entity.getPosY()));
 			}
 
 		}

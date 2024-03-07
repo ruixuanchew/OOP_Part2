@@ -3,7 +3,6 @@ package entityManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class TextureObject extends Entity {
@@ -17,17 +16,17 @@ public class TextureObject extends Entity {
 	}
 
 	// parameterized
-	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer,boolean isVisible, String type)
-	{
-		super(posX, posY, speed, isPlayer, isVisible, type);
-		this.tex = new Texture(Gdx.files.internal(tex));
-	}
-	
-	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer, boolean isVisible,Vector2 velocity, String type)
-	{
-		super(posX, posY, speed, isPlayer, isVisible, velocity, type);
-		this.tex = new Texture(Gdx.files.internal(tex));
-	}
+//	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer,boolean isVisible, String type)
+//	{
+//		super(posX, posY, speed, isPlayer, isVisible, type);
+//		this.tex = new Texture(Gdx.files.internal(tex));
+//	}
+//	
+//	public TextureObject(String tex, float posX, float posY, float speed, boolean isPlayer, boolean isVisible,Vector2 velocity, String type)
+//	{
+//		super(posX, posY, speed, isPlayer, isVisible, velocity, type);
+//		this.tex = new Texture(Gdx.files.internal(tex));
+//	}
 
 	public Texture getTexture()
 	{

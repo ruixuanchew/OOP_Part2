@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import aiControlManager.AIControlManager;
 
 public class EntityManager {
 	private List<Entity> entityList;
-	private List<TextureObject> collidableEntityList;
+	private List<Entity> collidableEntityList;
 	private AIControlManager aiControlManager;
-
+	
 	public EntityManager() {
 		entityList = new ArrayList<>();
 		collidableEntityList = new ArrayList<>();
@@ -25,11 +24,10 @@ public class EntityManager {
 	public List<Entity> getEntityList() { // to return a list of entities
 		return entityList;
 	}
-
+	
 	public void update() {
 		for (Entity entity : entityList) {
 			entity.update();
-
 		}
 	}
 
@@ -45,23 +43,17 @@ public class EntityManager {
 		}
 	}
 
-	public void draw(ShapeRenderer shape) {
-		for (Entity entity : entityList) {
-			entity.draw(shape);
-		}
-	}
-
 	public void dispose(SpriteBatch batch) {
 		for (Entity entity : entityList) {
 			entity.dispose(batch);
 		}
 	}
 
-	public List<TextureObject> getCollidableEntityList() {
+	public List<Entity> getCollidableEntityList() {
 		return collidableEntityList;
 	}
 
-	public void addCollidableEntity(TextureObject entity) {
+	public void addCollidableEntity(Entity entity) {
 		this.collidableEntityList.add(entity);
 	}
 	

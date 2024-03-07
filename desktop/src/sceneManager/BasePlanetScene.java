@@ -10,8 +10,9 @@ import com.badlogic.gdx.math.MathUtils;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
+import entityManager.Player;
+import entityManager.Object;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
 import playerControllerManager.PlayerControllerManager;
 
 public abstract class BasePlanetScene extends BaseScene {
@@ -19,8 +20,8 @@ public abstract class BasePlanetScene extends BaseScene {
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private TextureObject player;
-    private TextureObject entity;
+    private Player player;
+    private Object entity;
     private int screenWidth = Gdx.graphics.getWidth();
     protected int screenSwitchCounter = 0;
     
@@ -53,14 +54,14 @@ public abstract class BasePlanetScene extends BaseScene {
 	protected void spaceRender(SpriteBatch batch) {
 		for (Entity e : entityManager.getEntityList()) {
         	if(e.getType().equals("player")) {
-        		this.player = (TextureObject) e;
+        		this.player = (Player) e;
         		break;
         	}
         }
 	    
 	    // Update player's position based on input or other logic
 	    pcManager.update(Gdx.graphics.getDeltaTime());
-	    for (TextureObject e : entityManager.getCollidableEntityList()) {
+	    for (Entity e : entityManager.getCollidableEntityList()) {
 	        if (e.getVisible()) {
 	            cManager.checkCollision(player, e, sceneManager);
 	        }
@@ -133,7 +134,7 @@ public abstract class BasePlanetScene extends BaseScene {
     protected void planetRender(SpriteBatch batch) {
     	for (Entity e : entityManager.getEntityList()) {
         	if(e.getType().equals("player")) {
-        		this.player = (TextureObject) e;
+        		this.player = (Player) e;
         		break;
         	}
         }
@@ -158,7 +159,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	    }
 
 	    // Check collisions before drawing entities
-	    for (TextureObject e : entityManager.getCollidableEntityList()) {
+	    for (Entity e : entityManager.getCollidableEntityList()) {
 	        if (e.getVisible()) {
 	            cManager.checkCollision(player, e, sceneManager);
 	        }

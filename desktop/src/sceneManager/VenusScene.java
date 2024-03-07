@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
+import entityManager.Player;
+import entityManager.Object;
 import entityManager.EntityManager;
 import entityManager.TextureObject;
 import playerControllerManager.PlayerControllerManager;
@@ -18,8 +20,8 @@ public class VenusScene extends BasePlanetScene{
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private TextureObject player;
-    private TextureObject entity;
+    private Player player;
+    private Object entity;
 
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
@@ -35,7 +37,7 @@ public class VenusScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-	    this.entity = new TextureObject("fireball.png", 500, 150, 4, false, false, "fireball");
+	    this.entity = new Object("fireball.png", 500, 150, 4, false, false, "fireball");
 	    entityManager.add(this.entity);
 	    entityManager.addCollidableEntity(this.entity);
 

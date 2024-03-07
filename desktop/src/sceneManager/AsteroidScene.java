@@ -8,9 +8,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import aiControlManager.AIControlManager;
-import entityManager.TextureObject;
 import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
+import entityManager.Player;
+import entityManager.Object;
 import entityManager.EntityManager;
 import collisionManager.CollisionManager;
 
@@ -20,8 +21,8 @@ public class AsteroidScene extends BasePlanetScene{
     private CollisionManager cManager;
     private AIControlManager aiManager;
     private SceneManager sceneManager;
-    private TextureObject player;
-    private TextureObject entity;
+    private Player player;
+    private Object entity;
     private int screenWidth = Gdx.graphics.getWidth();
 	private MapManager mapManager;
 	private int screenSwitchCounter = 0;
@@ -46,7 +47,7 @@ public class AsteroidScene extends BasePlanetScene{
 	 private void initializeScene() {
 		 int x = MathUtils.random(100, 400);
 		 int y = MathUtils.random(150, 300);
-		 this.entity = new TextureObject("asteroids.png", x, y, 2, false, false, "asteroid");
+		 this.entity = new Object("asteroids.png", x, y, 2, false, false, "asteroid");
 	     entityManager.add(this.entity);
 	     entityManager.addCollidableEntity(this.entity);
 	     
@@ -54,7 +55,7 @@ public class AsteroidScene extends BasePlanetScene{
 		 for(int i = 0; i < planetNames.length; i++) {
 			 String name = planetNames[i];
 			 String fileName = planetNames[i] + ".png";
-			 TextureObject planet = new TextureObject(fileName, x, y, 4, false, false, name);
+			 Object planet = new Object(fileName, x, y, 4, false, false, name);
 			 entityManager.add(planet);
 			 entityManager.addCollidableEntity(planet);
 		 }

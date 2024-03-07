@@ -10,8 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
+import entityManager.Player;
+import entityManager.Object;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
@@ -20,8 +21,8 @@ public class EarthScene extends BasePlanetScene{
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private TextureObject player;
-    private TextureObject entity;
+    private Player player;
+    private Object entity;
 	private MapManager mapManager;
     
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
@@ -40,10 +41,13 @@ public class EarthScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-	        this.player = new TextureObject("bucket.png", 150, 150, 200, true, false, new Vector2(0, 0), "player");
+		 	
+		 	// payer entity
+	        this.player = new Player("astronaut.png", 50, 50, 200, true, false, new Vector2(0, 0), "player");
 	        entityManager.add(this.player);
 
-	        this.entity = new TextureObject("flag.png", 500, 150, 4, false, false, "flag");
+	        // flag entity
+	        this.entity = new Object("flag.png", 500, 150, 4, false, false, "flag");
 	        entityManager.add(this.entity);
 	        entityManager.addCollidableEntity(this.entity);
 
@@ -100,7 +104,7 @@ public class EarthScene extends BasePlanetScene{
 	    }
 
 	    // Check collisions before drawing entities
-	    for (TextureObject e : entityManager.getCollidableEntityList()) {
+	    for (Entity e : entityManager.getCollidableEntityList()) {
 	        if (e.getVisible()) {
 	            cManager.checkCollision(player, e, sceneManager);
 	        }
