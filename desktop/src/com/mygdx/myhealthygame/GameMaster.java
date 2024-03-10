@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
+import entityManager.EntityFactory;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 import sceneManager.SceneManager;
@@ -18,10 +18,10 @@ public class GameMaster extends Game {
     private SceneManager sceneManager;
     private PlayerControllerManager pcManager;
     private EntityManager em;
+    private EntityFactory ef;
     private SimulationLifecycleManager slManager;
     private AIControlManager aiManager;
     private CollisionManager cManager;
-    private TextureObject player;
 
     @Override
     public void create() {
@@ -36,6 +36,9 @@ public class GameMaster extends Game {
 
         // Initialize the EntityManager
         em = new EntityManager();
+
+        // Initialize the EntityManager
+        ef = new EntityFactory();
 
         // Initialize the PlayerControllerManager
         pcManager = new PlayerControllerManager(em);
@@ -55,7 +58,7 @@ public class GameMaster extends Game {
 
     private void initializeScenes() {
         // Create and set up scenes
-        sceneManager.initializeScenes(em, pcManager, cManager, aiManager, slManager, ioManager);
+        sceneManager.initializeScenes(em, ef, pcManager, cManager, aiManager, slManager, ioManager);
     }
 
     private void startGame() {

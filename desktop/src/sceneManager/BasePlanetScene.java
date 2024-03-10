@@ -10,25 +10,27 @@ import com.badlogic.gdx.math.MathUtils;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
-import entityManager.Player;
-import entityManager.Object;
 import entityManager.EntityManager;
+import entityManager.Player;
+import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public abstract class BasePlanetScene extends BaseScene {
 	private EntityManager entityManager;
+	private EntityFactory entityFactory;
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private Player player;
-    private Object entity;
     private int screenWidth = Gdx.graphics.getWidth();
     protected int screenSwitchCounter = 0;
+
+    private Player player;
     
-	public BasePlanetScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+	public BasePlanetScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager);         
 		this.entityManager = entityManager;
+		this.entityFactory = entityFactory;
         this.pcManager = pcManager;
         this.cManager = cManager;
         
@@ -53,7 +55,7 @@ public abstract class BasePlanetScene extends BaseScene {
     }
 	protected void spaceRender(SpriteBatch batch) {
 		for (Entity e : entityManager.getEntityList()) {
-        	if(e.getType().equals("player")) {
+        	if(e instanceof Player) {
         		this.player = (Player) e;
         		break;
         	}
@@ -78,7 +80,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	        // Update the positions of other entities accordingly
 	        for (Entity e : entityManager.getEntityList()) {
 	            // Adjust positions of entities excluding the player
-	            if (!e.getType().equals("player")) {
+	            if (!(e instanceof Player)) {
 	                // Randomly set x-position outside the screen width
 	                e.setPosX(MathUtils.random(100, 400));
 	                e.setPosY(MathUtils.random(150, 300));
@@ -89,7 +91,7 @@ public abstract class BasePlanetScene extends BaseScene {
 
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
-	        if (e.getType().equals("player")) {
+	        if (e instanceof Player) {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);
 	        } else if (e.getType().equals("mercury") || e.getType().equals("venus") || e.getType().equals("mars")
@@ -167,6 +169,7 @@ public abstract class BasePlanetScene extends BaseScene {
 
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
+	    	
 	        if (e.getType().equals("player") || e.getType().equals("flag")) {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);

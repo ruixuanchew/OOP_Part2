@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import aiControlManager.AIControlManager;
 
@@ -17,11 +18,13 @@ public class EntityManager {
 		collidableEntityList = new ArrayList<>();
 	}
 
+	// add entities into the list 
 	public void add(Entity entity) {
 		entityList.add(entity);
 	}
-
-	public List<Entity> getEntityList() { // to return a list of entities
+	
+	// to return a list of entities
+	public List<Entity> getEntityList() { 
 		return entityList;
 	}
 	
@@ -33,13 +36,7 @@ public class EntityManager {
 
 	public void resetEntities() {
 		for (Entity entity: entityList) {
-			entity.resetPosition();
-		}
-	}
-
-	public void draw(SpriteBatch batch) {
-		for (Entity entity : entityList) {
-			entity.draw(batch);
+			entity.resetEntities();
 		}
 	}
 
@@ -52,6 +49,7 @@ public class EntityManager {
 	public List<Entity> getCollidableEntityList() {
 		return collidableEntityList;
 	}
+
 
 	public void addCollidableEntity(Entity entity) {
 		this.collidableEntityList.add(entity);

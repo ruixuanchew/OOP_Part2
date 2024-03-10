@@ -6,29 +6,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
-import entityManager.Player;
-import entityManager.Object;
 import entityManager.EntityManager;
+import entityManager.EntityFactory;
+
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
 public class EarthScene extends BasePlanetScene{
 	private EntityManager entityManager;
+	private EntityFactory entityFactory;
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private Player player;
-    private Object entity;
 	private MapManager mapManager;
-    
-	public EarthScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+	private Random random;
+	private Entity player;
+	
+	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		this.entityManager = entityManager;
+		this.entityFactory = entityFactory;
         this.pcManager = pcManager;
         this.cManager = cManager;
         this.cManager = new CollisionManager(sceneManager);
@@ -41,20 +44,20 @@ public class EarthScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-		 	
-		 	// payer entity
-	        this.player = new Player("astronaut.png", 50, 50, 200, true, false, new Vector2(0, 0), "player");
-	        entityManager.add(this.player);
+		 
+		// player entity
+		player = entityFactory.createEntity("astronaut.png", 50, 50, 200, false, new Vector2(0, 0), "player");
+		entityManager.add(player);
+		
+		// flag entity
+		Entity flag = entityFactory.createEntity("flag.png", 500, 150, 4, false, "flag");
+		entityManager.add(flag);
+		entityManager.addCollidableEntity(flag);
 
-	        // flag entity
-	        this.entity = new Object("flag.png", 500, 150, 4, false, false, "flag");
-	        entityManager.add(this.entity);
-	        entityManager.addCollidableEntity(this.entity);
-
-	        String buttonText = "End";
-	        addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
-	                () -> sceneManager.showEndScene());
-	    }
+        String buttonText = "End";
+        addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
+                () -> sceneManager.showEndScene());
+    }
 
 	@Override
 	protected Color getBackgroundColor() {
@@ -112,7 +115,7 @@ public class EarthScene extends BasePlanetScene{
 
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
-	        if (e.getType().equals("player") || e.getType().equals("flag")) {
+	        if (e.getType().equals("player") || e.getType().equals("flag") || e.getType().equals("asteroid")) {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);
 	        } else {

@@ -39,7 +39,7 @@ public class SimulationLifecycleManager {
     }
 
     public void restartGame() {
-        entityManager.resetEntities(); // reset entities to original position
+//        entityManager.resetEntities(); // reset entities to original position
         sceneManager.showEarthScene(); // revert back to game scene when restartGame is called
     }
 }

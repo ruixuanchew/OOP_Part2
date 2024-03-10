@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import entityManager.Entity;
+import entityManager.Player;
 import entityManager.EntityManager;
 import inputOutputManager.InputHandler;
 
@@ -53,24 +54,25 @@ public class PlayerControllerManager {
 	// keyboard.
 	public void move() {
 		for (Entity entity : getEntities().getEntityList()) {
-			if (entity.isPlayer()) {
+			if (entity instanceof Player) {
+				Player player = (Player) entity;
 				if (getMovement().LeftKey()) {
 
-					entity.getVelocity().x = (-entity.getSpeed());
+					player.getVelocity().x = (-player.getSpeed());
 
 				} else if (getMovement().DownKey()) {
 
-					entity.getVelocity().y = -entity.getSpeed();
+					player.getVelocity().y = -player.getSpeed();
 
 				} else if (getMovement().UpKey()) {
 
-					entity.getVelocity().y = entity.getSpeed();
+					player.getVelocity().y = player.getSpeed();
 
 				} else if (getMovement().RightKey()) {
-					entity.getVelocity().x = entity.getSpeed();
+					player.getVelocity().x = player.getSpeed();
 				} else {
 
-					entity.getVelocity().x = 0;
+					player.getVelocity().x = 0;
 					// entity.getVelocity().y = 0;
 				}
 			}
@@ -81,9 +83,10 @@ public class PlayerControllerManager {
 	// allowed to jump.
 	public void jump() {
 		for (Entity entity : getEntities().getEntityList()) {
-			if (entity.isPlayer()) {
+			if (entity instanceof Player) {
+				Player player = (Player) entity;
 				if (getMovement().SpaceKey() && canJump) {
-					entity.getVelocity().y += JUMP_VELOCITY; // adjust JUMP VELOCITY
+					player.getVelocity().y += JUMP_VELOCITY; // adjust JUMP VELOCITY
 					canJump = false;
 				}
 			}
@@ -100,13 +103,12 @@ public class PlayerControllerManager {
 	// jumping.
 	public void applyGravity() {
 		for (Entity entity : getEntities().getEntityList()) {
-			if (entity.isPlayer()) {
-				entity.getVelocity().y += GRAVITY * Gdx.graphics.getDeltaTime();
+			if (entity instanceof Player) {
+				Player player = (Player) entity;
+				player.getVelocity().y += GRAVITY * Gdx.graphics.getDeltaTime();
 			}
 		}
 	}
-
-
 
 	public void update(float deltaTime) {
 		move();
@@ -115,22 +117,25 @@ public class PlayerControllerManager {
 
 		// Check if the player is on the ground
 		for (Entity entity : getEntities().getEntityList()) {
-			if (entity.isPlayer()) {
-				entity.setPosX(entity.getPosX() + entity.getVelocity().x * deltaTime);
-				entity.setPosY(entity.getPosY() + entity.getVelocity().y * deltaTime);
+			if (entity instanceof Player) {
+
+				Player player = (Player) entity;
+				
+				player.setPosX(player.getPosX() + player.getVelocity().x * deltaTime);
+				player.setPosY(player.getPosY() + player.getVelocity().y * deltaTime);
 
 				// Check if the entity is at the left edge of the screen
-				if (entity.getPosX() <= 1) {
-					entity.getVelocity().x = 0; // Stop movement
-					entity.setPosX(0); // Reset position to the edge
+				if (player.getPosX() <= 1) {
+					player.getVelocity().x = 0; // Stop movement
+					player.setPosX(0); // Reset position to the edge
 				}
-				if (entity.getPosX() >= screenWidth - entity.getWidth()) {
-					entity.getVelocity().x = 0; // Stop movement
+				if (player.getPosX() >= screenWidth - player.getWidth()) {
+					player.getVelocity().x = 0; // Stop movement
 				}
 
-				if (entity.getPosY() <= GROUND_LEVEL) {
-					entity.setPosY(GROUND_LEVEL);
-					entity.setVelocity(new Vector2(entity.getVelocity().x, 0));
+				if (player.getPosY() <= GROUND_LEVEL) {
+					player.setPosY(GROUND_LEVEL);
+					player.setVelocity(new Vector2(player.getVelocity().x, 0));
 					resetJump();
 				}
 

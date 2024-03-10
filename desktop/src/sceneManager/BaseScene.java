@@ -18,7 +18,7 @@ import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
+import entityManager.EntityFactory;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -35,8 +35,6 @@ public abstract class BaseScene extends ScreenAdapter {
     private CollisionManager cManager;
     private AIControlManager aiManager;
     private UIManager uiManager;
-    private TextureObject player;
-    private TextureObject entity;
     private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
 

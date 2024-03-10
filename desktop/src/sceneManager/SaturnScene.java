@@ -9,7 +9,7 @@ import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
+import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class SaturnScene extends BasePlanetScene{
@@ -17,12 +17,10 @@ public class SaturnScene extends BasePlanetScene{
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private TextureObject player;
-    private TextureObject entity;
 
-	public SaturnScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+	public SaturnScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		this.entityManager = entityManager;
         this.pcManager = pcManager;
         this.cManager = cManager;

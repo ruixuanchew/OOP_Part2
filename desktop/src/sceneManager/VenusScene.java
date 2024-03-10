@@ -6,27 +6,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
 import entityManager.Entity;
-import entityManager.Player;
-import entityManager.Object;
 import entityManager.EntityManager;
-import entityManager.TextureObject;
+import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class VenusScene extends BasePlanetScene{
 	private EntityManager entityManager;
+	private EntityFactory entityFactory;
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private Player player;
-    private Object entity;
+	private Random random;
 
-
-	public VenusScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		this.entityManager = entityManager;
         this.pcManager = pcManager;
         this.cManager = cManager;
@@ -37,9 +36,14 @@ public class VenusScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-	    this.entity = new Object("fireball.png", 500, 150, 4, false, false, "fireball");
-	    entityManager.add(this.entity);
-	    entityManager.addCollidableEntity(this.entity);
+		for (int i = 0; i > 5; i++) {
+            float posX = random.nextInt(Gdx.graphics.getWidth());
+            float posY = random.nextInt(Gdx.graphics.getHeight());
+            
+			Entity enemy = entityFactory.createEntity("asteroid.png", posX, posY, 4, false, "asteroid");
+			entityManager.add(enemy);
+		}
+	    //entityManager.addCollidableEntity(this.entity);
 
 	    String buttonText = "End";
 	    addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,

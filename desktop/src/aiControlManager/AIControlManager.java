@@ -2,7 +2,7 @@ package aiControlManager;
 
 import com.badlogic.gdx.Gdx;
 
-
+import entityManager.Enemy;
 import entityManager.Entity;
 import entityManager.EntityManager;
 
@@ -15,8 +15,10 @@ public class AIControlManager {
     }
 
     public void moveAIControlled() {
-        for (Entity entity : entityManager.getEntityList()) {
-            if (entity.getType().equals("asteroid")) {
+        for (Entity e : entityManager.getEntityList()) {
+            if (e instanceof Enemy) {
+            	
+            	Enemy entity = (Enemy) e;
 
             	float deltaX = entity.getSpeed();
 	            

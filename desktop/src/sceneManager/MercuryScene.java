@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
-import entityManager.TextureObject;
+import entityManager.Entity;
+import entityManager.EntityManager;
+import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
@@ -19,12 +21,10 @@ public class MercuryScene extends BasePlanetScene {
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
-    private TextureObject player;
-    private TextureObject entity;
 
-    public MercuryScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+    public MercuryScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-    	super(sceneManager, entityManager, pcManager, cManager, aiManager);
+    	super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		this.entityManager = entityManager;
         this.pcManager = pcManager;
         this.cManager = cManager;

@@ -2,6 +2,7 @@ package sceneManager;
 
 import com.badlogic.gdx.Game;
 
+import entityManager.EntityFactory;
 import entityManager.EntityManager;
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
@@ -31,19 +32,19 @@ public class SceneManager {
         this.sceneSwitching = false;
     }
 
-    public synchronized void initializeScenes(EntityManager entityManager, PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
+    public synchronized void initializeScenes(EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
         this.ioManager = ioManager;
         startScene = new StartScene(this);
         endScene = new EndScene(this, slManager);
-        asteroidScene = new AsteroidScene(this, entityManager, pcManager, cManager, aiManager);
-        mercuryScene = new MercuryScene(this, entityManager, pcManager, cManager, aiManager);
-        venusScene = new VenusScene(this, entityManager, pcManager, cManager, aiManager);
-        earthScene = new EarthScene(this, entityManager, pcManager, cManager, aiManager);
-        marsScene = new MarsScene(this, entityManager, pcManager, cManager, aiManager);
-        jupiterScene = new JupiterScene(this, entityManager, pcManager, cManager, aiManager);
-        saturnScene = new SaturnScene(this, entityManager, pcManager, cManager, aiManager);
-        uranusScene = new UranusScene(this, entityManager, pcManager, cManager, aiManager);
-        neptuneScene = new NeptuneScene(this, entityManager, pcManager, cManager, aiManager);
+        asteroidScene = new AsteroidScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        venusScene = new VenusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        marsScene = new MarsScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        jupiterScene = new JupiterScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        saturnScene = new SaturnScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        uranusScene = new UranusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        neptuneScene = new NeptuneScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
     }
 
     public synchronized void showStartScene() {

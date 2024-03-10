@@ -1,5 +1,7 @@
 package sceneManager;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,31 +9,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 import aiControlManager.AIControlManager;
 import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
-import entityManager.Player;
-import entityManager.Object;
 import entityManager.EntityManager;
+import entityManager.EntityFactory;
 import collisionManager.CollisionManager;
 
 public class AsteroidScene extends BasePlanetScene{
 	private EntityManager entityManager;
+	private EntityFactory entityFactory;
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
     private SceneManager sceneManager;
-    private Player player;
-    private Object entity;
     private int screenWidth = Gdx.graphics.getWidth();
 	private MapManager mapManager;
 	private int screenSwitchCounter = 0;
+	private Random random;
 
-	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, PlayerControllerManager pcManager,
+	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager ) {
-		super(sceneManager, entityManager, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		this.entityManager = entityManager;
-        this.pcManager = pcManager;
+		this.entityFactory = entityFactory;
+		this.pcManager = pcManager;
         this.cManager = cManager;
         
         this.cManager = new CollisionManager(sceneManager);
@@ -45,17 +49,25 @@ public class AsteroidScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-		 int x = MathUtils.random(100, 400);
-		 int y = MathUtils.random(150, 300);
-		 this.entity = new Object("asteroids.png", x, y, 2, false, false, "asteroid");
-	     entityManager.add(this.entity);
-	     entityManager.addCollidableEntity(this.entity);
+		int x = MathUtils.random(100, 400);
+		int y = MathUtils.random(150, 300);
+		 
+		Random random = new Random();
+		 
+		for (int i = 0; i < 3; i++) {
+		    float posX = random.nextInt(Gdx.graphics.getWidth());
+		    float posY = random.nextInt(Gdx.graphics.getHeight());
+		    
+			Entity enemy = entityFactory.createEntity("asteroids.png", posX, posY, 4, false, "asteroid");
+			entityManager.add(enemy);
+			entityManager.addCollidableEntity(enemy);
+		}
 	     
 		 String[] planetNames = {"mercury","venus","mars","jupiter","saturn","uranus","neptune"};
 		 for(int i = 0; i < planetNames.length; i++) {
 			 String name = planetNames[i];
 			 String fileName = planetNames[i] + ".png";
-			 Object planet = new Object(fileName, x, y, 4, false, false, name);
+			 Entity planet = entityFactory.createEntity(fileName, x, y, false, name);
 			 entityManager.add(planet);
 			 entityManager.addCollidableEntity(planet);
 		 }
