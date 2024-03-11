@@ -1,5 +1,6 @@
 package playerControllerManager;
 
+import collisionManager.CollisionManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -21,7 +22,7 @@ public class PlayerControllerManager {
 	private InputHandler inputHandler;
 	private EntityManager entities;
 
-	private final float GROUND_LEVEL = 150;
+	private final float GROUND_LEVEL = -25;
 	private int screenWidth = Gdx.graphics.getWidth();
 
 	private boolean canJump = true;
@@ -114,6 +115,7 @@ public class PlayerControllerManager {
 		move();
 		jump();
 		applyGravity();
+
 
 		// Check if the player is on the ground
 		for (Entity entity : getEntities().getEntityList()) {

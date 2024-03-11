@@ -14,6 +14,7 @@ import entityManager.Entity;
 import entityManager.EntityManager;
 import entityManager.EntityFactory;
 
+import entityManager.Player;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
@@ -34,7 +35,7 @@ public class EarthScene extends BasePlanetScene{
 		this.entityFactory = entityFactory;
         this.pcManager = pcManager;
         this.cManager = cManager;
-        this.cManager = new CollisionManager(sceneManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager);
         this.aiManager = aiManager;
 
 		// call loadMap method from MapManager to load the current map
@@ -46,11 +47,11 @@ public class EarthScene extends BasePlanetScene{
 	 private void initializeScene() {
 		 
 		// player entity
-		player = entityFactory.createEntity("astronaut.png", 50, 50, 200, false, new Vector2(0, 0), "player");
+		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player");
 		entityManager.add(player);
 		
 		// flag entity
-		Entity flag = entityFactory.createEntity("flag.png", 500, 150, 4, false, "flag");
+		Entity flag = entityFactory.createEntity("flag.png", 600, 350, 4, false, "flag");
 		entityManager.add(flag);
 		entityManager.addCollidableEntity(flag);
 
@@ -78,6 +79,8 @@ public class EarthScene extends BasePlanetScene{
 		// call render method from MapManager to render the current map
 		mapManager.getRenderer().setView(mapManager.getCamera());
 		mapManager.getRenderer().render();
+		// Check collision with building
+		cManager.checkCollisionWithObject((Player) player, mapManager);
 	    
 	    SpriteBatch batch = new SpriteBatch();
 	    
@@ -95,7 +98,7 @@ public class EarthScene extends BasePlanetScene{
 	        player.setPosX(-player.getWidth());
 	        
 	        // Update the positions of other entities accordingly
-	        for (Entity e : entityManager.getEntityList()) {
+	       /* for (Entity e : entityManager.getEntityList()) {
 	            // Adjust positions of entities excluding the player
 	            if (!e.getType().equals("player")) {
 	                // Example adjustment: Move the entity to a new random position within the screen width
@@ -103,7 +106,7 @@ public class EarthScene extends BasePlanetScene{
 	                e.setPosY(MathUtils.random(150, 300));
 	                // You can adjust Y position similarly or differently based on your game logic
 	            }
-	        }
+	        } */
 	    }
 
 	    // Check collisions before drawing entities
@@ -115,7 +118,7 @@ public class EarthScene extends BasePlanetScene{
 
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
-	        if (e.getType().equals("player") || e.getType().equals("flag") || e.getType().equals("asteroid")) {
+	        if (e.getType().equals("player") || e.getType().equals("flag")) {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);
 	        } else {

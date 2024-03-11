@@ -25,7 +25,7 @@ public class NeptuneScene extends BasePlanetScene{
         this.pcManager = pcManager;
         this.cManager = cManager;
         
-        this.cManager = new CollisionManager(sceneManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager);
         this.aiManager = aiManager;
         
         initializeScene();

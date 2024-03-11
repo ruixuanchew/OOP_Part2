@@ -3,6 +3,7 @@ package entityManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player implements Entity {
@@ -78,6 +79,10 @@ public class Player implements Entity {
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
 	};
+
+	public Rectangle getBoundingRectangle() {
+		return new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
+	}
 	
 	@Override 
 	public void draw(SpriteBatch batch) {

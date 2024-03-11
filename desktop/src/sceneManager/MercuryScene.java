@@ -21,6 +21,7 @@ public class MercuryScene extends BasePlanetScene {
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
+	private MapManager mapManager;
 
     public MercuryScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -29,8 +30,12 @@ public class MercuryScene extends BasePlanetScene {
         this.pcManager = pcManager;
         this.cManager = cManager;
         
-        this.cManager = new CollisionManager(sceneManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager);
         this.aiManager = aiManager;
+
+		// call loadMap method from MapManager to load the current map
+		//mapManager = new MapManager();
+		//mapManager.loadMap("placeholder.tmx");
         
         initializeScene();
 	}
@@ -53,6 +58,10 @@ public class MercuryScene extends BasePlanetScene {
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
+
+		// call render method from MapManager to render the current map
+		//mapManager.getRenderer().setView(mapManager.getCamera());
+		//mapManager.getRenderer().render();
 	    
 	    SpriteBatch batch = new SpriteBatch();
 	    
