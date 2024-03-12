@@ -34,8 +34,8 @@ public class MercuryScene extends BasePlanetScene {
         this.aiManager = aiManager;
 
 		// call loadMap method from MapManager to load the current map
-		//mapManager = new MapManager();
-		//mapManager.loadMap("placeholder.tmx");
+		mapManager = new MapManager();
+		mapManager.loadMap("Mercury.tmx");
         
         initializeScene();
 	}
@@ -60,8 +60,8 @@ public class MercuryScene extends BasePlanetScene {
 	    super.render(delta);
 
 		// call render method from MapManager to render the current map
-		//mapManager.getRenderer().setView(mapManager.getCamera());
-		//mapManager.getRenderer().render();
+		mapManager.getRenderer().setView(mapManager.getCamera());
+		mapManager.getRenderer().render();
 	    
 	    SpriteBatch batch = new SpriteBatch();
 	    

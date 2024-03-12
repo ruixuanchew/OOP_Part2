@@ -64,12 +64,14 @@ public class SceneManager {
 
     public synchronized void showMercuryScene() {
         setCurrentScene(mercuryScene);
+        ioManager.changeBackgroundMusic("perion.mp3");
+        ioManager.getBgMusic().setVolume(0.5f);
     }
 
     public synchronized void showVenusScene() {
         setCurrentScene(venusScene);
-        ioManager.changeBackgroundMusic("Pixelland.mp3");
-        ioManager.getBgMusic().setVolume(0.2f);
+        ioManager.changeBackgroundMusic("volcano.mp3");
+        ioManager.getBgMusic().setVolume(0.5f);
     }
 
     public synchronized void showEarthScene() {

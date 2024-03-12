@@ -21,6 +21,7 @@ public class VenusScene extends BasePlanetScene{
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
+	private MapManager mapManager;
 	private Random random;
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
@@ -32,6 +33,10 @@ public class VenusScene extends BasePlanetScene{
         
         this.cManager = new CollisionManager(sceneManager, pcManager);
         this.aiManager = aiManager;
+
+		// call loadMap method from MapManager to load the current map
+		mapManager = new MapManager();
+		mapManager.loadMap("Venus.tmx");
         
         initializeScene();
 	}
@@ -63,6 +68,10 @@ public class VenusScene extends BasePlanetScene{
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
+
+		// call render method from MapManager to render the current map
+		mapManager.getRenderer().setView(mapManager.getCamera());
+		mapManager.getRenderer().render();
 	    
 	    SpriteBatch batch = new SpriteBatch();
 	    
