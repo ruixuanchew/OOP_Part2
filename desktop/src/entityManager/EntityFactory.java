@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class EntityFactory {
 	
-	public Entity createEntity(String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type) {
+	public Entity createEntity(String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type, int health) {
         
-		Entity player = new Player(tex, posX, posY, speed, isVisible, velocity, type);
+		Entity player = new Player(tex, posX, posY, speed, isVisible, velocity, type, health);
 		return player;
     }
 

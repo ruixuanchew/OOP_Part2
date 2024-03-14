@@ -19,12 +19,6 @@ import entityManager.EntityFactory;
 import collisionManager.CollisionManager;
 
 public class AsteroidScene extends BasePlanetScene{
-	private EntityManager entityManager;
-	private EntityFactory entityFactory;
-    private PlayerControllerManager pcManager;
-    private CollisionManager cManager;
-    private AIControlManager aiManager;
-    private SceneManager sceneManager;
     private int screenWidth = Gdx.graphics.getWidth();
 	private MapManager mapManager;
 	private int screenSwitchCounter = 0;
@@ -33,15 +27,7 @@ public class AsteroidScene extends BasePlanetScene{
 	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager ) {
 		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
-		this.entityManager = entityManager;
-		this.entityFactory = entityFactory;
-		this.pcManager = pcManager;
-        this.cManager = cManager;
-        
-        this.cManager = new CollisionManager(sceneManager, pcManager);
-        this.aiManager = aiManager;
-        this.sceneManager = sceneManager;
-
+		
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
 		mapManager.loadMap("space.tmx");

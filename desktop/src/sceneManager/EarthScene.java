@@ -19,11 +19,6 @@ import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
 public class EarthScene extends BasePlanetScene{
-	private EntityManager entityManager;
-	private EntityFactory entityFactory;
-    private PlayerControllerManager pcManager;
-    private CollisionManager cManager;
-    private AIControlManager aiManager;
 	private MapManager mapManager;
 	private Random random;
 	private Entity player;
@@ -31,12 +26,6 @@ public class EarthScene extends BasePlanetScene{
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
-		this.entityManager = entityManager;
-		this.entityFactory = entityFactory;
-        this.pcManager = pcManager;
-        this.cManager = cManager;
-        this.cManager = new CollisionManager(sceneManager, pcManager);
-        this.aiManager = aiManager;
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
@@ -47,11 +36,11 @@ public class EarthScene extends BasePlanetScene{
 	 private void initializeScene() {
 		 
 		// player entity
-		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player");
+		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 10000);
 		entityManager.add(player);
 		
 		// flag entity
-		Entity flag = entityFactory.createEntity("flag.png", 600, 350, 4, false, "flag");
+		Entity flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
 		entityManager.add(flag);
 		entityManager.addCollidableEntity(flag);
 

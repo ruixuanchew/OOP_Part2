@@ -1,5 +1,6 @@
 package collisionManager;
 
+import entityManager.EntityManager;
 import entityManager.Player;
 import entityManager.Entity;
 import playerControllerManager.PlayerControllerManager;
@@ -11,10 +12,12 @@ import sceneManager.MapManager;
 public class CollisionManager {
 	private SceneManager sceneManager;
 	private PlayerControllerManager playerControllerManager;
+	private EntityManager entityManager;
 
-	public CollisionManager(SceneManager sceneManager, PlayerControllerManager playerControllerManager) {
+	public CollisionManager(SceneManager sceneManager, PlayerControllerManager playerControllerManager, EntityManager entityManager) {
 		this.sceneManager = sceneManager;
 		this.playerControllerManager = playerControllerManager;
+		this.entityManager = entityManager;
 	}
 
 	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
@@ -53,6 +56,18 @@ public class CollisionManager {
 			player.setPosY(player.getPosY() - 1);
 		}
 		System.out.println("\u001B[31m" + "Collision detected between player and entity!" + "\u001B[0m");
+		
+		// check if collided entity is an enemy
+		if (entity.getType().equals("asteroid")) {	
+			entityManager.remove(entity); //in the midst of fixing
+			Player playerObject = (Player) player; //downcast player to player tag to access function
+			playerObject.takeDamage();
+			
+			//swap to end scene if player hp = 0
+			if (playerObject.getHealth() == 0) {
+				sceneManager.showEndScene();
+			}
+		}
 		 // Check if the collided entity is a specific type (e.g., a flag)
 		if (entity.getType().equals("flag")) {
 			sceneManager.showAsteroidScene();

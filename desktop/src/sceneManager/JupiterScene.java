@@ -14,21 +14,11 @@ import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class JupiterScene extends BasePlanetScene{
-	private EntityManager entityManager;
-    private PlayerControllerManager pcManager;
-    private CollisionManager cManager;
-    private AIControlManager aiManager;
     
 	public JupiterScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory,PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
-		this.entityManager = entityManager;
-        this.pcManager = pcManager;
-        this.cManager = cManager;
-        
-        this.cManager = new CollisionManager(sceneManager, pcManager);
-        this.aiManager = aiManager;
-        
+		
         initializeScene();
 	}
 	private void initializeScene() {

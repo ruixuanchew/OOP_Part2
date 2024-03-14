@@ -16,11 +16,11 @@ import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public abstract class BasePlanetScene extends BaseScene {
-	private EntityManager entityManager;
-	private EntityFactory entityFactory;
-    private PlayerControllerManager pcManager;
-    private CollisionManager cManager;
-    private AIControlManager aiManager;
+	protected EntityManager entityManager;
+	protected EntityFactory entityFactory;
+	protected PlayerControllerManager pcManager;
+	protected CollisionManager cManager;
+	protected AIControlManager aiManager;
     private int screenWidth = Gdx.graphics.getWidth();
     protected int screenSwitchCounter = 0;
 
@@ -33,10 +33,7 @@ public abstract class BasePlanetScene extends BaseScene {
 		this.entityFactory = entityFactory;
         this.pcManager = pcManager;
         this.cManager = cManager;
-        
-        this.cManager = new CollisionManager(sceneManager, pcManager);
         this.aiManager = aiManager;
-        this.sceneManager = sceneManager;
 	}
 
 	protected void addText(String text, SpriteBatch batch, Color color) {

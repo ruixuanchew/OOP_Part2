@@ -23,6 +23,11 @@ public class EntityManager {
 		entityList.add(entity);
 	}
 	
+	//remove given entity from list
+	public void remove(Entity entity) {
+		entity.setVisible(false);
+	}
+	
 	// to return a list of entities
 	public List<Entity> getEntityList() { 
 		return entityList;

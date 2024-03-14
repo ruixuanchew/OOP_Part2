@@ -14,8 +14,9 @@ public class Player implements Entity {
 	private Vector2 initialPosition; // store initial position of entity
 	private boolean isVisible;
 	private String type;
+	private int health;
 	
-	public Player(String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type) {
+	public Player(String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type, int health) {
 
 		this.texture = new Texture(Gdx.files.internal(tex));
 		this.posX = posX;
@@ -25,6 +26,7 @@ public class Player implements Entity {
 		this.initialPosition = new Vector2(posX, posY);
 		this.isVisible = isVisible;
 		this.type = type;
+		this.health = health;
 		
 	}
 	
@@ -79,6 +81,14 @@ public class Player implements Entity {
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
 	};
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void takeDamage() {
+		health--;
+	}
 
 	public Rectangle getBoundingRectangle() {
 		return new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());

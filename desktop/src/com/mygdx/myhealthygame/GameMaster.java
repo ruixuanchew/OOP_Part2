@@ -17,7 +17,7 @@ public class GameMaster extends Game {
     private InputOutputManager ioManager;
     private SceneManager sceneManager;
     private PlayerControllerManager pcManager;
-    private EntityManager em;
+    private EntityManager entityManager;
     private EntityFactory ef;
     private SimulationLifecycleManager slManager;
     private AIControlManager aiManager;
@@ -35,30 +35,30 @@ public class GameMaster extends Game {
         ioManager = new InputOutputManager();
 
         // Initialize the EntityManager
-        em = new EntityManager();
+        entityManager = new EntityManager();
 
         // Initialize the EntityManager
         ef = new EntityFactory();
 
         // Initialize the PlayerControllerManager
-        pcManager = new PlayerControllerManager(em);
+        pcManager = new PlayerControllerManager(entityManager);
 
         // Initialize the AIControlManager
-        aiManager = new AIControlManager(em);
+        aiManager = new AIControlManager(entityManager);
 
         // Initialize the SceneManager
         sceneManager = new SceneManager(this);
         
         // Initialize the CollisionManager
-        cManager = new CollisionManager(sceneManager, pcManager);
+        cManager = new CollisionManager(sceneManager, pcManager, entityManager);
 
         // Initialize the SimulationLifecycleManager
-        slManager = new SimulationLifecycleManager(sceneManager, em);
+        slManager = new SimulationLifecycleManager(sceneManager, entityManager);
     }
 
     private void initializeScenes() {
         // Create and set up scenes
-        sceneManager.initializeScenes(em, ef, pcManager, cManager, aiManager, slManager, ioManager);
+        sceneManager.initializeScenes(entityManager, ef, pcManager, cManager, aiManager, slManager, ioManager);
     }
 
     private void startGame() {

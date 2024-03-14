@@ -44,7 +44,7 @@ public abstract class BaseScene extends ScreenAdapter {
         inputHandler = new InputHandler();
         uiManager = new UIManager(stage);
         batch = new SpriteBatch();
-        this.cManager = new CollisionManager(sceneManager, pcManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager, entityManager);
     }
 
     @Override
