@@ -1,22 +1,30 @@
 package sceneManager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import inputOutputManager.InputHandler;
 
 public class UIManager {
 	private Stage stage;
 	private InputHandler inputHandler;
+	private BaseScene baseScene;
 
-    public UIManager(Stage stage) {
+    public UIManager(Stage stage, BaseScene baseScene) {
         this.stage = stage;
         inputHandler = new InputHandler();
+        this.baseScene = baseScene;
     }
 
     public void addButton(String text, float x, float y, Runnable action) {
@@ -75,4 +83,44 @@ public class UIManager {
 
         return drawable; // Return back to addButton
     }
+    public void addText(String text, String text2, SpriteBatch batch, Color color) {
+    	BitmapFont planetTxt = new BitmapFont();
+    	planetTxt.setColor(color);
+    	GlyphLayout layout = new GlyphLayout(planetTxt, text);
+        float textWidth = layout.width;
+        float textHeight = layout.height;
+
+        float screenWidth = Gdx.graphics.getWidth();
+        float x = (screenWidth - textWidth) / 2; // Center the text horizontally
+
+        float y = Gdx.graphics.getHeight() - textHeight;
+        
+    	planetTxt.draw(batch, text, x, y);
+    }
+    
+    public void addDialog(String title, String message, Window.WindowStyle windowStyle) {
+    	if (baseScene instanceof BasePlanetScene) {
+    	    BasePlanetScene basePlanetScene = (BasePlanetScene) baseScene;
+    	    basePlanetScene.setDialogOpen(true);
+    	}
+    	CustomDialog dialog = new CustomDialog(title,  new MySkin().createSkin(), inputHandler); // Create your CustomDialog instance with appropriate title and windowStyle
+        dialog.text(message); // Set the message text
+        dialog.button("Close", false);
+        
+     // Handle the button click event to close the dialog and update dialogOpen state
+        dialog.getButtonTable().getCells().peek().getActor().addCaptureListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+//            	dialog.setDialogOpen(false);
+            	if (baseScene instanceof BasePlanetScene) {
+            	    BasePlanetScene basePlanetScene = (BasePlanetScene) baseScene;
+            	    basePlanetScene.setDialogOpen(false);
+            	}
+            }
+        });
+        
+        dialog.show(stage); // Show the dialog on the stage
+        dialog.setBackground(buttonBackgroundColor(Color.BLACK, 1000, 1500, 20, 20));
+        stage.addActor(dialog);
+    }
+    
 }

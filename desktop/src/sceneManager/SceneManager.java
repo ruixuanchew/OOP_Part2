@@ -26,13 +26,15 @@ public class SceneManager {
     private BaseScene currentScene;
     private boolean sceneSwitching;
     private InputOutputManager ioManager;
+    private UIManager uiManager;
 
     public SceneManager(Game game) {
         this.game = game;
         this.sceneSwitching = false;
     }
 
-    public synchronized void initializeScenes(EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
+    public synchronized void initializeScenes(EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager, CollisionManager cManager, 
+    		AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
         this.ioManager = ioManager;
         startScene = new StartScene(this);
         endScene = new EndScene(this, slManager);

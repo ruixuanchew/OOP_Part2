@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+
 import inputOutputManager.InputHandler;
 import playerControllerManager.PlayerControllerManager;
 
@@ -42,7 +44,7 @@ public abstract class BaseScene extends ScreenAdapter {
         this.sceneManager = sceneManager;
         stage = new Stage();
         inputHandler = new InputHandler();
-        uiManager = new UIManager(stage);
+        uiManager = new UIManager(stage, this);
         batch = new SpriteBatch();
         this.cManager = new CollisionManager(sceneManager, pcManager, entityManager);
     }
@@ -77,16 +79,14 @@ public abstract class BaseScene extends ScreenAdapter {
     // Abstract method for background color of scene
     protected abstract Color getBackgroundColor();
     
-    // Set map background abstract method
-    protected abstract Color getMapBackground();
-    
-    // Add button for different scenes
+    // Add common button for different scenes
     protected void addButton(String text, float x, float y, Runnable action) {
         uiManager.addButton(text, x, y, action);
     }
-    
+  
     @Override
     public void dispose() {
         stage.dispose();
     }
+
 }

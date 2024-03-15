@@ -2,9 +2,11 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.Random;
 
@@ -22,6 +24,8 @@ public class EarthScene extends BasePlanetScene{
 	private MapManager mapManager;
 	private Random random;
 	private Entity player;
+	private boolean showDialogFlag = true;
+	private boolean dialogOpen = false;
 	
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -34,7 +38,6 @@ public class EarthScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-		 
 		// player entity
 		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 10000);
 		entityManager.add(player);
@@ -54,12 +57,16 @@ public class EarthScene extends BasePlanetScene{
 		// TODO Auto-generated method stub
 		return new Color(0, 0.5f, 0, 1);
 	}
-
-	@Override
-	protected Color getMapBackground() {
-	
-		return null;
-	}
+	protected void showDialog() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(); 
+        BitmapFont font = new BitmapFont();
+        windowStyle.titleFont = font; 
+        windowStyle.titleFontColor = Color.WHITE; 
+        
+        // Change this for trivia part
+        showCustomDialog("", "Earth is our home planet and uniquely"
+        		+ "\nsupports life due to water and protective atmosphere.", windowStyle);
+    }
 	
 	@Override
 	public void render(float delta) {
@@ -77,45 +84,14 @@ public class EarthScene extends BasePlanetScene{
 	    
 	    batch.begin();
 	    super.addText(text, batch, Color.BLACK);
+	    super.planetRender(batch);
 	    
-	    // Update player's position based on input or other logic
-	    pcManager.update(Gdx.graphics.getDeltaTime());
-
-	    // Check if the player has moved beyond the screen width
-	    if (player.getPosX() > Gdx.graphics.getWidth()) {
-	        // Move player back to the left side of the screen
-	        player.setPosX(-player.getWidth());
-	        
-	        // Update the positions of other entities accordingly
-	       /* for (Entity e : entityManager.getEntityList()) {
-	            // Adjust positions of entities excluding the player
-	            if (!e.getType().equals("player")) {
-	                // Example adjustment: Move the entity to a new random position within the screen width
-	                e.setPosX(MathUtils.random(100, 400));
-	                e.setPosY(MathUtils.random(150, 300));
-	                // You can adjust Y position similarly or differently based on your game logic
-	            }
-	        } */
-	    }
-
-	    // Check collisions before drawing entities
-	    for (Entity e : entityManager.getCollidableEntityList()) {
-	        if (e.getVisible()) {
-	            cManager.checkCollision(player, e, sceneManager);
-	        }
-	    }
-
-	    // Draw entities after collision detection and player update
-	    for (Entity e : entityManager.getEntityList()) {
-	        if (e.getType().equals("player") || e.getType().equals("flag")) {
-	            e.setVisible(true); // Ensure visibility is set to true before drawing
-	            e.draw(batch);
-	        } else {
-	            e.setVisible(false);
-	        }
-	    }
-
 	    batch.end();
+	    if (showDialogFlag) {
+            showDialog();
+            showDialogFlag = false;
+        }
+	    renderStages();
 	}
 
 

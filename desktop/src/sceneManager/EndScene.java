@@ -57,10 +57,4 @@ public class EndScene extends BaseScene {
         }
         return maxWidth; 
     }
-
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

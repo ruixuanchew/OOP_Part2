@@ -68,12 +68,6 @@ public class AsteroidScene extends BasePlanetScene{
 		return new Color(0, 0, 0, 1);
 	}
 
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	  @Override
 	    public void render(float delta) {
 		  super.render(delta);
@@ -82,7 +76,7 @@ public class AsteroidScene extends BasePlanetScene{
 		  mapManager.getRenderer().setView(mapManager.getCamera());
 		  mapManager.getRenderer().render();
 
-	        SpriteBatch batch = new SpriteBatch(); // Initialize batch here
+	        SpriteBatch batch = new SpriteBatch();
 	        String text = "Space";
 
 	        batch.begin();
@@ -90,4 +84,9 @@ public class AsteroidScene extends BasePlanetScene{
 		    super.spaceRender(batch);
 		    batch.end();
 	  }
+	@Override
+	protected void showDialog() {
+		// TODO Auto-generated method stub
+		
+	}
 }

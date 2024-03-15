@@ -2,9 +2,11 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.Random;
 
@@ -18,6 +20,7 @@ import playerControllerManager.PlayerControllerManager;
 public class VenusScene extends BasePlanetScene{
 	private MapManager mapManager;
 	private Random random;
+	private boolean showDialogFlag = true;
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -26,7 +29,7 @@ public class VenusScene extends BasePlanetScene{
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
 		mapManager.loadMap("Venus.tmx");
-        
+       
         initializeScene();
 	}
 	 private void initializeScene() {
@@ -49,11 +52,16 @@ public class VenusScene extends BasePlanetScene{
 		return new Color(0.8f, 0.4f, 0, 1);
 	}
 
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	protected void showDialog() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(); 
+        BitmapFont font = new BitmapFont();
+        windowStyle.titleFont = font; 
+        windowStyle.titleFontColor = Color.WHITE; 
+        
+        // Change this for trivia part
+        showCustomDialog("", "Venus is the hottest planet in our solar system\n"
+        		+ ", its thick carbon dioxide atmostphere is the cause of this!", windowStyle);
+    }
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
@@ -71,6 +79,11 @@ public class VenusScene extends BasePlanetScene{
 	    super.planetRender(batch);
 
 	    batch.end();
+	    if (showDialogFlag) {
+            showDialog();
+            showDialogFlag = false;
+        }
+	    renderStages();
 	}
 
 }

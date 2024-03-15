@@ -2,8 +2,10 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
@@ -13,6 +15,7 @@ import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class UranusScene extends BasePlanetScene{
+	private boolean showDialogFlag = true;
 
 	public UranusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -31,12 +34,6 @@ public class UranusScene extends BasePlanetScene{
 	protected Color getBackgroundColor() {
 		return new Color(0.5f, 0.9f, 1.0f, 1.0f);
 	}
-
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
@@ -51,6 +48,23 @@ public class UranusScene extends BasePlanetScene{
 	    super.addText(text, batch, Color.BLACK);
 
 	    batch.end();
+	    if (showDialogFlag) {
+            showDialog();
+            showDialogFlag = false;
+        }
+	    renderStages();
+	}
+	@Override
+	protected void showDialog() {
+		 Window.WindowStyle windowStyle = new Window.WindowStyle(); 
+	        BitmapFont font = new BitmapFont();
+	        windowStyle.titleFont = font; 
+	        windowStyle.titleFontColor = Color.WHITE; 
+	        
+	        // Change this for trivia part
+	        showCustomDialog("", "Uranus is a icy giant and has a tilted\n"
+	        		+ "axis with striking blue-green hue!", windowStyle);
+		
 	}
 
 }

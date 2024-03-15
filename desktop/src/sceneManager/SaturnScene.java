@@ -2,8 +2,10 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
@@ -13,7 +15,8 @@ import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class SaturnScene extends BasePlanetScene{
-
+	private boolean showDialogFlag = true;
+	
 	public SaturnScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
@@ -32,11 +35,6 @@ public class SaturnScene extends BasePlanetScene{
 	}
 
 	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public void render(float delta) {
 	    super.render(delta);
 	    
@@ -49,6 +47,23 @@ public class SaturnScene extends BasePlanetScene{
 	    super.planetRender(batch);
 
 	    batch.end();
+	    if (showDialogFlag) {
+            showDialog();
+            showDialogFlag = false;
+        }
+	    renderStages();
+	}
+	@Override
+	protected void showDialog() {
+		 Window.WindowStyle windowStyle = new Window.WindowStyle(); 
+	        BitmapFont font = new BitmapFont();
+	        windowStyle.titleFont = font; 
+	        windowStyle.titleFontColor = Color.WHITE; 
+	        
+	        // Change this for trivia part
+	        showCustomDialog("", "Saturn is known for its majestic rings composed of ice and rock.\n"
+	        		+ "It also has the second largest moon in our solar system, Titan!", windowStyle);
+		
 	}
 
 }

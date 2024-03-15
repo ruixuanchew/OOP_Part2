@@ -2,8 +2,10 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
@@ -13,6 +15,7 @@ import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
 public class MarsScene extends BasePlanetScene{
+	private boolean showDialogFlag = true;
 
 	public MarsScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -32,12 +35,17 @@ public class MarsScene extends BasePlanetScene{
 		return new Color(0.8f, 0.3f, 0.2f, 1);
 
 	}
+	protected void showDialog() {
+        Window.WindowStyle windowStyle = new Window.WindowStyle(); 
+        BitmapFont font = new BitmapFont();
+        windowStyle.titleFont = font; 
+        windowStyle.titleFontColor = Color.WHITE; 
+        
+        // Change this for trivia part
+        showCustomDialog("", "Mars has the largest volcano \n"
+        		+ "in our solar system, Olympus Mons!", windowStyle);
+    }
 
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public void render(float delta) {
 	    super.render(delta);
@@ -51,6 +59,11 @@ public class MarsScene extends BasePlanetScene{
 	    super.planetRender(batch);
 
 	    batch.end();
+	    if (showDialogFlag) {
+            showDialog();
+            showDialogFlag = false;
+        }
+	    renderStages();
 	}
 
 }

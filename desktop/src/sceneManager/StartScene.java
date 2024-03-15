@@ -37,10 +37,4 @@ public class StartScene extends BaseScene {
         GlyphLayout layout = new GlyphLayout(font, text);
         return layout.width;
     }
-
-	@Override
-	protected Color getMapBackground() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
