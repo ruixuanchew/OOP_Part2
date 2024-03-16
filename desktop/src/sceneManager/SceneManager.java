@@ -18,11 +18,6 @@ public class SceneManager {
     private MercuryScene mercuryScene;
     private VenusScene venusScene;
     private EarthScene earthScene;
-    private MarsScene marsScene;
-    private JupiterScene jupiterScene;
-    private SaturnScene saturnScene;
-    private UranusScene uranusScene;
-    private NeptuneScene neptuneScene;
     private BaseScene currentScene;
     private boolean sceneSwitching;
     private InputOutputManager ioManager;
@@ -42,11 +37,6 @@ public class SceneManager {
         mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         venusScene = new VenusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        marsScene = new MarsScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        jupiterScene = new JupiterScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        saturnScene = new SaturnScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        uranusScene = new UranusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        neptuneScene = new NeptuneScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
     }
 
     public synchronized void showStartScene() {
@@ -81,22 +71,6 @@ public class SceneManager {
         ioManager.changeBackgroundMusic("city.mp3");
         ioManager.getBgMusic().setVolume(0.08f);
     }
-    public synchronized void showMarsScene() {
-        setCurrentScene(marsScene);
-    }
-    public synchronized void showJupiterScene() {
-        setCurrentScene(jupiterScene);
-    }
-    public synchronized void showSaturnScene() {
-        setCurrentScene(saturnScene);
-    }
-
-	public synchronized void showUranusScene() {
-        setCurrentScene(uranusScene);
-    }
-    public synchronized void showNeptuneScene() {
-        setCurrentScene(neptuneScene);
-    }
 
     public synchronized BaseScene getCurrentScene() {
         return currentScene;
@@ -118,11 +92,6 @@ public class SceneManager {
         mercuryScene.dispose();
         venusScene.dispose();
         earthScene.dispose();
-        marsScene.dispose();
-        jupiterScene.dispose();
-        saturnScene.dispose();
-        uranusScene.dispose();
-        neptuneScene.dispose();
     }
 }
 

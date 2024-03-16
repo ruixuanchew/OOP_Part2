@@ -49,7 +49,7 @@ public class AsteroidScene extends BasePlanetScene{
 			entityManager.addCollidableEntity(enemy);
 		}
 	     
-		 String[] planetNames = {"mercury","venus","mars","jupiter","saturn","uranus","neptune"};
+		 String[] planetNames = {"mercury","venus"};
 		 for(int i = 0; i < planetNames.length; i++) {
 			 String name = planetNames[i];
 			 String fileName = planetNames[i] + ".png";

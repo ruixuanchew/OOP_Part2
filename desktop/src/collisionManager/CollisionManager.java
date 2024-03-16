@@ -5,8 +5,12 @@ import entityManager.Player;
 import entityManager.Entity;
 import playerControllerManager.PlayerControllerManager;
 import sceneManager.SceneManager;
+import sceneManager.VenusScene;
+
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+
+import sceneManager.BaseScene;
 import sceneManager.MapManager;
 
 public class CollisionManager {
@@ -68,10 +72,14 @@ public class CollisionManager {
 				sceneManager.showEndScene();
 			}
 		}
-		 // Check if the collided entity is a specific type (e.g., a flag)
 		if (entity.getType().equals("flag")) {
-			sceneManager.showAsteroidScene();
-			player.setPosX(0);
+			 BaseScene currentScene = sceneManager.getCurrentScene();
+		        if (currentScene instanceof VenusScene) {
+		            sceneManager.showEndScene();
+		        } else {
+		            sceneManager.showAsteroidScene();
+		        }
+		        player.setPosX(0);
 		}
 		if (entity.getType().equals("mercury")) {
 			sceneManager.showMercuryScene();
@@ -79,26 +87,6 @@ public class CollisionManager {
 		}
 		if (entity.getType().equals("venus")) {
 			sceneManager.showVenusScene();
-			player.setPosX(0);
-		}
-		if (entity.getType().equals("mars")) {
-			sceneManager.showMarsScene();
-			player.setPosX(0);
-		}
-		if (entity.getType().equals("jupiter")) {
-			sceneManager.showJupiterScene();
-			player.setPosX(0);
-		}
-		if (entity.getType().equals("saturn")) {
-			sceneManager.showSaturnScene();
-			player.setPosX(0);
-		}
-		if (entity.getType().equals("uranus")) {
-			sceneManager.showUranusScene();
-			player.setPosX(0);
-		}
-		if(entity.getType().equals("neptune")) {
-			sceneManager.showNeptuneScene();
 			player.setPosX(0);
 		}
 	}
