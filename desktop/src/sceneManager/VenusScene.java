@@ -24,7 +24,7 @@ public class VenusScene extends BasePlanetScene{
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager, -0.0f);
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
@@ -37,8 +37,8 @@ public class VenusScene extends BasePlanetScene{
             float posX = random.nextInt(Gdx.graphics.getWidth());
             float posY = random.nextInt(Gdx.graphics.getHeight());
             
-			Entity enemy = entityFactory.createEntity("asteroid.png", posX, posY, 4, false, "asteroid");
-			entityManager.add(enemy);
+//			Entity enemy = entityFactory.createEntity("asteroid.png", posX, posY, 4, false, "asteroid");
+//			entityManager.add(enemy);
 		}
 	    //entityManager.addCollidableEntity(this.entity);
 
@@ -83,7 +83,7 @@ public class VenusScene extends BasePlanetScene{
             showDialog();
             showDialogFlag = false;
         }
-	    renderStages();
+	    renderStages(delta);
 	}
 
 }

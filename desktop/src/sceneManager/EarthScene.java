@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.Random;
 
@@ -26,10 +29,14 @@ public class EarthScene extends BasePlanetScene{
 	private Entity player;
 	private boolean showDialogFlag = true;
 	private boolean dialogOpen = false;
+
+    private SpriteBatch batch;
+    
+	private Vector3 position = new Vector3();
 	
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager, -0.0f);
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
@@ -37,19 +44,29 @@ public class EarthScene extends BasePlanetScene{
 
         initializeScene();
 	}
-	 private void initializeScene() {
+	
+	private void initializeScene() {
+		
+		batch = new SpriteBatch();
+		 
 		// player entity
-		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 10000);
+		player = entityFactory.createPlayer(world, "astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 10000);
 		entityManager.add(player);
 		
-		// flag entity
-		Entity flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
+		//flag entity
+		Entity flag = entityFactory.createObject(world, "flag_new.png", 10, 0, false, "flag", true);
 		entityManager.add(flag);
-		entityManager.addCollidableEntity(flag);
+	
+//		Entity flag = entityFactory.createObject(world,"flag.png", 0, 0, false, "test", true);
+//		entityManager.add(flag);
+//		entityManager.addCollidableEntity(flag);
+		
+		Random random = new Random();
 
         String buttonText = "End";
         addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
                 () -> sceneManager.showEndScene());
+
     }
 
 	@Override
@@ -77,8 +94,8 @@ public class EarthScene extends BasePlanetScene{
 		mapManager.getRenderer().render();
 		// Check collision with building
 		cManager.checkCollisionWithObject((Player) player, mapManager);
-	    
-	    SpriteBatch batch = new SpriteBatch();
+//	    
+//	    SpriteBatch batch = new SpriteBatch();
 	    
 	    String text = "Earth";
 	    
@@ -91,9 +108,15 @@ public class EarthScene extends BasePlanetScene{
             showDialog();
             showDialogFlag = false;
         }
-	    renderStages();
+		
+	    renderStages(delta);		
+	    
+	    // Update the position of the camera to follow the player
+		position.x = player.getPosX();
+		position.y = player.getPosY();
+
+	    update(delta, position, batch);
+
 	}
-
-
 
 }

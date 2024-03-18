@@ -2,6 +2,7 @@ package playerControllerManager;
 
 import collisionManager.CollisionManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 
 import entityManager.Entity;
@@ -57,6 +58,7 @@ public class PlayerControllerManager {
 		for (Entity entity : getEntities().getEntityList()) {
 			if (entity instanceof Player) {
 				Player player = (Player) entity;
+
 				if (getMovement().LeftKey()) {
 
 					player.getVelocity().x = (-player.getSpeed());
@@ -115,7 +117,6 @@ public class PlayerControllerManager {
 		move();
 		jump();
 		applyGravity();
-
 
 		// Check if the player is on the ground
 		for (Entity entity : getEntities().getEntityList()) {
