@@ -50,7 +50,7 @@ public class GameMaster extends Game {
         sceneManager = new SceneManager(this);
         
         // Initialize the CollisionManager
-        cManager = new CollisionManager(sceneManager, pcManager, entityManager);
+        cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager);
 
         // Initialize the SimulationLifecycleManager
         slManager = new SimulationLifecycleManager(sceneManager, entityManager);
@@ -73,7 +73,7 @@ public class GameMaster extends Game {
     @Override
     public void render() {
         super.render();
-        ioManager.getBgMusic().play();
+        ioManager.playMusic();
     }
 
     @Override

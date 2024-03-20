@@ -41,7 +41,7 @@ public class SceneManager {
 
     public synchronized void showStartScene() {
         setCurrentScene(startScene);
-        ioManager.getBgMusic().setVolume(0.2f);
+        ioManager.setVolume(0.2f);
     }
 
     public synchronized void showEndScene() {
@@ -50,26 +50,26 @@ public class SceneManager {
 
     public synchronized void showAsteroidScene() {
         setCurrentScene(asteroidScene);
-        ioManager.changeBackgroundMusic("space.mp3");
-        ioManager.getBgMusic().setVolume(0.2f);
+        ioManager.changeMusic("space.mp3");
+        ioManager.setVolume(0.2f);
     }
 
     public synchronized void showMercuryScene() {
         setCurrentScene(mercuryScene);
-        ioManager.changeBackgroundMusic("perion.mp3");
-        ioManager.getBgMusic().setVolume(0.5f);
+        ioManager.changeMusic("perion.mp3");
+        ioManager.setVolume(0.5f);
     }
 
     public synchronized void showVenusScene() {
         setCurrentScene(venusScene);
-        ioManager.changeBackgroundMusic("volcano.mp3");
-        ioManager.getBgMusic().setVolume(0.5f);
+        ioManager.changeMusic("volcano.mp3");
+        ioManager.setVolume(0.2f);
     }
 
     public synchronized void showEarthScene() {
         setCurrentScene(earthScene);
-        ioManager.changeBackgroundMusic("city.mp3");
-        ioManager.getBgMusic().setVolume(0.08f);
+        ioManager.changeMusic("city.mp3");
+        ioManager.setVolume(0.08f);
     }
 
     public synchronized BaseScene getCurrentScene() {

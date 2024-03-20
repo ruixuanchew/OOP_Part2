@@ -1,7 +1,6 @@
 package simulationLifecycleManager;
 
 import com.badlogic.gdx.Gdx;
-import inputOutputManager.SoundPlayer;
 import sceneManager.SceneManager;
 import entityManager.EntityManager;
 

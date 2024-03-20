@@ -21,6 +21,7 @@ public class VenusScene extends BasePlanetScene{
 	private MapManager mapManager;
 	private Random random;
 	private boolean showDialogFlag = true;
+	private Entity flag;
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -33,12 +34,16 @@ public class VenusScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
+		flag = entityFactory.createEntity("flag.png", 200, 20, false, "flag");
 		for (int i = 0; i > 5; i++) {
             float posX = random.nextInt(Gdx.graphics.getWidth());
             float posY = random.nextInt(Gdx.graphics.getHeight());
             
 			Entity enemy = entityFactory.createEntity("asteroid.png", posX, posY, 4, false, "asteroid");
 			entityManager.add(enemy);
+
+			// flag entity
+			flag = entityFactory.createEntity("flag.png", 200, 20, false, "flag");
 		}
 	    //entityManager.addCollidableEntity(this.entity);
 
@@ -84,6 +89,23 @@ public class VenusScene extends BasePlanetScene{
             showDialogFlag = false;
         }
 	    renderStages();
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		if (flag != null) {
+			entityManager.add(flag);
+			entityManager.addCollidableEntity(flag);
+		}
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		if (flag != null) {
+			entityManager.removeFlagEntity(flag);
+		}
 	}
 
 }

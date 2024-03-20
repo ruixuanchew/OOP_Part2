@@ -3,6 +3,7 @@ package collisionManager;
 import entityManager.EntityManager;
 import entityManager.Player;
 import entityManager.Entity;
+import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 import sceneManager.SceneManager;
 import sceneManager.VenusScene;
@@ -17,11 +18,13 @@ public class CollisionManager {
 	private SceneManager sceneManager;
 	private PlayerControllerManager playerControllerManager;
 	private EntityManager entityManager;
+	private InputOutputManager ioManager;
 
-	public CollisionManager(SceneManager sceneManager, PlayerControllerManager playerControllerManager, EntityManager entityManager) {
+	public CollisionManager(SceneManager sceneManager, PlayerControllerManager playerControllerManager, EntityManager entityManager, InputOutputManager ioManager) {
 		this.sceneManager = sceneManager;
 		this.playerControllerManager = playerControllerManager;
 		this.entityManager = entityManager;
+		this.ioManager = ioManager;
 	}
 
 	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
@@ -140,6 +143,7 @@ public class CollisionManager {
 				// if player collides with lava, reset player's position to the start of the map
 				player.setPosX(0);
 				player.setPosY(0);
+				ioManager.playSoundEffect();
 			}
 		}
 	}

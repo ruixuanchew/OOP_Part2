@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import inputOutputManager.InputHandler;
+import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -36,6 +37,7 @@ public abstract class BaseScene extends ScreenAdapter {
     private PlayerControllerManager pcManager;
     private CollisionManager cManager;
     private AIControlManager aiManager;
+    private InputOutputManager ioManager;
     private UIManager uiManager;
     private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
@@ -46,7 +48,7 @@ public abstract class BaseScene extends ScreenAdapter {
         inputHandler = new InputHandler();
         uiManager = new UIManager(stage, this);
         batch = new SpriteBatch();
-        this.cManager = new CollisionManager(sceneManager, pcManager, entityManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager);
     }
 
     @Override
