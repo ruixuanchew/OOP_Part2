@@ -123,4 +123,9 @@ public class UIManager {
         stage.addActor(dialog);
     }
     
+    public float calculateTextWidth(String text, BitmapFont font) {
+         GlyphLayout layout = new GlyphLayout(font, text);
+         return layout.width;
+    }
+    
 }

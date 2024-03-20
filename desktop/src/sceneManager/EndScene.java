@@ -13,8 +13,12 @@ public class EndScene extends BaseScene {
     protected EndScene(SceneManager sceneManager, SimulationLifecycleManager slManager) {
         super(sceneManager);
         this.slManager = slManager;
+        
+        initializeScene();
 
-        // Define the button actions in a list
+    }
+    private void initializeScene() {
+    	 // Define the button actions in a list
         Runnable[] buttonActions = {
             () -> this.slManager.endGame(),
             () -> this.slManager.restartGame()
@@ -36,7 +40,7 @@ public class EndScene extends BaseScene {
             // Call addbuttons to set buttons
             addButton(buttonTexts[i], (Gdx.graphics.getWidth() - buttonWidth) / 2, y, buttonActions[i]);
         }
-    }
+	 }
     
     // Override abstract method in BaseScene.java
     @Override
@@ -49,12 +53,8 @@ public class EndScene extends BaseScene {
         float maxWidth = 0; // Initialize maxWidth
         BitmapFont font = new BitmapFont();
         for (String text : texts) { // for through number of text in buttons
-            GlyphLayout layout = new GlyphLayout(font, text);
-            float textWidth = layout.width;
-            if (textWidth > maxWidth) {
-                maxWidth = textWidth;
-            }
+        	maxWidth = super.calculateTextWidth(text, font);
         }
-        return maxWidth; 
+		return maxWidth;
     }
 }

@@ -80,6 +80,10 @@ public abstract class BaseScene extends ScreenAdapter {
     protected abstract Color getBackgroundColor();
     
     // Add common button for different scenes
+    protected float calculateTextWidth(String text, BitmapFont font) {
+        return uiManager.calculateTextWidth(text, font);
+    }
+    
     protected void addButton(String text, float x, float y, Runnable action) {
         uiManager.addButton(text, x, y, action);
     }

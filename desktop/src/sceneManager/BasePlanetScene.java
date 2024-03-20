@@ -42,7 +42,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	}
 	
 	// Game logic functions
-	protected void commonRenders() {
+	protected void performCollisionChecks() {
 		List<Entity> entityListCopy = new ArrayList<>(entityManager.getEntityList());
 		for (Entity e : entityListCopy) {
 			if(e.getType().equals("player")) {
@@ -58,9 +58,8 @@ public abstract class BasePlanetScene extends BaseScene {
 			}
 		}
 	}
-	protected void spaceRender(SpriteBatch batch) {
-		commonRenders();
-	    // Update player's position based on input or other logic
+	protected void updatePlayerPosition(float deltaTime) {
+		// Update player's position based on input or other logic
 	    pcManager.update(Gdx.graphics.getDeltaTime());
 
 	 // Check if the player has moved beyond the screen width
@@ -72,36 +71,23 @@ public abstract class BasePlanetScene extends BaseScene {
 	        player.setPosX(-player.getWidth());
 
 	    }
-
+	}
+	protected void spaceRender(SpriteBatch batch) {
+		performCollisionChecks();
+		updatePlayerPosition(Gdx.graphics.getDeltaTime());
+	    
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
 	        if (e instanceof Player) {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);
-	        } else if (e.getType().equals("mercury") || e.getType().equals("venus") || e.getType().equals("mars")
-	                || e.getType().equals("jupiter") || e.getType().equals("saturn") || e.getType().equals("uranus") || e.getType().equals("neptune")) {
+	        } else if (e.getType().equals("mercury") || e.getType().equals("venus")) {
 	        	e.setVisible(false);
 	            if (screenSwitchCounter == 2 && e.getType().equals("mercury")) {
 	                e.setVisible(true);
 	                e.draw(batch);
 	            }
 	            else if(screenSwitchCounter == 4 && e.getType().equals("venus")) {
-	            	e.setVisible(true);
-	                e.draw(batch);
-	            }
-	            else if(screenSwitchCounter == 6 && e.getType().equals("mars")) {
-	            	e.setVisible(true);
-	                e.draw(batch);
-	            }
-	            else if(screenSwitchCounter == 8 && e.getType().equals("jupiter")) {
-	            	e.setVisible(true);
-	                e.draw(batch);
-	            }
-	            else if(screenSwitchCounter == 10 && e.getType().equals("uranus")) {
-	            	e.setVisible(true);
-	                e.draw(batch);
-	            }
-	            else if(screenSwitchCounter == 12 && e.getType().equals("neptune")) {
 	            	e.setVisible(true);
 	                e.draw(batch);
 	            }
@@ -119,18 +105,10 @@ public abstract class BasePlanetScene extends BaseScene {
 	}
 
     protected void planetRender(SpriteBatch batch) {
-    	commonRenders();
+    	performCollisionChecks();
     	
     	if(dialogOpen == false) {
-    		// Update player's position based on input or other logic
-    	    pcManager.update(Gdx.graphics.getDeltaTime());
-
-    	    // Check if the player has moved beyond the screen width
-    	    if (player.getPosX() > Gdx.graphics.getWidth()) {
-    	        // Move player back to the left side of the screen
-    	        player.setPosX(-player.getWidth());
-    	        
-    	    }
+    		updatePlayerPosition(Gdx.graphics.getDeltaTime());
     	
 	    // Draw entities after collision detection and player update
 	    for (Entity e : entityManager.getEntityList()) {
@@ -170,9 +148,16 @@ public abstract class BasePlanetScene extends BaseScene {
     protected void addText(String text, SpriteBatch batch, Color color) {
         uiManager.addText(text, text, batch, color);
     }
+    protected int getScreenSwitchCounter() {
+        return this.screenSwitchCounter;
+    }
+    public void setScreenSwitchCounter(int screenSwitchCounter) {
+        this.screenSwitchCounter = screenSwitchCounter;
+    }
     protected void showCustomDialog(String title, String message, Window.WindowStyle windowStyle) {
     	uiManager.addDialog(title, message, windowStyle);
     }
+    
     protected abstract void showDialog();
 
 }

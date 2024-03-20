@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 public class StartScene extends BaseScene {
     protected StartScene(SceneManager sceneManager) {
         super(sceneManager);
-
-        // Set the button text
+        initializeScene();
+    }
+    
+    private void initializeScene() {
+    	// Set the button text
         String buttonText = "Start";
 
         // Get the button width and height
@@ -23,7 +26,7 @@ public class StartScene extends BaseScene {
 
         // Add the button
         addButton(buttonText, x, y, () -> sceneManager.showEarthScene());
-    }
+	  }
     
     // Override abstract method in BaseScene.java
     @Override
@@ -32,9 +35,8 @@ public class StartScene extends BaseScene {
     }
 
     // Method to calculate the width of the text
-    private float calculateTextWidth(String text) {
-        BitmapFont font = new BitmapFont();
-        GlyphLayout layout = new GlyphLayout(font, text);
-        return layout.width;
+    protected float calculateTextWidth(String text) {
+    	BitmapFont font = new BitmapFont();
+        return super.calculateTextWidth(text, font);
     }
 }
