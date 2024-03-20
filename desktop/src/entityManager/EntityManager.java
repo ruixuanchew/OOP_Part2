@@ -27,6 +27,11 @@ public class EntityManager {
 	public void remove(Entity entity) {
 		entity.setVisible(false);
 	}
+
+	public void removeFlagEntity(Entity flag) {
+		this.entityList.remove(flag);
+		this.collidableEntityList.remove(flag);
+	}
 	
 	// to return a list of entities
 	public List<Entity> getEntityList() { 

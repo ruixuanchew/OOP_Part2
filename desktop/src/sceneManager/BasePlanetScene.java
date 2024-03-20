@@ -13,6 +13,9 @@ import entityManager.Player;
 import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class BasePlanetScene extends BaseScene {
 	protected EntityManager entityManager;
@@ -40,18 +43,20 @@ public abstract class BasePlanetScene extends BaseScene {
 	
 	// Game logic functions
 	protected void commonRenders() {
-		for (Entity e : entityManager.getEntityList()) {
-        	if(e.getType().equals("player")) {
-        		this.player = (Player) e;
-        		break;
-        	}
-        }
+		List<Entity> entityListCopy = new ArrayList<>(entityManager.getEntityList());
+		for (Entity e : entityListCopy) {
+			if(e.getType().equals("player")) {
+				this.player = (Player) e;
+				break;
+			}
+		}
 		// Check collisions before drawing entities
-	    for (Entity e : entityManager.getCollidableEntityList()) {
-	        if (e.getVisible()) {
-	            cManager.checkCollision(player, e, sceneManager);
-	        }
-	    }
+		List<Entity> collidableEntityListCopy = new ArrayList<>(entityManager.getCollidableEntityList());
+		for (Entity e : collidableEntityListCopy) {
+			if (e.getVisible()) {
+				cManager.checkCollision(player, e, sceneManager);
+			}
+		}
 	}
 	protected void spaceRender(SpriteBatch batch) {
 		commonRenders();

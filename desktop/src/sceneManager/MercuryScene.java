@@ -18,10 +18,14 @@ import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MercuryScene extends BasePlanetScene {
 	private MapManager mapManager;
 	private boolean showDialogFlag = true;
 	private boolean dialogOpen = false;
+	private Entity flag;
 
     public MercuryScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -34,9 +38,12 @@ public class MercuryScene extends BasePlanetScene {
         initializeScene();
 	}
 	 private void initializeScene() {
-	        String buttonText = "End";
-	        addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
-	                () -> sceneManager.showEndScene());
+		 // flag entity
+		 flag = entityFactory.createEntity("flag.png", 200, 350, false, "flag");
+
+		 String buttonText = "End";
+		 addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
+				 () -> sceneManager.showEndScene());
 	  }
 
 	@Override
@@ -78,6 +85,30 @@ public class MercuryScene extends BasePlanetScene {
         }
         
 	    renderStages();
-	    
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		List<Entity> entitiesToAdd = new ArrayList<>();
+		if (flag != null) {
+			entitiesToAdd.add(flag);
+		}
+		for (Entity entity : entitiesToAdd) {
+			entityManager.add(entity);
+			entityManager.addCollidableEntity(entity);
+		}
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		List<Entity> entitiesToRemove = new ArrayList<>();
+		if (flag != null) {
+			entityManager.removeFlagEntity(flag);
+		}
+		for (Entity entity : entitiesToRemove) {
+			entityManager.remove(entity);
+		}
 	}
 }

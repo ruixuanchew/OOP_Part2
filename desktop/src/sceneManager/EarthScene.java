@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import aiControlManager.AIControlManager;
@@ -24,6 +26,7 @@ public class EarthScene extends BasePlanetScene{
 	private MapManager mapManager;
 	private Random random;
 	private Entity player;
+	private Entity flag;
 	private boolean showDialogFlag = true;
 	private boolean dialogOpen = false;
 	
@@ -43,9 +46,7 @@ public class EarthScene extends BasePlanetScene{
 		entityManager.add(player);
 		
 		// flag entity
-		Entity flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
-		entityManager.add(flag);
-		entityManager.addCollidableEntity(flag);
+		flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
 
         String buttonText = "End";
         addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
@@ -94,6 +95,20 @@ public class EarthScene extends BasePlanetScene{
 	    renderStages();
 	}
 
+	@Override
+	public void show() {
+		super.show();
+		if (flag != null) {
+			entityManager.add(flag);
+			entityManager.addCollidableEntity(flag);
+		}
+	}
 
-
+	@Override
+	public void hide() {
+		super.hide();
+		if (flag != null) {
+			entityManager.removeFlagEntity(flag);
+		}
+	}
 }
