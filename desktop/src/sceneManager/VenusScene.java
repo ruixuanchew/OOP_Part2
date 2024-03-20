@@ -22,6 +22,7 @@ public class VenusScene extends BasePlanetScene{
 	private Random random;
 	private boolean showDialogFlag = true;
 	private Entity flag;
+    private boolean fireballRendered = false; // boolean to check if fireballs are rendered
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -34,16 +35,17 @@ public class VenusScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
+		// create flag entity
 		flag = entityFactory.createEntity("flag.png", 200, 20, false, "flag");
-		for (int i = 0; i > 5; i++) {
+		Random random = new Random();
+		
+		for (int i = 0; i < 5; i++) {
             float posX = random.nextInt(Gdx.graphics.getWidth());
             float posY = random.nextInt(Gdx.graphics.getHeight());
             
-			Entity enemy = entityFactory.createEntity("asteroid.png", posX, posY, 4, false, "asteroid");
+			Entity enemy = entityFactory.createEntity("fireball.png", posX, posY, 4, false, "fireball");
 			entityManager.add(enemy);
-
-			// flag entity
-			flag = entityFactory.createEntity("flag.png", 200, 20, false, "flag");
+			entityManager.addCollidableEntity(enemy);
 		}
 	    //entityManager.addCollidableEntity(this.entity);
 
@@ -81,7 +83,7 @@ public class VenusScene extends BasePlanetScene{
 	    
 	    batch.begin();
 	    super.addText(text, batch, Color.BLACK);
-	    super.planetRender(batch);
+	    planetRender(batch);
 
 	    batch.end();
 	    if (showDialogFlag) {
@@ -90,6 +92,47 @@ public class VenusScene extends BasePlanetScene{
         }
 	    renderStages();
 	}
+	
+	@Override
+	protected void planetRender(SpriteBatch batch) {
+    	performCollisionChecks();
+    	
+    	if(dialogOpen == false) {
+    		updatePlayerPosition(Gdx.graphics.getDeltaTime());
+    		
+		    // Draw entities after collision detection and player update
+		    for (Entity e : entityManager.getEntityList()) {
+		    	
+		    	//check if entity type is player or flag
+		        if (e.getType().equals("player") || e.getType().equals("flag")) {
+		            e.setVisible(true); // Ensure visibility is set to true before drawing
+		            e.draw(batch);
+		        }
+		        else if(e.getType().equals("fireball")) { //check if entity is fireball
+	        		if (!fireballRendered) {
+	        			e.setVisible(true); // set visibility to true if fireballs are not rendered yet
+	   		         e.draw(batch);
+	   		         aiManager.moveAIControlled();
+	        		} else {
+	        			if (e.getVisible()) {
+	        				aiManager.moveAIControlled();
+	        				e.draw(batch);
+	        			}
+	        		}
+	        	}
+		       
+		        
+		        else {
+		        	e.setVisible(false);
+		        }
+		        		        
+		    }
+		  //if not rendered, set fireballs to be rendered already
+	        if (!fireballRendered) {
+	        	fireballRendered = true;
+	        }
+    	}
+    }
 
 	@Override
 	public void show() {

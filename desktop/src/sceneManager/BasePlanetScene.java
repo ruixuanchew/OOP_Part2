@@ -25,7 +25,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	protected AIControlManager aiManager;
     private int screenWidth = Gdx.graphics.getWidth();
     protected int screenSwitchCounter = 0;
-    private boolean dialogOpen = true;
+    protected boolean dialogOpen = true;
     private UIManager uiManager;
 
     private Player player;
