@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
@@ -26,7 +25,7 @@ public class MercuryScene extends BasePlanetScene {
 
     public MercuryScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
-    	super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager, -9.8f);
+    	super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
@@ -78,7 +77,7 @@ public class MercuryScene extends BasePlanetScene {
             showDialogFlag = false; // Prevent continuous showing of dialog
         }
         
-	    renderStages(delta);
+	    renderStages();
 	    
 	}
 }

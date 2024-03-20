@@ -26,9 +26,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class BaseScene extends ScreenAdapter {
     protected SceneManager sceneManager;
@@ -40,7 +37,7 @@ public abstract class BaseScene extends ScreenAdapter {
     private CollisionManager cManager;
     private AIControlManager aiManager;
     private UIManager uiManager;
-    protected SpriteBatch batch;
+    private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
 
     public BaseScene(SceneManager sceneManager) {

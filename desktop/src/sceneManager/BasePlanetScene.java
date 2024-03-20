@@ -2,12 +2,7 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
@@ -17,6 +12,7 @@ import entityManager.EntityManager;
 import entityManager.Player;
 import entityManager.EntityFactory;
 import playerControllerManager.PlayerControllerManager;
+
 
 public abstract class BasePlanetScene extends BaseScene {
 	protected EntityManager entityManager;
@@ -29,16 +25,10 @@ public abstract class BasePlanetScene extends BaseScene {
     private boolean dialogOpen = true;
     private UIManager uiManager;
 
-    private Entity player;
-	private float gravity; 
-	
-	private Vector3 position = new Vector3();
-	private Camera cam;			
-	private Box2DDebugRenderer b2dr;
-    protected World world;
+    private Player player;
     
 	public BasePlanetScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
-            CollisionManager cManager, AIControlManager aiManager, float gravity) {
+            CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager);         
 		this.entityManager = entityManager;
 		this.entityFactory = entityFactory;
@@ -46,12 +36,6 @@ public abstract class BasePlanetScene extends BaseScene {
         this.cManager = cManager;
         this.aiManager = aiManager;
         uiManager = new UIManager(stage, this);
-        
-        world = new World (new Vector2(0,gravity), false);
-        cam = new Camera(650,450);
-		b2dr = new Box2DDebugRenderer(true, false, false, false, false, true);
-
-
 	}
 	
 	// Game logic functions
@@ -162,25 +146,10 @@ public abstract class BasePlanetScene extends BaseScene {
     	}
 	    
     }
-    
-    protected void renderStages(float delta) {
+    protected void renderStages() {
     	stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 	    stage.draw();
     }
-    
-    protected void create() {
-    	
-    }
-    
-    protected void update(float delta, Vector3 position, SpriteBatch batch) {
-    	world.step(1 / 60f, 6, 2);
-
-		cam.cameraUpdate(delta, position);		
-		batch.setProjectionMatrix(cam.camera.combined);
-		
-		b2dr.render(world, cam.camera.combined.scl(32));
-    }
-    
     // Dialog getters and setters
     protected boolean getDialogOpen() {
     	return dialogOpen;
@@ -188,7 +157,6 @@ public abstract class BasePlanetScene extends BaseScene {
     protected void setDialogOpen(boolean dialogOpen) {
     	this.dialogOpen = dialogOpen;
     }
-    
     // UI elements specific to planets only
     @Override
     protected void addButton(String text, float x, float y, Runnable action) {

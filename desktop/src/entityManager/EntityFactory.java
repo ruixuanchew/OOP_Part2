@@ -1,26 +1,24 @@
 package entityManager;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class EntityFactory {
 	
-	public Entity createPlayer(World world, String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type, int health) {
+	public Entity createEntity(String tex, float posX, float posY, float speed, boolean isVisible, Vector2 velocity, String type, int health) {
         
-		Entity player = new Player(world, tex, posX, posY, speed, isVisible, velocity, type, health);
+		Entity player = new Player(tex, posX, posY, speed, isVisible, velocity, type, health);
 		return player;
     }
 
-    public Entity createObject(World world, String tex, float posX, float posY, boolean isVisible, String type, boolean isCollidable) {
+    public Entity createEntity(String tex, float posX, float posY, boolean isVisible, String type) {
         
-    	Entity object = new Object(world, tex, posX, posY, isVisible, type, isCollidable);
+    	Entity object = new Object(tex, posX, posY, isVisible, type);
 		return object;
     }
-    
 
-    public Entity createEnemy(World world, String tex, float posX, float posY, float speed, boolean isVisible, String type) {
+    public Entity createEntity(String tex, float posX, float posY, float speed, boolean isVisible, String type) {
     	
-    	Entity enemy = new Enemy(world, tex, posX, posY, speed, isVisible, type);
+    	Entity enemy = new Enemy(tex, posX, posY, speed, isVisible, type);
 		return enemy;
     }
 

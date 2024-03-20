@@ -22,15 +22,7 @@ public class GameMaster extends Game {
     private SimulationLifecycleManager slManager;
     private AIControlManager aiManager;
     private CollisionManager cManager;
-    
-    private int width, height;
-    
-	public GameMaster(int width, int height)
-	{
-		this.width = width;
-		this.height = height;
-	}
-	
+
     @Override
     public void create() {
         initializeManagers();
@@ -82,8 +74,6 @@ public class GameMaster extends Game {
     public void render() {
         super.render();
         ioManager.getBgMusic().play();
-        
-        
     }
 
     @Override

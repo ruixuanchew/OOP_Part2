@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.Random;
 
@@ -26,8 +25,8 @@ public class AsteroidScene extends BasePlanetScene{
 	private Random random;
 
 	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
-            CollisionManager cManager, AIControlManager aiManager) {
-		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager, -9.8f);
+            CollisionManager cManager, AIControlManager aiManager ) {
+		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
 		
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
@@ -45,18 +44,18 @@ public class AsteroidScene extends BasePlanetScene{
 		    float posX = random.nextInt(Gdx.graphics.getWidth());
 		    float posY = random.nextInt(Gdx.graphics.getHeight());
 		    
-//			Entity enemy = entityFactory.createEntity("asteroids.png", posX, posY, 4, false, "asteroid");
-//			entityManager.add(enemy);
-//			entityManager.addCollidableEntity(enemy);
+			Entity enemy = entityFactory.createEntity("asteroids.png", posX, posY, 4, false, "asteroid");
+			entityManager.add(enemy);
+			entityManager.addCollidableEntity(enemy);
 		}
 	     
 		 String[] planetNames = {"mercury","venus"};
 		 for(int i = 0; i < planetNames.length; i++) {
 			 String name = planetNames[i];
 			 String fileName = planetNames[i] + ".png";
-//			 Entity planet = entityFactory.createObject(fileName, x, y, false, name, true);
-//			 entityManager.add(planet);
-//			 entityManager.addCollidableEntity(planet);
+			 Entity planet = entityFactory.createEntity(fileName, x, y, false, name);
+			 entityManager.add(planet);
+			 entityManager.addCollidableEntity(planet);
 		 }
 	        
 	        String buttonText = "End";
