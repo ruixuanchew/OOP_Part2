@@ -25,6 +25,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	protected AIControlManager aiManager;
     private int screenWidth = Gdx.graphics.getWidth();
     protected int screenSwitchCounter = 0;
+    protected int currentScene = -1; // counter to know when to render scene
     protected boolean dialogOpen = true;
     private UIManager uiManager;
 
@@ -93,14 +94,26 @@ public abstract class BasePlanetScene extends BaseScene {
 	            }
 	        }
 	        else if(e.getType().equals("asteroid")){
-	        	// To make asteroid AI controlled
-	        	aiManager.moveAIControlled();
-	        	e.setVisible(true);
-                e.draw(batch);
+	        	// check if current scene is the same as switch counter
+	        	if (currentScene != screenSwitchCounter) {
+	        		// To make asteroid AI controlled
+		        	aiManager.moveAIControlled();
+		        	e.setVisible(true);
+	                e.draw(batch);
+	        	} else {
+	        	if (e.getVisible()) {
+	        		aiManager.moveAIControlled();
+	        		e.draw(batch);
+	        		}
+	        	}
 	        }
 	        else {
 	            e.setVisible(false);
 	        }
+	    }
+	    
+	    if (currentScene != screenSwitchCounter) {
+	    	currentScene = screenSwitchCounter;
 	    }
 	}
 
