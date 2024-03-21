@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 import aiControlManager.AIControlManager;
+import playerControllerManager.PlayerControllerManager;
 
 public class EntityManager {
 	private List<Entity> entityList;
@@ -68,4 +68,7 @@ public class EntityManager {
 	public void moveAIControlled(AIControlManager aiControlManager) {
         aiControlManager.moveAIControlled();
     }
+	public void movePlayerControlled(PlayerControllerManager pcManager, float deltaTime) {
+		pcManager.update(deltaTime);
+	}
 }

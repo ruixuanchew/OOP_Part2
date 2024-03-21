@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class EarthScene extends BasePlanetScene{
 	private Entity flag;
 	private boolean showDialogFlag = true;
 	private boolean dialogOpen = false;
-	
+
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
 		super(sceneManager, entityManager, entityFactory, pcManager, cManager, aiManager);
@@ -76,12 +78,14 @@ public class EarthScene extends BasePlanetScene{
 	public void render(float delta) {
 	    super.render(delta);
 
+	    entityManager.movePlayerControlled(pcManager, delta);
+	    
 		// call render method from MapManager to render the current map
 		mapManager.getRenderer().setView(mapManager.getCamera());
 		mapManager.getRenderer().render();
 		// Check collision with building
 		cManager.checkCollisionWithObject((Player) player, mapManager);
-	    
+
 	    SpriteBatch batch = new SpriteBatch();
 	    
 	    String text = "Earth";

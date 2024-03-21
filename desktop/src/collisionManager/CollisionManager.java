@@ -135,7 +135,7 @@ public class CollisionManager {
 					player.setPosY(playerBottom + topOverlap);
 					player.getVelocity().y *= 0.2f;
 					// reset jump if player hits the ground to allow player to jump again
-					playerControllerManager.resetJump();
+					// playerControllerManager.resetJump();
 				}
 			}
 		}

@@ -71,7 +71,7 @@ public class Object implements Entity {
 	
 	@Override 
 	public void resetEntities() {
-		
+
 	}
 	
 	@Override 

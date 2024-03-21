@@ -61,7 +61,8 @@ public abstract class BasePlanetScene extends BaseScene {
 	}
 	protected void updatePlayerPosition(float deltaTime) {
 		// Update player's position based on input or other logic
-	    pcManager.update(Gdx.graphics.getDeltaTime());
+	    // pcManager.update(Gdx.graphics.getDeltaTime());
+		entityManager.movePlayerControlled(pcManager, deltaTime);
 
 	 // Check if the player has moved beyond the screen width
 	    if (player.getPosX() > Gdx.graphics.getWidth()) {

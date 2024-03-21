@@ -40,14 +40,14 @@ public class GameMaster extends Game {
         // Initialize the EntityManager
         ef = new EntityFactory();
 
-        // Initialize the PlayerControllerManager
-        pcManager = new PlayerControllerManager(entityManager);
-
         // Initialize the AIControlManager
         aiManager = new AIControlManager(entityManager);
 
         // Initialize the SceneManager
         sceneManager = new SceneManager(this);
+        
+        // Initialize the PlayerControllerManager
+        pcManager = new PlayerControllerManager(entityManager, sceneManager);
         
         // Initialize the CollisionManager
         cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager);

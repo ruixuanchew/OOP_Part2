@@ -14,12 +14,13 @@ public class MapManager {
     private TiledMap map;
     private MapLayer objectLayer;
     private MapLayer lavaLayer;
-    private OrthogonalTiledMapRenderer renderer;
+    private OrthogonalTiledMapRenderer renderer; // renders map to the screen
 
     public MapManager() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+
     }
 
     public void loadMap(String mapFilePath) {

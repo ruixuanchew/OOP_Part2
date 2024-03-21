@@ -1,13 +1,11 @@
 package playerControllerManager;
-
-import collisionManager.CollisionManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 
 import entityManager.Entity;
 import entityManager.Player;
 import entityManager.EntityManager;
 import inputOutputManager.InputHandler;
+import sceneManager.*;
 
 /**
  * The `PlayerControllerManager` class manages the input and movement of player
@@ -18,22 +16,23 @@ import inputOutputManager.InputHandler;
  * they fall below the ground level.
  */
 
-public class PlayerControllerManager {
+public class PlayerControllerManager{
 	private InputHandler inputHandler;
 	private EntityManager entities;
+	private Movement playerMovement;
+	private Jump playerJump;
+	private SceneManager sceneManager;
+//	private final float GROUND_LEVEL = -25;
+//	private boolean canJump = true;
 
-	private final float GROUND_LEVEL = -25;
-	private int screenWidth = Gdx.graphics.getWidth();
 
-	private boolean canJump = true;
-	private final float GRAVITY = -150f; // The acceleration due to gravity (in m/s^2)
-	private static final float JUMP_VELOCITY = 180.01f; // JUMP_VELOCITY = sqrt(-2 * GRAVITY * JUMP_HEIGHT) = 160.01f
-
-	public PlayerControllerManager(EntityManager em) {
+	public PlayerControllerManager(EntityManager em, SceneManager sceneManager) {
 		this.entities = em; // Initialize the entity variable
 		this.inputHandler = new InputHandler(); // Initialize the variable to take in user input
+		playerMovement = new Movement(this); // Initialize the movement variable
+		playerJump = new Jump(this); // Initialize the jump variable
+		this.sceneManager = sceneManager;
 	}
-
 	// to retrieve user input from methods
 	public InputHandler getMovement() {
 		return inputHandler;
@@ -51,95 +50,51 @@ public class PlayerControllerManager {
 	public void setEntities(EntityManager entities) {
 		this.entities = entities;
 	}
-	// Updates the velocity of the player entities based on the input from the
-	// keyboard.
-	public void move() {
-		for (Entity entity : getEntities().getEntityList()) {
-			if (entity instanceof Player) {
-				Player player = (Player) entity;
-				if (getMovement().LeftKey()) {
-
-					player.getVelocity().x = (-player.getSpeed());
-
-				} else if (getMovement().DownKey()) {
-
-					player.getVelocity().y = -player.getSpeed();
-
-				} else if (getMovement().UpKey()) {
-
-					player.getVelocity().y = player.getSpeed();
-
-				} else if (getMovement().RightKey()) {
-					player.getVelocity().x = player.getSpeed();
-				} else {
-
-					player.getVelocity().x = 0;
-					// entity.getVelocity().y = 0;
-				}
-			}
-		}
-	}
-
-	// Makes the player entities jump if the space key is pressed and they are
-	// allowed to jump.
-	public void jump() {
-		for (Entity entity : getEntities().getEntityList()) {
-			if (entity instanceof Player) {
-				Player player = (Player) entity;
-				if (getMovement().SpaceKey() && canJump) {
-					player.getVelocity().y += JUMP_VELOCITY; // adjust JUMP VELOCITY
-					canJump = false;
-				}
-			}
-
-		}
-	}
-
 	// Resets the jump flag, allowing the player to jump again
-	public void resetJump() {
-		canJump = true;
-	}
+//		public void resetJump() {
+//			canJump = true;
+//		}
 
-	// Applies gravity to the player entities, making them fall when they are not
-	// jumping.
-	public void applyGravity() {
-		for (Entity entity : getEntities().getEntityList()) {
-			if (entity instanceof Player) {
-				Player player = (Player) entity;
-				player.getVelocity().y += GRAVITY * Gdx.graphics.getDeltaTime();
-			}
-		}
-	}
 
 	public void update(float deltaTime) {
-		move();
-		jump();
-		applyGravity();
+		if (sceneManager == null) {
+	        Gdx.app.log("PlayerControllerManager", "SceneManager is null!");
+	        return;
+	    }
+		
+		BaseScene currentScene = sceneManager.getCurrentScene();
+		if (currentScene instanceof EarthScene) {
+			// Update the player's velocity based on the input from the keyboard
+			playerMovement.moveLeft();
+			playerMovement.moveRight();
+			playerJump.jump();
+			playerJump.applyGravity();
 
+		} else if (currentScene instanceof VenusScene || currentScene instanceof MercuryScene || currentScene instanceof AsteroidScene) {
+			// Update the player's velocity based on the input from the keyboard
+			playerMovement.moveLeft();
+			playerMovement.moveRight();
+			playerMovement.moveUp();
+			playerMovement.moveDown();
+		}
 
 		// Check if the player is on the ground
 		for (Entity entity : getEntities().getEntityList()) {
 			if (entity instanceof Player) {
 
 				Player player = (Player) entity;
-				
+
 				player.setPosX(player.getPosX() + player.getVelocity().x * deltaTime);
 				player.setPosY(player.getPosY() + player.getVelocity().y * deltaTime);
 
-				// Check if the entity is at the left edge of the screen
-				if (player.getPosX() <= 1) {
-					player.getVelocity().x = 0; // Stop movement
-					player.setPosX(0); // Reset position to the edge
+				if (player.getVelocity().y < 0) {
+					//player.setPosY(GROUND_LEVEL);
+					// player.setVelocity(new Vector2(player.getVelocity().x, 0));
+					playerJump.resetJump();
+					System.out.println("Player is on the ground!");
 				}
-				if (player.getPosX() >= screenWidth - player.getWidth()) {
-					player.getVelocity().x = 0; // Stop movement
-				}
-
-				if (player.getPosY() <= GROUND_LEVEL) {
-					player.setPosY(GROUND_LEVEL);
-					player.setVelocity(new Vector2(player.getVelocity().x, 0));
-					resetJump();
-				}
+				// Print the player's velocity
+				System.out.println("Player's velocity: " + player.getVelocity());
 
 			}
 
@@ -148,6 +103,7 @@ public class PlayerControllerManager {
 	}
 
 	public void dispose() {
-}
+
+	}
 
 }
