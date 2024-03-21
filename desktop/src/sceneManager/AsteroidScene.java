@@ -86,7 +86,7 @@ public class AsteroidScene extends BasePlanetScene{
 		  super.addText(text, batch, Color.WHITE);
 		  super.spaceRender(batch);
 		  // call UI Manager method to display player health on screen
-		  uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.WHITE);
+		  uiManager.displayHealth(batch, ((Player) player).getHealth());
 		  batch.end();
 	  }
 	@Override

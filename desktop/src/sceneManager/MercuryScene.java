@@ -77,7 +77,7 @@ public class MercuryScene extends BasePlanetScene {
 	    super.planetRender(batch);
 	    super.addText(text, batch, Color.BLACK);
 		// call UI Manager method to display player health on screen
-		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
+		uiManager.displayHealth(batch, ((Player) player).getHealth());
 	    batch.end();
 
         if (showDialogFlag) {

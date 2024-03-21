@@ -42,7 +42,7 @@ public class EarthScene extends BasePlanetScene{
 	}
 	 private void initializeScene() {
 		// player entity
-		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 150);
+		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 100);
 		entityManager.add(player); // add player entity to the entity list
 		 /* set player in SceneManager to this created player entity. This allows other
 		 scenes to retrieve this particular player entity using getPlayer */
@@ -90,7 +90,7 @@ public class EarthScene extends BasePlanetScene{
 	    super.addText(text, batch, Color.BLACK);
 	    super.planetRender(batch);
 		// call UI Manager method to display player health on screen
-		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
+		uiManager.displayHealth(batch, ((Player) player).getHealth());
 	    batch.end();
 
 	    if (showDialogFlag) {

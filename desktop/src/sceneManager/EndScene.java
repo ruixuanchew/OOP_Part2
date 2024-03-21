@@ -2,22 +2,30 @@ package sceneManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import simulationLifecycleManager.SimulationLifecycleManager;
 
 public class EndScene extends BaseScene {
     private SimulationLifecycleManager slManager;
+    private Texture backgroundImage;
+    private SpriteBatch batch;
 
     protected EndScene(SceneManager sceneManager, SimulationLifecycleManager slManager) {
         super(sceneManager);
         this.slManager = slManager;
+        batch = new SpriteBatch();
         
         initializeScene();
 
     }
     private void initializeScene() {
+        // Load the end scene background image
+        backgroundImage = new Texture(Gdx.files.internal("endscene.png"));
+
     	 // Define the button actions in a list
         Runnable[] buttonActions = {
             () -> this.slManager.endGame(),
@@ -46,6 +54,18 @@ public class EndScene extends BaseScene {
     @Override
     protected Color getBackgroundColor() {
         return new Color(0.8f, 0, 0, 1);
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+
+        // Draw the end scene background image
+        batch.begin();
+        batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
+        stage.draw();
     }
 
     // Method to calculate the maximum width

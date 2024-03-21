@@ -15,16 +15,33 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import inputOutputManager.InputHandler;
+import java.util.Map;
+import java.util.HashMap;
 
 public class UIManager {
 	private Stage stage;
 	private InputHandler inputHandler;
 	private BaseScene baseScene;
+    private Map<Integer, Texture> healthTextures;
+
 
     public UIManager(Stage stage, BaseScene baseScene) {
         this.stage = stage;
         inputHandler = new InputHandler();
         this.baseScene = baseScene;
+
+        // hash map to store health textures with player health as the key to retrieve textures
+        healthTextures = new HashMap<>();
+        healthTextures.put(100, new Texture("100health.png"));
+        healthTextures.put(90, new Texture("90health.png"));
+        healthTextures.put(80, new Texture("80health.png"));
+        healthTextures.put(70, new Texture("70health.png"));
+        healthTextures.put(60, new Texture("60health.png"));
+        healthTextures.put(50, new Texture("50health.png"));
+        healthTextures.put(40, new Texture("40health.png"));
+        healthTextures.put(30, new Texture("30health.png"));
+        healthTextures.put(20, new Texture("20health.png"));
+        healthTextures.put(10, new Texture("10health.png"));
     }
 
     public void addButton(String text, float x, float y, Runnable action) {
@@ -128,11 +145,11 @@ public class UIManager {
          return layout.width;
     }
 
-    // display health of player
-    public void displayHealth(SpriteBatch batch, int health, Color color) {
-        BitmapFont font = new BitmapFont();
-        font.setColor(color);
-        String healthText = "Health: " + health;
-        font.draw(batch, healthText, 20, Gdx.graphics.getHeight() - 10);
+    // get health texture from the hash map and display it on screen according to the player's health
+    public void displayHealth(SpriteBatch batch, int health) {
+        Texture healthTexture = healthTextures.get(health);
+        if (healthTexture != null) {
+            batch.draw(healthTexture, 10, Gdx.graphics.getHeight() - 35, 110, 30);
+        }
     }
 }

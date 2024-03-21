@@ -87,7 +87,7 @@ public class VenusScene extends BasePlanetScene{
 	    batch.begin();
 	    super.addText(text, batch, Color.BLACK);
 		// call UI Manager method to display player health on screen
-		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
+		uiManager.displayHealth(batch, ((Player) player).getHealth());
 	    planetRender(batch);
 	    batch.end();
 

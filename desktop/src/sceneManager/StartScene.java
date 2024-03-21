@@ -1,16 +1,24 @@
 package sceneManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class StartScene extends BaseScene {
+    private Texture backgroundImage;
+    private SpriteBatch batch;
     protected StartScene(SceneManager sceneManager) {
         super(sceneManager);
+        batch = new SpriteBatch();
         initializeScene();
     }
     
     private void initializeScene() {
+        // Load the start scene background image
+        backgroundImage = new Texture(Gdx.files.internal("startscene.png"));
+
     	// Set the button text
         String buttonText = "Start";
 
@@ -27,11 +35,23 @@ public class StartScene extends BaseScene {
         // Add the button
         addButton(buttonText, x, y, () -> sceneManager.showEarthScene());
 	  }
-    
+
     // Override abstract method in BaseScene.java
     @Override
     protected Color getBackgroundColor() {
-        return new Color(0.2f, 0.6f, 0, 1);
+        return new Color(0, 0, 0, 0);
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+
+        // Draw the start scene background image
+        batch.begin();
+        batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
+        stage.draw();
     }
 
     // Method to calculate the width of the text
