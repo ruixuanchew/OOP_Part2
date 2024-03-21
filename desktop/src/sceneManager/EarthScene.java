@@ -36,14 +36,17 @@ public class EarthScene extends BasePlanetScene{
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("Earth.tmx");
+		mapManager.loadMap("Earth.tmx"); // load Earth map from Tiled
 
         initializeScene();
 	}
 	 private void initializeScene() {
 		// player entity
-		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 10000);
-		entityManager.add(player);
+		player = entityFactory.createEntity("astronaut.png", 0, 0, 200, false, new Vector2(0, 0), "player", 150);
+		entityManager.add(player); // add player entity to the entity list
+		 /* set player in SceneManager to this created player entity. This allows other
+		 scenes to retrieve this particular player entity using getPlayer */
+		sceneManager.setPlayer(player);
 		
 		// flag entity
 		flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
@@ -86,8 +89,10 @@ public class EarthScene extends BasePlanetScene{
 	    batch.begin();
 	    super.addText(text, batch, Color.BLACK);
 	    super.planetRender(batch);
-	    
+		// call UI Manager method to display player health on screen
+		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
 	    batch.end();
+
 	    if (showDialogFlag) {
             showDialog();
             showDialogFlag = false;

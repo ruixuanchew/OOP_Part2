@@ -69,9 +69,10 @@ public class CollisionManager {
 			entityManager.remove(entity); //in the midst of fixing
 			Player playerObject = (Player) player; //downcast player to player tag to access function
 			playerObject.takeDamage();
-			
+			ioManager.playSoundEffect();
+
 			//swap to end scene if player hp = 0
-			if (playerObject.getHealth() == 0) {
+			if (playerObject.getHealth() <= 0) {
 				sceneManager.showEndScene();
 			}
 		}
@@ -94,6 +95,7 @@ public class CollisionManager {
 		}
 	}
 
+	// for checking collision with TiledMap object layers
 	public void checkCollisionWithObject(Player player, MapManager mapManager) {
 		for (RectangleMapObject rectangleObject : mapManager.getObject().getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
@@ -132,6 +134,7 @@ public class CollisionManager {
 				} else if (minOverlap == topOverlap) {
 					player.setPosY(playerBottom + topOverlap);
 					player.getVelocity().y *= 0.2f;
+					// reset jump if player hits the ground to allow player to jump again
 					playerControllerManager.resetJump();
 				}
 			}
@@ -143,7 +146,14 @@ public class CollisionManager {
 				// if player collides with lava, reset player's position to the start of the map
 				player.setPosX(0);
 				player.setPosY(0);
-				ioManager.playSoundEffect();
+				ioManager.playSoundEffect(); // sound effect for collision
+				Player playerObject = (Player) player; //downcast player to player tag to access function
+				playerObject.takeDamage(); // player takes damage from collision
+
+				//swap to end scene if player hp = 0
+				if (playerObject.getHealth() <= 0) {
+					sceneManager.showEndScene();
+				}
 			}
 		}
 	}

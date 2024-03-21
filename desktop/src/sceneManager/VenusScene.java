@@ -15,6 +15,7 @@ import collisionManager.CollisionManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
 import entityManager.EntityFactory;
+import entityManager.Player;
 import playerControllerManager.PlayerControllerManager;
 
 public class VenusScene extends BasePlanetScene{
@@ -22,6 +23,7 @@ public class VenusScene extends BasePlanetScene{
 	private Random random;
 	private boolean showDialogFlag = true;
 	private Entity flag;
+	private Entity player;
     private boolean fireballRendered = false; // boolean to check if fireballs are rendered
 
 	public VenusScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
@@ -30,7 +32,8 @@ public class VenusScene extends BasePlanetScene{
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("Venus.tmx");
+		mapManager.loadMap("Venus.tmx"); // load Venus map from Tiled
+		player = sceneManager.getPlayer(); // retrieve Player from SceneManager
        
         initializeScene();
 	}
@@ -83,9 +86,11 @@ public class VenusScene extends BasePlanetScene{
 	    
 	    batch.begin();
 	    super.addText(text, batch, Color.BLACK);
+		// call UI Manager method to display player health on screen
+		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
 	    planetRender(batch);
-
 	    batch.end();
+
 	    if (showDialogFlag) {
             showDialog();
             showDialogFlag = false;

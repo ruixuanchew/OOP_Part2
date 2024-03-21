@@ -85,9 +85,10 @@ public class Player implements Entity {
 	public int getHealth() {
 		return health;
 	}
-	
+
+	// player loses 10 health every time they take damag
 	public void takeDamage() {
-		health--;
+		health-=10;
 	}
 
 	public Rectangle getBoundingRectangle() {

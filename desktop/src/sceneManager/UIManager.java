@@ -127,5 +127,12 @@ public class UIManager {
          GlyphLayout layout = new GlyphLayout(font, text);
          return layout.width;
     }
-    
+
+    // display health of player
+    public void displayHealth(SpriteBatch batch, int health, Color color) {
+        BitmapFont font = new BitmapFont();
+        font.setColor(color);
+        String healthText = "Health: " + health;
+        font.draw(batch, healthText, 20, Gdx.graphics.getHeight() - 10);
+    }
 }

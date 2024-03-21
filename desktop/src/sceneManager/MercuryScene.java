@@ -11,9 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import aiControlManager.AIControlManager;
 import collisionManager.CollisionManager;
-import entityManager.Entity;
-import entityManager.EntityManager;
-import entityManager.EntityFactory;
+import entityManager.*;
 import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
@@ -26,6 +24,7 @@ public class MercuryScene extends BasePlanetScene {
 	private boolean showDialogFlag = true;
 	private boolean dialogOpen = false;
 	private Entity flag;
+	private Entity player;
 
     public MercuryScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -33,7 +32,8 @@ public class MercuryScene extends BasePlanetScene {
 
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("Mercury.tmx");
+		mapManager.loadMap("Mercury.tmx"); // load Mercury map from Tiled
+		player = sceneManager.getPlayer(); // retrieve Player from SceneManager
         
         initializeScene();
 	}
@@ -76,9 +76,10 @@ public class MercuryScene extends BasePlanetScene {
 	    
 	    super.planetRender(batch);
 	    super.addText(text, batch, Color.BLACK);
-	    
-
+		// call UI Manager method to display player health on screen
+		uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.BLACK);
 	    batch.end();
+
         if (showDialogFlag) {
             showDialog();
             showDialogFlag = false; // Prevent continuous showing of dialog

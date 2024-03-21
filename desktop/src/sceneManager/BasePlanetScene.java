@@ -27,7 +27,7 @@ public abstract class BasePlanetScene extends BaseScene {
     protected int screenSwitchCounter = 0;
     protected int currentScene = -1; // counter to know when to render scene
     protected boolean dialogOpen = true;
-    private UIManager uiManager;
+    protected UIManager uiManager;
 
     private Player player;
     

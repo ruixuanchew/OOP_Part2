@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 import aiControlManager.AIControlManager;
+import entityManager.Player;
 import playerControllerManager.PlayerControllerManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
@@ -23,6 +24,7 @@ public class AsteroidScene extends BasePlanetScene{
 	private MapManager mapManager;
 	private int screenSwitchCounter = 0;
 	private Random random;
+	private Entity player;
 
 	public AsteroidScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager ) {
@@ -30,7 +32,8 @@ public class AsteroidScene extends BasePlanetScene{
 		
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
-		mapManager.loadMap("space.tmx");
+		mapManager.loadMap("space.tmx"); // load Space map from Tiled
+		player = sceneManager.getPlayer(); // retrieve Player from SceneManager
 
         initializeScene();
 	}
@@ -76,13 +79,15 @@ public class AsteroidScene extends BasePlanetScene{
 		  mapManager.getRenderer().setView(mapManager.getCamera());
 		  mapManager.getRenderer().render();
 
-	        SpriteBatch batch = new SpriteBatch();
-	        String text = "Space";
+		  SpriteBatch batch = new SpriteBatch();
+		  String text = "Space";
 
-	        batch.begin();
-		    super.addText(text, batch, Color.WHITE);
-		    super.spaceRender(batch);
-		    batch.end();
+		  batch.begin();
+		  super.addText(text, batch, Color.WHITE);
+		  super.spaceRender(batch);
+		  // call UI Manager method to display player health on screen
+		  uiManager.displayHealth(batch, ((Player) player).getHealth(), Color.WHITE);
+		  batch.end();
 	  }
 	@Override
 	protected void showDialog() {

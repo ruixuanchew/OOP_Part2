@@ -2,6 +2,7 @@ package sceneManager;
 
 import com.badlogic.gdx.Game;
 
+import entityManager.Entity;
 import entityManager.EntityFactory;
 import entityManager.EntityManager;
 import aiControlManager.AIControlManager;
@@ -22,6 +23,7 @@ public class SceneManager {
     private boolean sceneSwitching;
     private InputOutputManager ioManager;
     private UIManager uiManager;
+    private Entity player;
 
     public SceneManager(Game game) {
         this.game = game;
@@ -32,11 +34,11 @@ public class SceneManager {
     		AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
         this.ioManager = ioManager;
         startScene = new StartScene(this);
-        endScene = new EndScene(this, slManager);
+        earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         asteroidScene = new AsteroidScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         venusScene = new VenusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        endScene = new EndScene(this, slManager);
     }
 
     public synchronized void showStartScene() {
@@ -46,6 +48,8 @@ public class SceneManager {
 
     public synchronized void showEndScene() {
         setCurrentScene(endScene);
+        ioManager.changeMusic("death.mp3");
+        ioManager.setVolume(0.5f);
     }
 
     public synchronized void showAsteroidScene() {
@@ -83,6 +87,15 @@ public class SceneManager {
             currentScene = scene;
             sceneSwitching = false;
         }
+    }
+
+    // make Player a global variable that all scenes can access
+    public void setPlayer(Entity player) {
+        this.player = player;
+    }
+
+    public Entity getPlayer() {
+        return this.player;
     }
 
     public synchronized void dispose() {
