@@ -1,5 +1,7 @@
 package sceneManager;
 
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 
 import entityManager.Entity;
@@ -74,6 +76,13 @@ public class SceneManager {
         setCurrentScene(earthScene);
         ioManager.changeMusic("city.mp3");
         ioManager.setVolume(0.08f);
+     // Reset the screenSwitchCounter to 0 for all instances of BasePlanetScene
+        for (BaseScene scene : List.of(earthScene, asteroidScene, mercuryScene, venusScene)) {
+            if (scene instanceof BasePlanetScene) {
+                BasePlanetScene planetScene = (BasePlanetScene) scene;
+                planetScene.setScreenSwitchCounter(0);
+            }
+        }
     }
 
     public synchronized BaseScene getCurrentScene() {
