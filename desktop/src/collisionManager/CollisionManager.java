@@ -26,7 +26,8 @@ public class CollisionManager {
 		this.entityManager = entityManager;
 		this.ioManager = ioManager;
 	}
-
+	
+	//function to check collision between player and entity
 	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
 		float playerX = player.getPosX();
 		float playerY = player.getPosY();
@@ -50,7 +51,8 @@ public class CollisionManager {
 		        handleCollision(player, entity);
 		    }
 	}
-
+	
+	//function to handle collision
 	private void handleCollision(Entity player, Entity entity) {
 		if (player.getPosX() > entity.getPosX()) {
 			player.setPosX(player.getPosX() + 5);
@@ -66,7 +68,7 @@ public class CollisionManager {
 		
 		// check if collided entity is an enemy
 		if (entity.getType().equals("asteroid") || entity.getType().equals("fireball")) {	
-			entityManager.remove(entity); //in the midst of fixing
+			entityManager.remove(entity); 
 			Player playerObject = (Player) player; //downcast player to player tag to access function
 			playerObject.takeDamage();
 			ioManager.playSoundEffect();
@@ -76,6 +78,7 @@ public class CollisionManager {
 				sceneManager.showEndScene();
 			}
 		}
+		//check if collided entity is flag, show end scene if venus else asteroid scene
 		if (entity.getType().equals("flag")) {
 			 BaseScene currentScene = sceneManager.getCurrentScene();
 		        if (currentScene instanceof VenusScene) {
@@ -85,10 +88,12 @@ public class CollisionManager {
 		        }
 		        player.setPosX(0);
 		}
+		//check if collided entity is mercury planet
 		if (entity.getType().equals("mercury")) {
 			sceneManager.showMercuryScene();
 			player.setPosX(0);
 		}
+		//check if collided entity is venus planet
 		if (entity.getType().equals("venus")) {
 			sceneManager.showVenusScene();
 			player.setPosX(0);
