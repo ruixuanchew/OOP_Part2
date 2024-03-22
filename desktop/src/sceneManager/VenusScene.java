@@ -38,8 +38,6 @@ public class VenusScene extends BasePlanetScene{
         initializeScene();
 	}
 	 private void initializeScene() {
-		// create flag entity
-		flag = entityFactory.createEntity("flag.png", 200, 20, false, "flag");
 		Random random = new Random();
 		
 		for (int i = 0; i < 5; i++) {
@@ -53,7 +51,7 @@ public class VenusScene extends BasePlanetScene{
 	    //entityManager.addCollidableEntity(this.entity);
 
 	    String buttonText = "End";
-	    addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
+	    addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
 	             () -> sceneManager.showEndScene());
 	 }
 
@@ -85,7 +83,7 @@ public class VenusScene extends BasePlanetScene{
 	    String text = "Venus";
 	    
 	    batch.begin();
-	    super.addText(text, batch, Color.BLACK);
+	    super.addText(text, batch, Color.WHITE);
 		// call UI Manager method to display player health on screen
 		uiManager.displayHealth(batch, ((Player) player).getHealth());
 	    planetRender(batch);
@@ -138,22 +136,4 @@ public class VenusScene extends BasePlanetScene{
 	        }
     	}
     }
-
-	@Override
-	public void show() {
-		super.show();
-		if (flag != null) {
-			entityManager.add(flag);
-			entityManager.addCollidableEntity(flag);
-		}
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		if (flag != null) {
-			entityManager.removeFlagEntity(flag);
-		}
-	}
-
 }

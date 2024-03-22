@@ -1,6 +1,8 @@
 package simulationLifecycleManager;
 
 import com.badlogic.gdx.Gdx;
+import entityManager.Entity;
+import entityManager.Player;
 import sceneManager.SceneManager;
 import entityManager.EntityManager;
 
@@ -38,6 +40,13 @@ public class SimulationLifecycleManager {
     }
 
     public void restartGame() {
+        Entity player = sceneManager.getPlayer();
+
+        if (player instanceof Player) {
+            Player playerEntity = (Player) player;
+            // Set the player's health to full when the game is restarted
+            playerEntity.setHealth(100);
+        }
         entityManager.resetEntities(); // reset entities to original position
         sceneManager.showEarthScene(); // revert back to game scene when restartGame is called
     }

@@ -87,6 +87,24 @@ public class PlayerControllerManager{
 				player.setPosX(player.getPosX() + player.getVelocity().x * deltaTime);
 				player.setPosY(player.getPosY() + player.getVelocity().y * deltaTime);
 
+				// Check if the entity is at the left edge of the screen
+				if (player.getPosX() <= 1) {
+					player.getVelocity().x = 0; // Stop movement
+					player.setPosX(0); // Reset position to the edge
+				}
+
+				// Check if the entity is at the top edge of the screen
+				if (player.getPosY() >= Gdx.graphics.getHeight() - player.getHeight()) {
+					player.getVelocity().y = 0; // Stop upward movement
+					player.setPosY(Gdx.graphics.getHeight() - player.getHeight()); // Reset position to the top edge
+				}
+
+				// Check if the entity is at the bottom edge of the screen
+				if (player.getPosY() <= 0) {
+					player.getVelocity().y = 0; // Stop downward movement
+					player.setPosY(0); // Reset position to the bottom edge
+				}
+
 				if (player.getVelocity().y < 0) {
 					//player.setPosY(GROUND_LEVEL);
 					// player.setVelocity(new Vector2(player.getVelocity().x, 0));

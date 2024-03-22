@@ -74,6 +74,7 @@ public class SceneManager {
 
     public synchronized void showEarthScene() {
         setCurrentScene(earthScene);
+        earthScene.loadFirstMap();
         ioManager.changeMusic("city.mp3");
         ioManager.setVolume(0.08f);
      // Reset the screenSwitchCounter to 0 for all instances of BasePlanetScene

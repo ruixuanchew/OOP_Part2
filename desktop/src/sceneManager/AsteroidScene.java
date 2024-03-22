@@ -62,7 +62,7 @@ public class AsteroidScene extends BasePlanetScene{
 		 }
 	        
 	        String buttonText = "End";
-	        addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
+	        addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
 	                () -> sceneManager.showEndScene());
 	  }
 

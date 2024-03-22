@@ -86,6 +86,10 @@ public class Player implements Entity {
 		return health;
 	}
 
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
 	// player loses 10 health every time they take damag
 	public void takeDamage() {
 		health-=10;

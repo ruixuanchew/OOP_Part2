@@ -5,14 +5,10 @@ import entityManager.Player;
 import entityManager.Entity;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
-import sceneManager.SceneManager;
-import sceneManager.VenusScene;
+import sceneManager.*;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
-
-import sceneManager.BaseScene;
-import sceneManager.MapManager;
 
 public class CollisionManager {
 	private SceneManager sceneManager;
@@ -102,6 +98,7 @@ public class CollisionManager {
 
 	// for checking collision with TiledMap object layers
 	public void checkCollisionWithObject(Player player, MapManager mapManager) {
+		// check if player collided with building object
 		for (RectangleMapObject rectangleObject : mapManager.getObject().getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
 
@@ -139,11 +136,10 @@ public class CollisionManager {
 				} else if (minOverlap == topOverlap) {
 					player.setPosY(playerBottom + topOverlap);
 					player.getVelocity().y *= 0.2f;
-					// reset jump if player hits the ground to allow player to jump again
-					// playerControllerManager.resetJump();
 				}
 			}
 		}
+		// check if player collided with lava
 		for (RectangleMapObject rectangleObject : mapManager.getLavaObject().getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
 
@@ -154,6 +150,18 @@ public class CollisionManager {
 				ioManager.playSoundEffect(); // sound effect for collision
 				Player playerObject = (Player) player; //downcast player to player tag to access function
 				playerObject.takeDamage(); // player takes damage from collision
+
+				// Reset to the start of Earth map if player collides with lava in the second map
+				BaseScene currentScene = sceneManager.getCurrentScene();
+				if (currentScene instanceof EarthScene) {
+					EarthScene earthScene = (EarthScene) currentScene;
+					if (earthScene.isSecondMapLoaded()) {
+						earthScene.loadFirstMap();
+						player.setPosX(0);
+						player.setPosY(50);
+						earthScene.hide(); // hide the flag when player loads back to first map
+					}
+				}
 
 				//swap to end scene if player hp = 0
 				if (playerObject.getHealth() <= 0) {

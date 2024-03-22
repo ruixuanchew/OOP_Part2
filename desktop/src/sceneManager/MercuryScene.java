@@ -38,11 +38,9 @@ public class MercuryScene extends BasePlanetScene {
         initializeScene();
 	}
 	 private void initializeScene() {
-		 // flag entity
-		 flag = entityFactory.createEntity("flag.png", 200, 350, false, "flag");
 
 		 String buttonText = "End";
-		 addButton(buttonText, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50,
+		 addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
 				 () -> sceneManager.showEndScene());
 	  }
 
@@ -86,30 +84,5 @@ public class MercuryScene extends BasePlanetScene {
         }
         
 	    renderStages();
-	}
-
-	@Override
-	public void show() {
-		super.show();
-		List<Entity> entitiesToAdd = new ArrayList<>();
-		if (flag != null) {
-			entitiesToAdd.add(flag);
-		}
-		for (Entity entity : entitiesToAdd) {
-			entityManager.add(entity);
-			entityManager.addCollidableEntity(entity);
-		}
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		List<Entity> entitiesToRemove = new ArrayList<>();
-		if (flag != null) {
-			entityManager.removeFlagEntity(flag);
-		}
-		for (Entity entity : entitiesToRemove) {
-			entityManager.remove(entity);
-		}
 	}
 }
