@@ -117,10 +117,10 @@ public class VenusScene extends BasePlanetScene{
 	        		if (!fireballRendered) {
 	        			e.setVisible(true); // set visibility to true if fireballs are not rendered yet
 	   		         e.draw(batch);
-	   		         aiManager.moveAIControlled();
+	   		      entityManager.moveAIDown(aiManager);//Calling Movement from EntityManager, logic from AIManager
 	        		} else {
 	        			if (e.getVisible()) {
-	        				aiManager.moveAIControlled();
+	        				entityManager.moveAIDown(aiManager);//Calling Movement from EntityManager, logic from AIManager
 	        				e.draw(batch);
 	        			}
 	        		}

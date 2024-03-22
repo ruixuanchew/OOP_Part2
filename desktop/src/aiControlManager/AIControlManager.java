@@ -8,25 +8,21 @@ import entityManager.EntityManager;
 
 public class AIControlManager {
     private EntityManager entityManager;
-	private int screenWidth = Gdx.graphics.getWidth();
+    private AIMovement AIMovement;
+
 	
     public AIControlManager(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.AIMovement = new AIMovement(entityManager); //instantiate AIMovement
     }
 
-    public void moveAIControlled() {
-        for (Entity e : entityManager.getEntityList()) {
-            if (e instanceof Enemy) {
-            	
-            	Enemy entity = (Enemy) e;
-
-            	float deltaX = entity.getSpeed();
-	            
-	            entity.setPosX(entity.getPosX() + deltaX);
-	            if (entity.getPosX() <= 0 || entity.getPosX() >= screenWidth - entity.getWidth()) {
-	    			entity.setSpeed(-(int)entity.getSpeed());
-	            }
-	        }
-        }
+    public void moveEntitiesDiagonal() {
+        AIMovement.AIMoveDown(); // Move entities down
+        AIMovement.AIMoveSide(); // Move entities side
     }
+
+    public void moveEntitiesDown() {
+    	AIMovement.AIMoveDown(); // Move entities down
+    }
+    
 }

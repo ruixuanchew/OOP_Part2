@@ -98,12 +98,12 @@ public abstract class BasePlanetScene extends BaseScene {
 	        	// check if current scene is the same as switch counter
 	        	if (currentScene != screenSwitchCounter) {
 	        		// To make asteroid AI controlled
-		        	aiManager.moveAIControlled();
+	        		entityManager.moveAIDiagonal(aiManager);
 		        	e.setVisible(true);
 	                e.draw(batch);
 	        	} else {
 	        	if (e.getVisible()) {
-	        		aiManager.moveAIControlled();
+	        		entityManager.moveAIDiagonal(aiManager);
 	        		e.draw(batch);
 	        		}
 	        	}

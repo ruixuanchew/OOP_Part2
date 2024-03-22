@@ -11,7 +11,6 @@ import playerControllerManager.PlayerControllerManager;
 public class EntityManager {
 	private List<Entity> entityList;
 	private List<Entity> collidableEntityList;
-	private AIControlManager aiControlManager;
 	
 	public EntityManager() {
 		entityList = new ArrayList<>();
@@ -65,9 +64,14 @@ public class EntityManager {
 		this.collidableEntityList.add(entity);
 	}
 	
-	public void moveAIControlled(AIControlManager aiControlManager) {
-        aiControlManager.moveAIControlled();
+	public void moveAIDiagonal(AIControlManager aiControlManager) {
+        aiControlManager.moveEntitiesDiagonal();
     }
+	
+	public void moveAIDown(AIControlManager aiControlManager) {
+        aiControlManager.moveEntitiesDown();
+    }
+	
 	public void movePlayerControlled(PlayerControllerManager pcManager, float deltaTime) {
 		pcManager.update(deltaTime);
 	}
