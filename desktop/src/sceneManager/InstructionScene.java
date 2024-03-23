@@ -60,8 +60,9 @@ public class InstructionScene extends BaseScene {
         String text = "Instructions:\n "
         		+ "\n1. Avoid obstacles and maneuver through tough terrain!\n"
         		+ "\n2. Find the planets when travelling through space and go into them!\n"
-        		+ "\n2. Reach the flag or rocket to go to the next scene!\n"
-        		+ "\n3. Win the game by completing the venus harsh obstacles!";
+        		+ "\n3. Reach the flag or rocket to go to the next scene!\n"
+        		+ "\n4. Win the game by completing the venus harsh obstacles!\n"
+        		+ "\n5. Controls: Arrow Keys, Jump: spacebar";
         // Call addText from super class
 		super.addText(text, batch, Color.WHITE);
        
