@@ -85,15 +85,15 @@ public class CollisionManager implements CollisionInterface {
 		        if (currentScene instanceof VenusScene) {
 		            sceneManager.showEndScene();
 		        }
-				if (currentScene instanceof EarthScene) {
-				sceneManager.showEarthScene2(); // Go to EarthScene2
-				player.setPosX(20);
-				player.setPosY(150);
-				}
 				else {
 		            sceneManager.showAsteroidScene();
 					player.setPosX(0);
 		        }
+				if (currentScene instanceof EarthScene) {
+					sceneManager.showEarthScene2(); // Go to EarthScene2
+					player.setPosX(20);
+					player.setPosY(150);
+			}
 		}
 		//check if collided entity is mercury planet
 		if (entity.getType().equals("mercury")) {
