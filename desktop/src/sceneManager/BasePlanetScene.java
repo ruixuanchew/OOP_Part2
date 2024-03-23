@@ -92,7 +92,8 @@ public abstract class BasePlanetScene extends BaseScene {
 	            else if(screenSwitchCounter == 4 && e.getType().equals("venus")) {
 	            	e.setVisible(true);
 	                e.draw(batch);
-	                pcManager.setEndPlayerPosition();
+	                // pcManager.setEndPlayerPosition();
+					player.setEndPlayerPosition();
 	            }
 	        }
 	        else if(e.getType().equals("asteroid")){

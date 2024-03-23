@@ -24,16 +24,17 @@ public class InputHandler { // check if certain keys are being pressed by the us
 
     public boolean SpaceKey() {
         return Gdx.input.isKeyJustPressed(Keys.SPACE);
-    	//return Gdx.input.isKeyPressed(Keys.SPACE);
+    	// return Gdx.input.isKeyPressed(Keys.SPACE);
     }
-    
+
     public boolean UpKey() {
         return Gdx.input.isKeyPressed(Keys.UP);
     }
-    
+
     public boolean DownKey() {
         return Gdx.input.isKeyPressed(Keys.DOWN);
     }
+
 
     // Handle buttons from sceneManager
     public void handleButtonEvents(TextButton button, Runnable onClick) {

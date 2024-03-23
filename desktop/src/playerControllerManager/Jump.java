@@ -1,6 +1,7 @@
 package playerControllerManager;
 
 import com.badlogic.gdx.Gdx;
+
 import entityManager.Entity;
 import entityManager.Player;
 
@@ -48,6 +49,8 @@ public class Jump implements PlayerBehavior{
                     player.getVelocity().y += JUMP_VELOCITY; // adjust JUMP VELOCITY
                     canJump = false;
                 }
+                // System.out.println("The velocity of the player is: " + player.getVelocity().y);
+
             }
         }
     }
@@ -58,11 +61,21 @@ public class Jump implements PlayerBehavior{
             if (entity instanceof Player) {
                 Player player = (Player) entity;
                 player.getVelocity().y += GRAVITY * Gdx.graphics.getDeltaTime();
+                //player.getVelocity().y += GRAVITY * deltaTime;
 //                if (canJump) {
 //                    player.getVelocity().y += GRAVITY * Gdx.graphics.getDeltaTime();
 //                } else {
 //                    player.getVelocity().y = 0;
 //                }
+
+                // reset jump
+                if (player.getVelocity().y < 0) {
+                    //player.setPosY(GROUND_LEVEL);
+                    //player.setVelocity(new Vector2(player.getVelocity().x, 0));
+                    // System.out.println("Player is on the ground!");
+                    resetJump();
+                    //System.out.println("Player is on the ground!");
+                }
             }
         }
     }

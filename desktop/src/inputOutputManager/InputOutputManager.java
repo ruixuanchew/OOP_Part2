@@ -19,7 +19,7 @@ public class InputOutputManager {
         inputHandler = new InputHandler();
     }
 
-    /*public SoundPlayer getBgMusic() {
+    /* public SoundPlayer getBgMusic() {
         return bgMusic;
     }
 

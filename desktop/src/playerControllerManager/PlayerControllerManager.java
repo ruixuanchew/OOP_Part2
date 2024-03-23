@@ -22,7 +22,7 @@ public class PlayerControllerManager{
 	private Movement playerMovement;
 	private Jump playerJump;
 	private SceneManager sceneManager;
-	private int screenWidth = Gdx.graphics.getWidth();
+	// private int screenWidth = Gdx.graphics.getWidth();
 //	private final float GROUND_LEVEL = -25;
 //	private boolean canJump = true;
 
@@ -60,9 +60,9 @@ public class PlayerControllerManager{
 	public void update(float deltaTime) {
 
 		if (sceneManager == null) {
-	        Gdx.app.log("PlayerControllerManager", "SceneManager is null!");
-	        return;
-	    }
+			Gdx.app.log("PlayerControllerManager", "SceneManager is null!");
+			return;
+		}
 
 		BaseScene currentScene = sceneManager.getCurrentScene();
 		if (currentScene instanceof EarthScene || currentScene instanceof EarthScene2) {
@@ -79,61 +79,68 @@ public class PlayerControllerManager{
 			playerMovement.moveUp();
 			playerMovement.moveDown();
 		}
-
+		for (Entity entity : getEntities().getEntityList()) {
+			if (entity instanceof Player) {
+				Player player = (Player) entity;
+				player.updatePosition(deltaTime);
+			}
+		}
+	}
 		// Check if the player is on the ground
-		for (Entity entity : getEntities().getEntityList()) {
-			if (entity instanceof Player) {
-
-				Player player = (Player) entity;
-
-				player.setPosX(player.getPosX() + player.getVelocity().x * deltaTime);
-				player.setPosY(player.getPosY() + player.getVelocity().y * deltaTime);
-
-				// Check if the entity is at the left edge of the screen
-				if (player.getPosX() <= 1) {
-					player.getVelocity().x = 0; // Stop movement
-					player.setPosX(0); // Reset position to the edge
-				}
-
-				// Check if the entity is at the top edge of the screen
-				if (player.getPosY() >= Gdx.graphics.getHeight() - player.getHeight()) {
-					player.getVelocity().y = 0; // Stop upward movement
-					player.setPosY(Gdx.graphics.getHeight() - player.getHeight()); // Reset position to the top edge
-				}
-
-				// Check if the entity is at the bottom edge of the screen
-				if (player.getPosY() <= 0) {
-					player.getVelocity().y = 0; // Stop downward movement
-					player.setPosY(0); // Reset position to the bottom edge
-				}
-
-				if (player.getVelocity().y < 0) {
-					//player.setPosY(GROUND_LEVEL);
-					// player.setVelocity(new Vector2(player.getVelocity().x, 0));
-					playerJump.resetJump();
-					//System.out.println("Player is on the ground!");
-				}
-				// Print the player's velocity
-				//System.out.println("Player's velocity: " + player.getVelocity());
-
-			}
-
-		}
-
-	}
-	
-	public void setEndPlayerPosition() {
-		for (Entity entity : getEntities().getEntityList()) {
-			if (entity instanceof Player) {
-				Player player = (Player) entity;
-				if (player.getPosX() >= screenWidth - player.getWidth()) {
-					player.getVelocity().x = 0; // Stop movement
-					player.setPosX(screenWidth - player.getWidth()); // Reset position to the edge
-				}
-			}
-		}
-
-	}
+//		for (Entity entity : getEntities().getEntityList()) {
+//			if (entity instanceof Player) {
+//
+//				Player player = (Player) entity;
+//				player.updatePosition(deltaTime);
+//				//player.setPosX(player.getPosX() + player.getVelocity().x * deltaTime);
+//				//player.setPosY(player.getPosY() + player.getVelocity().y * deltaTime);
+//
+//				// Check if the entity is at the left edge of the screen
+//				if (player.getPosX() <= 1) {
+//					player.getVelocity().x = 0; // Stop movement
+//					player.setPosX(0); // Reset position to the edge
+//				}
+//
+//				// Check if the entity is at the top edge of the screen
+//				if (player.getPosY() >= Gdx.graphics.getHeight() - player.getHeight()) {
+//					player.getVelocity().y = 0; // Stop upward movement
+//					player.setPosY(Gdx.graphics.getHeight() - player.getHeight()); // Reset position to the top edge
+//				}
+//
+//				// Check if the entity is at the bottom edge of the screen
+//				if (player.getPosY() <= 0) {
+//					player.getVelocity().y = 0; // Stop downward movement
+//					player.setPosY(0); // Reset position to the bottom edge
+//				}
+//
+//				if (player.getVelocity().y < 0) {
+//					//player.setPosY(GROUND_LEVEL);
+//					// player.setVelocity(new Vector2(player.getVelocity().x, 0));
+//					playerJump.resetJump();
+//					//System.out.println("Player is on the ground!");
+//				}
+//
+//				// Print the player's velocity
+//				System.out.println("Player's velocity: " + player.getVelocity());
+//
+//			}
+//
+//		}
+//
+//	}
+//
+//	public void setEndPlayerPosition() {
+//		for (Entity entity : getEntities().getEntityList()) {
+//			if (entity instanceof Player) {
+//				Player player = (Player) entity;
+//				if (player.getPosX() >= screenWidth - player.getWidth()) {
+//					player.getVelocity().x = 0; // Stop movement
+//					player.setPosX(screenWidth - player.getWidth()); // Reset position to the edge
+//				}
+//			}
+//		}
+//
+//	}
 
 	public void dispose() {
 
