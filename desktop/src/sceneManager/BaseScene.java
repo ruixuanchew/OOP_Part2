@@ -38,7 +38,7 @@ public abstract class BaseScene extends ScreenAdapter {
     private CollisionManager cManager;
     private AIControlManager aiManager;
     private InputOutputManager ioManager;
-    private UIManager uiManager;
+    protected UIManager uiManager;
     private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
 
@@ -80,14 +80,17 @@ public abstract class BaseScene extends ScreenAdapter {
 
     // Abstract method for background color of scene
     protected abstract Color getBackgroundColor();
-    
-    // Add common button for different scenes
+
     protected float calculateTextWidth(String text, BitmapFont font) {
         return uiManager.calculateTextWidth(text, font);
     }
-    
+    // Add common button for different scenes
     protected void addButton(String text, float x, float y, Runnable action) {
         uiManager.addButton(text, x, y, action);
+    }
+    // Add common text for different scenes
+    protected void addText(String text, SpriteBatch batch2, Color white) {
+        uiManager.addText(text, batch2, white);
     }
   
     @Override

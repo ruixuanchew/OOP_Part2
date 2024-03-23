@@ -22,6 +22,7 @@ public class PlayerControllerManager{
 	private Movement playerMovement;
 	private Jump playerJump;
 	private SceneManager sceneManager;
+	private int screenWidth = Gdx.graphics.getWidth();
 //	private final float GROUND_LEVEL = -25;
 //	private boolean canJump = true;
 
@@ -116,6 +117,19 @@ public class PlayerControllerManager{
 
 			}
 
+		}
+
+	}
+	
+	public void setEndPlayerPosition() {
+		for (Entity entity : getEntities().getEntityList()) {
+			if (entity instanceof Player) {
+				Player player = (Player) entity;
+				if (player.getPosX() >= screenWidth - player.getWidth()) {
+					player.getVelocity().x = 0; // Stop movement
+					player.setPosX(screenWidth - player.getWidth()); // Reset position to the edge
+				}
+			}
 		}
 
 	}

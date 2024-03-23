@@ -61,16 +61,16 @@ public class EarthScene extends BasePlanetScene{
 
 	@Override
 	protected Color getBackgroundColor() {
-		// TODO Auto-generated method stub
 		return new Color(0, 0.5f, 0, 1);
 	}
 	protected void showDialog() {
+		// Dialog details
         Window.WindowStyle windowStyle = new Window.WindowStyle(); 
         BitmapFont font = new BitmapFont();
         windowStyle.titleFont = font; 
         windowStyle.titleFontColor = Color.WHITE; 
         
-        // Change this for trivia part
+        // Call showCustomDialog to set dialog scene
         showCustomDialog("", "Earth is our home planet and uniquely"
         		+ "\nsupports life due to water and protective atmosphere.", windowStyle);
     }

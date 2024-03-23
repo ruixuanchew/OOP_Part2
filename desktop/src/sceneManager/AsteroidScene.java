@@ -37,6 +37,7 @@ public class AsteroidScene extends BasePlanetScene{
 
         initializeScene();
 	}
+
 	 private void initializeScene() {
 		int x = MathUtils.random(100, 400);
 		int y = MathUtils.random(150, 300);
@@ -47,12 +48,14 @@ public class AsteroidScene extends BasePlanetScene{
 		    float posX = random.nextInt(Gdx.graphics.getWidth());
 		    float posY = random.nextInt(Gdx.graphics.getHeight());
 		    
+		    // Create entity for asteroids 
 			Entity enemy = entityFactory.createEntity("asteroids.png", posX, posY, 4, false, "asteroid");
 			entityManager.add(enemy);
 			entityManager.addCollidableEntity(enemy);
 		}
-	     
+	     // Store an array of planet names 
 		 String[] planetNames = {"mercury","venus"};
+		 // Dynamically add planets to entity list
 		 for(int i = 0; i < planetNames.length; i++) {
 			 String name = planetNames[i];
 			 String fileName = planetNames[i] + ".png";
@@ -60,8 +63,9 @@ public class AsteroidScene extends BasePlanetScene{
 			 entityManager.add(planet);
 			 entityManager.addCollidableEntity(planet);
 		 }
-	        
+	        // Button for user to end game 
 	        String buttonText = "End";
+	        // Calls addbutton and pass in text, x, y and runnable action
 	        addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
 	                () -> sceneManager.showEndScene());
 	  }
@@ -80,9 +84,10 @@ public class AsteroidScene extends BasePlanetScene{
 		  mapManager.getRenderer().render();
 
 		  SpriteBatch batch = new SpriteBatch();
-		  String text = "Space";
+		  String text = "Space"; // Set text of current scene
 
 		  batch.begin();
+		  // Call basePlanetScene functions
 		  super.addText(text, batch, Color.WHITE);
 		  super.spaceRender(batch);
 		  // call UI Manager method to display player health on screen

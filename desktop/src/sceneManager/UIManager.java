@@ -100,7 +100,7 @@ public class UIManager {
 
         return drawable; // Return back to addButton
     }
-    public void addText(String text, String text2, SpriteBatch batch, Color color) {
+    public void addText(String text, SpriteBatch batch, Color color) {
     	BitmapFont planetTxt = new BitmapFont();
     	planetTxt.setColor(color);
     	GlyphLayout layout = new GlyphLayout(planetTxt, text);

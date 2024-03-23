@@ -16,6 +16,7 @@ import simulationLifecycleManager.SimulationLifecycleManager;
 public class SceneManager {
     private Game game;
     private StartScene startScene;
+    private InstructionScene instructionScene;
     private EndScene endScene;
     private AsteroidScene asteroidScene;
     private MercuryScene mercuryScene;
@@ -36,6 +37,7 @@ public class SceneManager {
     		AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
         this.ioManager = ioManager;
         startScene = new StartScene(this);
+        instructionScene = new InstructionScene(this);
         earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         asteroidScene = new AsteroidScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
@@ -45,6 +47,10 @@ public class SceneManager {
 
     public synchronized void showStartScene() {
         setCurrentScene(startScene);
+        ioManager.setVolume(0.2f);
+    }
+    public synchronized void showInstructionScene() {
+        setCurrentScene(instructionScene);
         ioManager.setVolume(0.2f);
     }
 

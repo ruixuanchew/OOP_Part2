@@ -6,21 +6,26 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class StartScene extends BaseScene {
+public class InstructionScene extends BaseScene {
     private Texture backgroundImage;
     private SpriteBatch batch;
-    protected StartScene(SceneManager sceneManager) {
+	private MapManager mapManager;
+    protected InstructionScene(SceneManager sceneManager) {
         super(sceneManager);
         batch = new SpriteBatch();
         initializeScene();
+        
+        mapManager = new MapManager();
+		mapManager.loadMap("space.tmx");
     }
     
     private void initializeScene() {
+    	UIManager uiManager = new UIManager(null, null);
         // Load the start scene background image
         backgroundImage = new Texture(Gdx.files.internal("startscene.png"));
 
     	// Set the button text
-        String buttonText = "Start";
+        String buttonText = "GO!";
 
         // Get the button width and height
         float buttonWidth = calculateTextWidth(buttonText) + 40; // Adjust as needed
@@ -30,10 +35,10 @@ public class StartScene extends BaseScene {
         float x = (Gdx.graphics.getWidth() - buttonWidth) / 2;
 
         // Set the y-coordinate to position the button near the bottom of the screen
-        float y = Gdx.graphics.getHeight() / 2;
+        float y = 30;
 
         // Add the button
-        addButton(buttonText, x, y, () -> sceneManager.showInstructionScene());
+        addButton(buttonText, x, y, () -> sceneManager.showEarthScene());
 	  }
 
     // Override abstract method in BaseScene.java
@@ -45,13 +50,24 @@ public class StartScene extends BaseScene {
     @Override
     public void render(float delta) {
         super.render(delta);
-
+        
+        mapManager.getRenderer().setView(mapManager.getCamera());
+		mapManager.getRenderer().render();
+		
         // Draw the start scene background image
         batch.begin();
-        batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        // Set the instruction text here
+        String text = "Instructions:\n "
+        		+ "\n1. Avoid obstacles and maneuver through tough terrain!\n"
+        		+ "\n2. Find the planets when travelling through space and go into them!\n"
+        		+ "\n2. Reach the flag or rocket to go to the next scene!\n"
+        		+ "\n3. Win the game by completing the venus harsh obstacles!";
+        // Call addText from super class
+		super.addText(text, batch, Color.WHITE);
+       
         batch.end();
-
-        stage.draw();
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+	    stage.draw();
     }
 
     // Method to calculate the width of the text

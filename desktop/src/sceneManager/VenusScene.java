@@ -123,8 +123,6 @@ public class VenusScene extends BasePlanetScene{
 	        			}
 	        		}
 	        	}
-		       
-		        
 		        else {
 		        	e.setVisible(false);
 		        }

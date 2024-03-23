@@ -92,6 +92,7 @@ public abstract class BasePlanetScene extends BaseScene {
 	            else if(screenSwitchCounter == 4 && e.getType().equals("venus")) {
 	            	e.setVisible(true);
 	                e.draw(batch);
+	                pcManager.setEndPlayerPosition();
 	            }
 	        }
 	        else if(e.getType().equals("asteroid")){
@@ -131,11 +132,6 @@ public abstract class BasePlanetScene extends BaseScene {
 	            e.setVisible(true); // Ensure visibility is set to true before drawing
 	            e.draw(batch);
 	        }
-//	        else if(e.getType().equals("asteroid")) {
-//	        	 e.setVisible(true); // Ensure visibility is set to true before drawing
-//		         e.draw(batch);
-//		         aiManager.moveAIControlled();
-//	        }
 	        else {
 	            e.setVisible(false);
 	        }
@@ -160,7 +156,7 @@ public abstract class BasePlanetScene extends BaseScene {
         uiManager.addButton(text, x, y, action);
     }
     protected void addText(String text, SpriteBatch batch, Color color) {
-        uiManager.addText(text, text, batch, color);
+        uiManager.addText(text, batch, color);
     }
     protected int getScreenSwitchCounter() {
         return this.screenSwitchCounter;
