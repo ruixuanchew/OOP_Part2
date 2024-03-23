@@ -18,7 +18,7 @@ public class Movement implements PlayerBehavior {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
                 if (playerControllerManager.getMovement().LeftKey()) {
-                	System.out.println("Moving left!");
+                	//System.out.println("Moving left!");
                     player.getVelocity().x = -player.getSpeed();
                 }
                 else if (!playerControllerManager.getMovement().RightKey()) {
@@ -35,7 +35,7 @@ public class Movement implements PlayerBehavior {
                 if (playerControllerManager.getMovement().RightKey()) {
 
                     player.getVelocity().x = player.getSpeed();
-                    System.out.println("Moving right!");
+                    //System.out.println("Moving right!");
                 }
                 else if (!playerControllerManager.getMovement().LeftKey()) {
                     player.getVelocity().x = 0;

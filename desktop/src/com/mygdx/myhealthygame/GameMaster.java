@@ -37,7 +37,7 @@ public class GameMaster extends Game {
         // Initialize the EntityManager
         entityManager = new EntityManager();
 
-        // Initialize the EntityManager
+        // Initialize the EntityFactory
         ef = new EntityFactory();
 
         // Initialize the AIControlManager

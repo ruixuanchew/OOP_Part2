@@ -113,7 +113,7 @@ public class EarthScene extends BasePlanetScene{
 		mapManager.getRenderer().setView(mapManager.getCamera());
 		mapManager.getRenderer().render();
 		// Check collision with building
-		cManager.checkCollisionWithObject((Player) player, mapManager);
+		cManager.checkCollisionWithTiledMap((Player) player, mapManager);
 		switchMap(); // call map switching function when player exits bounds of first Earth map
 
 	    SpriteBatch batch = new SpriteBatch();

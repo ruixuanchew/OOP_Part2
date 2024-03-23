@@ -10,7 +10,7 @@ import sceneManager.*;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 
-public class CollisionManager {
+public class CollisionManager implements CollisionInterface {
 	private SceneManager sceneManager;
 	private PlayerControllerManager playerControllerManager;
 	private EntityManager entityManager;
@@ -24,7 +24,7 @@ public class CollisionManager {
 	}
 	
 	//function to check collision between player and entity
-	public void checkCollision(Entity player, Entity entity, SceneManager sceneManager) {
+	public void checkCollision(Entity player, Entity entity) {
 		float playerX = player.getPosX();
 		float playerY = player.getPosY();
 		float playerWidth = player.getWidth();
@@ -40,6 +40,7 @@ public class CollisionManager {
 		float distY = Math.abs(playerY - entityY);
 		double distance = Math.sqrt((distX * distX) + (distY * distY));
 		
+		//check if player and entity have an intersection point
 		if (playerX < entityX + entityWidth &&
 		        playerX + playerWidth > entityX &&
 		        playerY < entityY + entityHeight &&
@@ -50,13 +51,17 @@ public class CollisionManager {
 	
 	//function to handle collision
 	private void handleCollision(Entity player, Entity entity) {
+		//check x coordinate of player and entity, if player is to the right/more than entity, shift player to right
 		if (player.getPosX() > entity.getPosX()) {
 			player.setPosX(player.getPosX() + 5);
+		//check x coordinate of player and entity, if player is to the left/less than entity, shift player to left
 		} else if (player.getPosX() < entity.getPosX()) {
 			player.setPosX(player.getPosX() - 5);
 		}
+		//check y coordinate of player and entity, if player is to higher/more than entity, shift player up
 		if (player.getPosY() > entity.getPosY()) {
 			player.setPosY(player.getPosY() + 1);
+		//check y coordinate of player and entity, if player is to lower/lower than entity, shift player down
 		} else if (player.getPosY() < entity.getPosY()) {
 			player.setPosY(player.getPosY() - 1);
 		}
@@ -97,7 +102,7 @@ public class CollisionManager {
 	}
 
 	// for checking collision with TiledMap object layers
-	public void checkCollisionWithObject(Player player, MapManager mapManager) {
+	public void checkCollisionWithTiledMap(Player player, MapManager mapManager) {
 		// check if player collided with building object
 		for (RectangleMapObject rectangleObject : mapManager.getObject().getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();

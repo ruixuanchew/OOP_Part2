@@ -55,7 +55,7 @@ public abstract class BasePlanetScene extends BaseScene {
 		List<Entity> collidableEntityListCopy = new ArrayList<>(entityManager.getCollidableEntityList());
 		for (Entity e : collidableEntityListCopy) {
 			if (e.getVisible()) {
-				cManager.checkCollision(player, e, sceneManager);
+				cManager.checkCollision(player, e);
 			}
 		}
 	}

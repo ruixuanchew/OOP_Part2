@@ -110,10 +110,10 @@ public class PlayerControllerManager{
 					//player.setPosY(GROUND_LEVEL);
 					// player.setVelocity(new Vector2(player.getVelocity().x, 0));
 					playerJump.resetJump();
-					System.out.println("Player is on the ground!");
+					//System.out.println("Player is on the ground!");
 				}
 				// Print the player's velocity
-				System.out.println("Player's velocity: " + player.getVelocity());
+				//System.out.println("Player's velocity: " + player.getVelocity());
 
 			}
 
