@@ -46,6 +46,8 @@ public class SimulationLifecycleManager {
             Player playerEntity = (Player) player;
             // Set the player's health to full when the game is restarted
             playerEntity.setHealth(100);
+            player.setPosX(0);
+            player.setPosY(0);
         }
         entityManager.resetEntities(); // reset entities to original position
         sceneManager.showEarthScene(); // revert back to game scene when restartGame is called

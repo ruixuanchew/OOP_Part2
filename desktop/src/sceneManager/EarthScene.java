@@ -30,8 +30,6 @@ public class EarthScene extends BasePlanetScene{
 	private Entity player;
 	private Entity flag;
 	private boolean showDialogFlag = true;
-	private boolean dialogOpen = false;
-	private boolean isSecondMapLoaded = false;
 
 	public EarthScene(SceneManager sceneManager, EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager,
             CollisionManager cManager, AIControlManager aiManager) {
@@ -52,7 +50,9 @@ public class EarthScene extends BasePlanetScene{
 		sceneManager.setPlayer(player);
 
 		// flag entity
-		//flag = entityFactory.createEntity("flag.png", 600, 350, false, "flag");
+		flag = entityFactory.createEntity("flag.png", 570, 400, false, "flag");
+		entityManager.add(flag);
+		entityManager.addCollidableEntity(flag);
 
         String buttonText = "End";
         addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
@@ -74,34 +74,6 @@ public class EarthScene extends BasePlanetScene{
         showCustomDialog("", "Earth is our home planet and uniquely"
         		+ "\nsupports life due to water and protective atmosphere.", windowStyle);
     }
-
-	// check which Earth map player is on
-	public boolean isSecondMapLoaded() {
-		return isSecondMapLoaded;
-	}
-
-	// for player to load back into first map when colliding with lava in second map
-	public void loadFirstMap() {
-		mapManager.loadMap("Earth.tmx");
-		isSecondMapLoaded = false;
-	}
-
-	// switch to second Earth map when player exits first Earth map
-	public void switchMap() {
-		if (player.getPosX() > 620) {
-			// Load the second map if it's not already loaded
-			if (!isSecondMapLoaded) {
-				mapManager.loadMap("Earth2.tmx"); // Load the second map
-				isSecondMapLoaded = true; // Set the flag to true
-				// Create the flag entity only when Earth2.tmx is loaded and the flag entity does not exist yet
-				if (flag == null) {
-					flag = entityFactory.createEntity("flag.png", 570, 400, false, "flag");
-					entityManager.add(flag);
-					entityManager.addCollidableEntity(flag);
-				}
-			}
-		}
-	}
 	
 	@Override
 	public void render(float delta) {
@@ -114,7 +86,6 @@ public class EarthScene extends BasePlanetScene{
 		mapManager.getRenderer().render();
 		// Check collision with building
 		cManager.checkCollisionWithTiledMap((Player) player, mapManager);
-		switchMap(); // call map switching function when player exits bounds of first Earth map
 
 	    SpriteBatch batch = new SpriteBatch();
 	    
@@ -132,14 +103,5 @@ public class EarthScene extends BasePlanetScene{
             showDialogFlag = false;
         }
 	    renderStages();
-	}
-
-	@Override
-	public void hide() { // to remove flag from first Earth map
-		super.hide();
-		if (flag != null && !isSecondMapLoaded) {
-			entityManager.removeFlagEntity(flag);
-			flag = null; // Set flag to null after removing it
-		}
 	}
 }

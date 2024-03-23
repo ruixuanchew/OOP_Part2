@@ -84,10 +84,16 @@ public class CollisionManager implements CollisionInterface {
 			 BaseScene currentScene = sceneManager.getCurrentScene();
 		        if (currentScene instanceof VenusScene) {
 		            sceneManager.showEndScene();
-		        } else {
-		            sceneManager.showAsteroidScene();
 		        }
-		        player.setPosX(0);
+				if (currentScene instanceof EarthScene) {
+				sceneManager.showEarthScene2(); // Go to EarthScene2
+				player.setPosX(20);
+				player.setPosY(150);
+				}
+				else {
+		            sceneManager.showAsteroidScene();
+					player.setPosX(0);
+		        }
 		}
 		//check if collided entity is mercury planet
 		if (entity.getType().equals("mercury")) {
@@ -156,16 +162,11 @@ public class CollisionManager implements CollisionInterface {
 				Player playerObject = (Player) player; //downcast player to player tag to access function
 				playerObject.takeDamage(); // player takes damage from collision
 
-				// Reset to the start of Earth map if player collides with lava in the second map
+				// Check if the current scene is EarthScene2
 				BaseScene currentScene = sceneManager.getCurrentScene();
-				if (currentScene instanceof EarthScene) {
-					EarthScene earthScene = (EarthScene) currentScene;
-					if (earthScene.isSecondMapLoaded()) {
-						earthScene.loadFirstMap();
-						player.setPosX(0);
-						player.setPosY(50);
-						earthScene.hide(); // hide the flag when player loads back to first map
-					}
+				if (currentScene instanceof EarthScene2) {
+					// If it is, switch back to EarthScene
+					sceneManager.showEarthScene();
 				}
 
 				//swap to end scene if player hp = 0

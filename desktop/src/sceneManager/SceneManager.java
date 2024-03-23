@@ -22,6 +22,7 @@ public class SceneManager {
     private MercuryScene mercuryScene;
     private VenusScene venusScene;
     private EarthScene earthScene;
+    private EarthScene2 earthScene2;
     private BaseScene currentScene;
     private boolean sceneSwitching;
     private InputOutputManager ioManager;
@@ -39,6 +40,7 @@ public class SceneManager {
         startScene = new StartScene(this);
         instructionScene = new InstructionScene(this);
         earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
+        earthScene2 = new EarthScene2(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         asteroidScene = new AsteroidScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
         venusScene = new VenusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
@@ -80,7 +82,7 @@ public class SceneManager {
 
     public synchronized void showEarthScene() {
         setCurrentScene(earthScene);
-        earthScene.loadFirstMap();
+        //earthScene.loadFirstMap();
         ioManager.changeMusic("city.mp3");
         ioManager.setVolume(0.08f);
      // Reset the screenSwitchCounter to 0 for all instances of BasePlanetScene
@@ -90,6 +92,12 @@ public class SceneManager {
                 planetScene.setScreenSwitchCounter(0);
             }
         }
+    }
+
+    public synchronized void showEarthScene2() {
+        setCurrentScene(earthScene2);
+        ioManager.changeMusic("night.mp3");
+        ioManager.setVolume(0.3f);
     }
 
     public synchronized BaseScene getCurrentScene() {

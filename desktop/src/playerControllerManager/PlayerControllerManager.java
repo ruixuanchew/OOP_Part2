@@ -58,13 +58,14 @@ public class PlayerControllerManager{
 
 
 	public void update(float deltaTime) {
+
 		if (sceneManager == null) {
 	        Gdx.app.log("PlayerControllerManager", "SceneManager is null!");
 	        return;
 	    }
-		
+
 		BaseScene currentScene = sceneManager.getCurrentScene();
-		if (currentScene instanceof EarthScene) {
+		if (currentScene instanceof EarthScene || currentScene instanceof EarthScene2) {
 			// Update the player's velocity based on the input from the keyboard
 			playerMovement.moveLeft();
 			playerMovement.moveRight();
