@@ -33,7 +33,7 @@ public class StartScene extends BaseScene {
         float y = Gdx.graphics.getHeight() / 2;
 
         // Add the button
-        addButton(buttonText, x, y, () -> sceneManager.showInstructionScene());
+        addButton(buttonText, x, y, () -> sceneManager.setCurrentScene(SceneType.INSTRUCTION_SCENE));
 	  }
 
     // Override abstract method in BaseScene.java

@@ -36,7 +36,7 @@ public class EarthScene2 extends BasePlanetScene {
     private void initializeScene() {
         String buttonText = "End";
         addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
-                () -> sceneManager.showEndScene());
+                () -> sceneManager.setCurrentScene(SceneType.END_SCENE));
     }
 
     @Override
@@ -77,6 +77,5 @@ public class EarthScene2 extends BasePlanetScene {
 
     @Override
     protected void showDialog() {
-        // empty
     }
 }

@@ -56,7 +56,7 @@ public class EarthScene extends BasePlanetScene{
 
         String buttonText = "End";
         addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
-                () -> sceneManager.showEndScene());
+                () -> sceneManager.setCurrentScene(SceneType.END_SCENE));
     }
 
 	@Override
@@ -74,6 +74,9 @@ public class EarthScene extends BasePlanetScene{
         showCustomDialog("", "Earth is our home planet and uniquely"
         		+ "\nsupports life due to water and protective atmosphere.", windowStyle);
     }
+	protected boolean getShowDialog() {
+		return super.getDialogOpen();
+	}
 	
 	@Override
 	public void render(float delta) {

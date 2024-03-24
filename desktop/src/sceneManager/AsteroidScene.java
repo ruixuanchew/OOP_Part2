@@ -67,7 +67,7 @@ public class AsteroidScene extends BasePlanetScene{
 	        String buttonText = "End";
 	        // Calls addbutton and pass in text, x, y and runnable action
 	        addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
-	                () -> sceneManager.showEndScene());
+	                () -> sceneManager.setCurrentScene(SceneType.END_SCENE));
 	  }
 
 	@Override
@@ -93,6 +93,7 @@ public class AsteroidScene extends BasePlanetScene{
 		  // call UI Manager method to display player health on screen
 		  uiManager.displayHealth(batch, ((Player) player).getHealth());
 		  batch.end();
+		  renderStages();
 	  }
 	@Override
 	protected void showDialog() {

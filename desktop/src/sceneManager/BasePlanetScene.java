@@ -67,8 +67,6 @@ public abstract class BasePlanetScene extends BaseScene {
 	 // Check if the player has moved beyond the screen width
 	    if (player.getPosX() > Gdx.graphics.getWidth()) {
 	        screenSwitchCounter++;
-	        System.out.printf("Scene switch counter: %d\n", screenSwitchCounter);
-
 	        // Move player back to the left side of the screen
 	        player.setPosX(-player.getWidth());
 
@@ -144,11 +142,13 @@ public abstract class BasePlanetScene extends BaseScene {
     	stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 	    stage.draw();
     }
+    
     // Dialog getters and setters
-    protected boolean getDialogOpen() {
+    public boolean getDialogOpen() {
+    	System.out.print(dialogOpen);
     	return dialogOpen;
     }
-    protected void setDialogOpen(boolean dialogOpen) {
+    public void setDialogOpen(boolean dialogOpen) {
     	this.dialogOpen = dialogOpen;
     }
     // UI elements specific to planets only

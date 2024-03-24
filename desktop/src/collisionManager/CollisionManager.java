@@ -5,7 +5,11 @@ import entityManager.Player;
 import entityManager.Entity;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
+import simulationLifecycleManager.SimulationLifecycleManager;
 import sceneManager.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,13 +19,30 @@ public class CollisionManager implements CollisionInterface {
 	private PlayerControllerManager playerControllerManager;
 	private EntityManager entityManager;
 	private InputOutputManager ioManager;
+	private SimulationLifecycleManager slManager;
+	private List<CollisionObserver> observers = new ArrayList<>();
 
-	public CollisionManager(SceneManager sceneManager, PlayerControllerManager playerControllerManager, EntityManager entityManager, InputOutputManager ioManager) {
+	public CollisionManager(SceneManager sceneManager, 
+			PlayerControllerManager playerControllerManager, EntityManager entityManager, InputOutputManager ioManager, SimulationLifecycleManager slManager) {
 		this.sceneManager = sceneManager;
 		this.playerControllerManager = playerControllerManager;
 		this.entityManager = entityManager;
 		this.ioManager = ioManager;
+		this.slManager = slManager;
+		if (slManager instanceof CollisionObserver) {
+            observers.add((CollisionObserver) slManager);
+        }
 	}
+	// Register Observer
+	public void registerObserver(CollisionObserver observer) {
+        observers.add(observer);
+    }
+	// Notify Observers when there is collision 
+	 private void notifyObservers() {
+	        for (CollisionObserver observer : observers) {
+	            observer.onCollisionOccurred();
+	        }
+	    }
 	
 	//function to check collision between player and entity
 	public void checkCollision(Entity player, Entity entity) {
@@ -76,33 +97,39 @@ public class CollisionManager implements CollisionInterface {
 
 			//swap to end scene if player hp = 0
 			if (playerObject.getHealth() <= 0) {
-				sceneManager.showEndScene();
+				notifyObservers();
+				sceneManager.setCurrentScene(SceneType.END_SCENE);
 			}
 		}
 		//check if collided entity is flag, show end scene if venus else asteroid scene
 		if (entity.getType().equals("flag")) {
 			 BaseScene currentScene = sceneManager.getCurrentScene();
 		        if (currentScene instanceof VenusScene) {
-		            sceneManager.showEndScene();
+		        	notifyObservers();
+		        	sceneManager.setCurrentScene(SceneType.END_SCENE);;
 		        }
 				else {
-		            sceneManager.showAsteroidScene();
+					notifyObservers();
+					sceneManager.setCurrentScene(SceneType.SPACE_SCENE);
 					player.setPosX(0);
 		        }
 				if (currentScene instanceof EarthScene) {
-					sceneManager.showEarthScene2(); // Go to EarthScene2
+					notifyObservers();
+					sceneManager.setCurrentScene(SceneType.EARTH_SCENE2);
 					player.setPosX(20);
 					player.setPosY(150);
 			}
 		}
 		//check if collided entity is mercury planet
 		if (entity.getType().equals("mercury")) {
-			sceneManager.showMercuryScene();
+			notifyObservers();
+			sceneManager.setCurrentScene(SceneType.MERCURY_SCENE);
 			player.setPosX(0);
 		}
 		//check if collided entity is venus planet
 		if (entity.getType().equals("venus")) {
-			sceneManager.showVenusScene();
+			notifyObservers();
+			sceneManager.setCurrentScene(SceneType.VENUS_SCENE);
 			player.setPosX(0);
 		}
 	}
@@ -166,12 +193,12 @@ public class CollisionManager implements CollisionInterface {
 				BaseScene currentScene = sceneManager.getCurrentScene();
 				if (currentScene instanceof EarthScene2) {
 					// If it is, switch back to EarthScene
-					sceneManager.showEarthScene();
+					sceneManager.setCurrentScene(SceneType.EARTH_SCENE);
 				}
 
 				//swap to end scene if player hp = 0
 				if (playerObject.getHealth() <= 0) {
-					sceneManager.showEndScene();
+					sceneManager.setCurrentScene(SceneType.END_SCENE);
 				}
 			}
 		}

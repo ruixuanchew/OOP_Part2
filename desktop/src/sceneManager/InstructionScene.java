@@ -38,7 +38,7 @@ public class InstructionScene extends BaseScene {
         float y = 30;
 
         // Add the button
-        addButton(buttonText, x, y, () -> sceneManager.showEarthScene());
+        addButton(buttonText, x, y, () -> sceneManager.setCurrentScene(SceneType.EARTH_SCENE));
 	  }
 
     // Override abstract method in BaseScene.java

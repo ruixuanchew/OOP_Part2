@@ -22,6 +22,7 @@ import collisionManager.CollisionManager;
 import entityManager.Entity;
 import entityManager.EntityManager;
 import entityManager.EntityFactory;
+import simulationLifecycleManager.SimulationLifecycleManager;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -41,6 +42,7 @@ public abstract class BaseScene extends ScreenAdapter {
     protected UIManager uiManager;
     private SpriteBatch batch;
     private int screenWidth = Gdx.graphics.getWidth();
+    private SimulationLifecycleManager slManager;
 
     public BaseScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
@@ -48,7 +50,7 @@ public abstract class BaseScene extends ScreenAdapter {
         inputHandler = new InputHandler();
         uiManager = new UIManager(stage, this);
         batch = new SpriteBatch();
-        this.cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager);
+        this.cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager, slManager);
     }
 
     @Override
@@ -92,6 +94,7 @@ public abstract class BaseScene extends ScreenAdapter {
     protected void addText(String text, SpriteBatch batch2, Color white) {
         uiManager.addText(text, batch2, white);
     }
+    
   
     @Override
     public void dispose() {

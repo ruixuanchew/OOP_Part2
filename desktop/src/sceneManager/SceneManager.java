@@ -1,6 +1,7 @@
 package sceneManager;
 
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Game;
 
@@ -12,107 +13,59 @@ import collisionManager.CollisionManager;
 import inputOutputManager.InputOutputManager;
 import playerControllerManager.PlayerControllerManager;
 import simulationLifecycleManager.SimulationLifecycleManager;
+import simulationLifecycleManager.ErrorHandler;
 
 public class SceneManager {
     private Game game;
-    private StartScene startScene;
-    private InstructionScene instructionScene;
-    private EndScene endScene;
-    private AsteroidScene asteroidScene;
-    private MercuryScene mercuryScene;
-    private VenusScene venusScene;
-    private EarthScene earthScene;
-    private EarthScene2 earthScene2;
+    private SceneFactory sceneFactory;
     private BaseScene currentScene;
     private boolean sceneSwitching;
     private InputOutputManager ioManager;
-    private UIManager uiManager;
+    private SceneConfigurationHandler configHandler;
     private Entity player;
+    private Map<SceneType, BaseScene> sceneMap;
+    private ErrorHandler errorHandler;
 
     public SceneManager(Game game) {
         this.game = game;
+        this.sceneFactory = new SceneFactory(this);
         this.sceneSwitching = false;
+        this.errorHandler = new ErrorHandler();
     }
 
-    public synchronized void initializeScenes(EntityManager entityManager, EntityFactory entityFactory, PlayerControllerManager pcManager, CollisionManager cManager, 
-    		AIControlManager aiManager, SimulationLifecycleManager slManager, InputOutputManager ioManager) {
+    public synchronized void initializeScenes(EntityManager entityManager, EntityFactory entityFactory,
+            PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager,
+            SimulationLifecycleManager slManager, InputOutputManager ioManager) {
         this.ioManager = ioManager;
-        startScene = new StartScene(this);
-        instructionScene = new InstructionScene(this);
-        earthScene = new EarthScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        earthScene2 = new EarthScene2(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        asteroidScene = new AsteroidScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        mercuryScene = new MercuryScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        venusScene = new VenusScene(this, entityManager, entityFactory, pcManager, cManager, aiManager);
-        endScene = new EndScene(this, slManager);
-    }
-
-    public synchronized void showStartScene() {
-        setCurrentScene(startScene);
-        ioManager.setVolume(0.2f);
-    }
-    public synchronized void showInstructionScene() {
-        setCurrentScene(instructionScene);
-        ioManager.setVolume(0.2f);
-    }
-
-    public synchronized void showEndScene() {
-        setCurrentScene(endScene);
-        ioManager.changeMusic("death.mp3");
-        ioManager.setVolume(0.5f);
-    }
-
-    public synchronized void showAsteroidScene() {
-        setCurrentScene(asteroidScene);
-        ioManager.changeMusic("space.mp3");
-        ioManager.setVolume(0.2f);
-    }
-
-    public synchronized void showMercuryScene() {
-        setCurrentScene(mercuryScene);
-        ioManager.changeMusic("perion.mp3");
-        ioManager.setVolume(0.5f);
-    }
-
-    public synchronized void showVenusScene() {
-        setCurrentScene(venusScene);
-        ioManager.changeMusic("volcano.mp3");
-        ioManager.setVolume(0.2f);
-    }
-
-    public synchronized void showEarthScene() {
-        setCurrentScene(earthScene);
-        //earthScene.loadFirstMap();
-        ioManager.changeMusic("city.mp3");
-        ioManager.setVolume(0.08f);
-     // Reset the screenSwitchCounter to 0 for all instances of BasePlanetScene
-        for (BaseScene scene : List.of(earthScene, asteroidScene, mercuryScene, venusScene)) {
-            if (scene instanceof BasePlanetScene) {
-                BasePlanetScene planetScene = (BasePlanetScene) scene;
-                planetScene.setScreenSwitchCounter(0);
-            }
-        }
-    }
-
-    public synchronized void showEarthScene2() {
-        setCurrentScene(earthScene2);
-        ioManager.changeMusic("night.mp3");
-        ioManager.setVolume(0.3f);
+        // Initialize Scenes in Scene Factory 
+        sceneFactory.initializeScenes(entityManager, entityFactory, pcManager, cManager, aiManager, slManager);
     }
 
     public synchronized BaseScene getCurrentScene() {
         return currentScene;
     }
 
-    private void setCurrentScene(BaseScene scene) {
-        if (!sceneSwitching) {
-            sceneSwitching = true;
-            game.setScreen(scene);
-            currentScene = scene;
-            sceneSwitching = false;
+    // set the current scene, get sceneType from ENUM 
+    public synchronized void setCurrentScene(SceneType sceneType) {
+    	try {
+            currentScene = sceneFactory.createScene(sceneType);
+            this.sceneMap = sceneFactory.getSceneList();
+            this.configHandler = new SceneConfigurationHandler(this.sceneMap);
+            configHandler.handleSceneConfig(sceneType, ioManager);
+            if (!sceneSwitching) {
+                sceneSwitching = true;
+                game.setScreen(currentScene);
+                sceneSwitching = false;
+            }
+        } catch (Exception e) {
+            // Handle the exception using ErrorHandler
+            errorHandler.handleException(e, "Error setting current scene: ");
         }
     }
 
+    public synchronized void switchToScene(SceneType sceneType) {
+        setCurrentScene(sceneType);
+    }
     // make Player a global variable that all scenes can access
     public void setPlayer(Entity player) {
         this.player = player;
@@ -121,15 +74,9 @@ public class SceneManager {
     public Entity getPlayer() {
         return this.player;
     }
-
     public synchronized void dispose() {
-        startScene.dispose();
-        endScene.dispose();
-        asteroidScene.dispose();
-        mercuryScene.dispose();
-        venusScene.dispose();
-        earthScene.dispose();
+        if (currentScene != null) {
+            currentScene.dispose();
+        }
     }
 }
-
-
