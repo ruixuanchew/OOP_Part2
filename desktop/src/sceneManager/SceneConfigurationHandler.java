@@ -7,10 +7,12 @@ import inputOutputManager.InputOutputManager;
 public class SceneConfigurationHandler{
 	private Map<SceneType, BaseScene> sceneMap;
 	
+	// Take map of scenes as values
     public SceneConfigurationHandler(Map<SceneType, BaseScene> sceneMap) {
     	this.sceneMap = sceneMap;
     }
-
+    
+    // Handle different cases for different scenes
 	public void handleSceneConfig(SceneType sceneType, InputOutputManager ioManager) {
         switch (sceneType) {
             case EARTH_SCENE:
@@ -42,7 +44,7 @@ public class SceneConfigurationHandler{
                 break;
         }
     }
-
+	// Different methods for different configurations for different scenes
     private void handleStartSceneConfig(InputOutputManager ioManager) {
         ioManager.setVolume(0.2f);
     }
@@ -74,6 +76,7 @@ public class SceneConfigurationHandler{
     private void handleEarthSceneConfig(InputOutputManager ioManager) {
         ioManager.changeMusic("city.mp3");
         ioManager.setVolume(0.08f);
+        // For loop through scene map values to set all scenes screen switch counter to 0
         for (BaseScene scene : sceneMap.values()) {
             if (scene instanceof BasePlanetScene) {
                 BasePlanetScene planetScene = (BasePlanetScene) scene;

@@ -15,6 +15,7 @@ import collisionManager.CollisionObserver;
  * start the game, end the game, and restart the game. It also contains an ErrorHandler to handle
  * exceptions that occur when the game is started.
  */
+// Now extends CollisionObserver
 public class SimulationLifecycleManager implements CollisionObserver{
     private ErrorHandler errorHandler;
     private SceneManager sceneManager;
@@ -52,6 +53,7 @@ public class SimulationLifecycleManager implements CollisionObserver{
 
         if (player instanceof Player) {
             Player playerEntity = (Player) player;
+            // Place integer values of player health to preferences which is to save game state
             preferences.putInteger("PlayerHealth", playerEntity.getHealth());
         }
         preferences.flush(); // Write preferences to disk
@@ -70,10 +72,11 @@ public class SimulationLifecycleManager implements CollisionObserver{
         entityManager.resetEntities(); // reset entities to original position
         sceneManager.setCurrentScene(SceneType.EARTH_SCENE); // revert back to game scene when restartGame is called
     }
-
+    
+    // Overrides the onCollisionOccured from collisionObserver interface
 	@Override
 	public void onCollisionOccurred() {
-		saveGameState();
+		saveGameState(); // Call save game state
 		
 	}
 }

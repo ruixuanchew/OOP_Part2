@@ -20,6 +20,7 @@ public class CollisionManager implements CollisionInterface {
 	private EntityManager entityManager;
 	private InputOutputManager ioManager;
 	private SimulationLifecycleManager slManager;
+	// List for observers for Collision Observer
 	private List<CollisionObserver> observers = new ArrayList<>();
 
 	public CollisionManager(SceneManager sceneManager, 
@@ -29,17 +30,22 @@ public class CollisionManager implements CollisionInterface {
 		this.entityManager = entityManager;
 		this.ioManager = ioManager;
 		this.slManager = slManager;
+		// Since observer is calling to slManager 
+		// If slManager instance of collision observer
 		if (slManager instanceof CollisionObserver) {
+			// Add to the list the collision observer in the instance of sl Manager
             observers.add((CollisionObserver) slManager);
         }
 	}
-	// Register Observer
+	// Register the observer as observer and add to list
 	public void registerObserver(CollisionObserver observer) {
         observers.add(observer);
     }
 	// Notify Observers when there is collision 
 	 private void notifyObservers() {
+		 // For range of observers list
 	        for (CollisionObserver observer : observers) {
+	        	// Call observer interface onCollisionOccurred();
 	            observer.onCollisionOccurred();
 	        }
 	    }
@@ -97,6 +103,7 @@ public class CollisionManager implements CollisionInterface {
 
 			//swap to end scene if player hp = 0
 			if (playerObject.getHealth() <= 0) {
+				// call notify observers function when there is a collision + switch scene
 				notifyObservers();
 				sceneManager.setCurrentScene(SceneType.END_SCENE);
 			}
@@ -105,15 +112,18 @@ public class CollisionManager implements CollisionInterface {
 		if (entity.getType().equals("flag")) {
 			 BaseScene currentScene = sceneManager.getCurrentScene();
 		        if (currentScene instanceof VenusScene) {
+		        	// call notify observers function when there is a collision + switch scene
 		        	notifyObservers();
 		        	sceneManager.setCurrentScene(SceneType.END_SCENE);;
 		        }
 				else {
+					// call notify observers function when there is a collision + switch scene
 					notifyObservers();
 					sceneManager.setCurrentScene(SceneType.SPACE_SCENE);
 					player.setPosX(0);
 		        }
 				if (currentScene instanceof EarthScene) {
+					// call notify observers function when there is a collision + switch scene
 					notifyObservers();
 					sceneManager.setCurrentScene(SceneType.EARTH_SCENE2);
 					player.setPosX(20);
@@ -122,12 +132,14 @@ public class CollisionManager implements CollisionInterface {
 		}
 		//check if collided entity is mercury planet
 		if (entity.getType().equals("mercury")) {
+			// call notify observers function when there is a collision + switch scene
 			notifyObservers();
 			sceneManager.setCurrentScene(SceneType.MERCURY_SCENE);
 			player.setPosX(0);
 		}
 		//check if collided entity is venus planet
 		if (entity.getType().equals("venus")) {
+			// call notify observers function when there is a collision + switch scene
 			notifyObservers();
 			sceneManager.setCurrentScene(SceneType.VENUS_SCENE);
 			player.setPosX(0);

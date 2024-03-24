@@ -142,7 +142,7 @@ public abstract class BasePlanetScene extends BaseScene {
     	stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 	    stage.draw();
     }
-    
+   
     // Dialog getters and setters
     public boolean getDialogOpen() {
     	System.out.print(dialogOpen);

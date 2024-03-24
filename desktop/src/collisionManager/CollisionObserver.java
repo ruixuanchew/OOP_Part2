@@ -1,5 +1,7 @@
 package collisionManager;
 
+// Collision Observer interface used to identify when collision occurs
 public interface CollisionObserver {
-	void onCollisionOccurred();
+	// Method for onCollisionOccurred
+	public void onCollisionOccurred();
 }

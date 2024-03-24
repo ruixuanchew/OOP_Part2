@@ -1,5 +1,6 @@
 package sceneManager;
 
+// Enum list for all scene types
 public enum SceneType {
 	START_SCENE,
 	END_SCENE,

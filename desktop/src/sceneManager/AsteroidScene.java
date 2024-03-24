@@ -69,7 +69,7 @@ public class AsteroidScene extends BasePlanetScene{
 	        addButton(buttonText, Gdx.graphics.getWidth() - 125, Gdx.graphics.getHeight() - 50,
 	                () -> sceneManager.setCurrentScene(SceneType.END_SCENE));
 	  }
-
+	 
 	@Override
 	protected Color getBackgroundColor() {
 		return new Color(0, 0, 0, 1);

@@ -22,12 +22,13 @@ public class SceneFactory {
         this.sceneManager = sceneManager;
         this.errorHandler = new ErrorHandler();
     }
-
+    
     public void initializeScenes(EntityManager entityManager, EntityFactory entityFactory,
             PlayerControllerManager pcManager, CollisionManager cManager, AIControlManager aiManager,
             SimulationLifecycleManager slManager) {
     	 	try {
     	        // Initialize scenes here
+    	 		// SceneType must all be in SceneType Enum file
     	        sceneMap.put(SceneType.START_SCENE, new StartScene(sceneManager));
     	        sceneMap.put(SceneType.INSTRUCTION_SCENE, new InstructionScene(sceneManager));
     	        sceneMap.put(SceneType.EARTH_SCENE, new EarthScene(sceneManager, entityManager, entityFactory, pcManager, cManager,
@@ -41,7 +42,6 @@ public class SceneFactory {
     	        sceneMap.put(SceneType.VENUS_SCENE, new VenusScene(sceneManager, entityManager, entityFactory, pcManager, cManager,
     	                aiManager));
     	        sceneMap.put(SceneType.END_SCENE, new EndScene(sceneManager, slManager));
-    	        // Initialize other scenes as needed
     	    } catch (Exception e) {
     	        // Handle scene initialization errors
     	        errorHandler.handleException(e, "Error initializing scenes: " + e.getMessage());
@@ -51,6 +51,7 @@ public class SceneFactory {
     public BaseScene createScene(SceneType sceneType) {
         return sceneMap.get(sceneType);
     }
+    // Get the scene list
     public Map<SceneType, BaseScene> getSceneList() {
     	return sceneMap;
     }

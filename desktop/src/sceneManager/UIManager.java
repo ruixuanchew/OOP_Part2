@@ -97,7 +97,7 @@ public class UIManager {
         TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
         
         pixmap.dispose();
-
+        
         return drawable; // Return back to addButton
     }
     public void addText(String text, SpriteBatch batch, Color color) {

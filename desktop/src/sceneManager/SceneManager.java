@@ -28,7 +28,7 @@ public class SceneManager {
 
     public SceneManager(Game game) {
         this.game = game;
-        this.sceneFactory = new SceneFactory(this);
+        this.sceneFactory = new SceneFactory(this); // Declare scene factory
         this.sceneSwitching = false;
         this.errorHandler = new ErrorHandler();
     }
@@ -48,13 +48,15 @@ public class SceneManager {
     // set the current scene, get sceneType from ENUM 
     public synchronized void setCurrentScene(SceneType sceneType) {
     	try {
+    		// call scene factory to create scene passing sceneType as value (enum value)
             currentScene = sceneFactory.createScene(sceneType);
-            this.sceneMap = sceneFactory.getSceneList();
-            this.configHandler = new SceneConfigurationHandler(this.sceneMap);
+            this.sceneMap = sceneFactory.getSceneList(); // Get scene list from scene factory
+            // Get specific scenes individual configuration when scene switches
+            this.configHandler = new SceneConfigurationHandler(this.sceneMap); 
             configHandler.handleSceneConfig(sceneType, ioManager);
-            if (!sceneSwitching) {
+            if (!sceneSwitching) { 
                 sceneSwitching = true;
-                game.setScreen(currentScene);
+                game.setScreen(currentScene); // Same game scene to current scene
                 sceneSwitching = false;
             }
         } catch (Exception e) {
