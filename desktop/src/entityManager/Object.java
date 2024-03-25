@@ -22,6 +22,7 @@ public class Object implements Entity {
 		this.type = type;
 	}
 	
+	// get methods
 	public float getPosX() {
 		return posX;
 	};
@@ -46,6 +47,7 @@ public class Object implements Entity {
 		return isVisible;
 	}
 	
+	// set methods
 	public void setPosX(float x) {
 		this.posX = x;
 	};
@@ -58,6 +60,7 @@ public class Object implements Entity {
 		this.isVisible = visible;
 	}
 	
+	// draw entities
 	@Override 
 	public void draw(SpriteBatch batch) {
 		

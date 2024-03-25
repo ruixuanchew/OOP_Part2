@@ -76,6 +76,14 @@ public class SceneManager {
     public Entity getPlayer() {
         return this.player;
     }
+    
+    // reset the scene when player restarts the game
+    public synchronized void resetScene() {
+    	for (BaseScene scene : sceneMap.values()) {
+                scene.resetScene(); 
+        }
+    }
+    
     public synchronized void dispose() {
         if (currentScene != null) {
             currentScene.dispose();

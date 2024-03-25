@@ -169,6 +169,9 @@ public abstract class BasePlanetScene extends BaseScene {
     	uiManager.addDialog(title, message, windowStyle);
     }
     
+	// reset scene when game restarts 
+    protected abstract void resetScene();
+    
     protected abstract void showDialog();
 
 }

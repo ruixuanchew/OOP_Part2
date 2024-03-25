@@ -100,4 +100,10 @@ public class AsteroidScene extends BasePlanetScene{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	
+    };
 }

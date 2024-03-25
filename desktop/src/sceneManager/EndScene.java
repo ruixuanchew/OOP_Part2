@@ -77,4 +77,10 @@ public class EndScene extends BaseScene {
         }
 		return maxWidth;
     }
+    
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	
+    };
 }

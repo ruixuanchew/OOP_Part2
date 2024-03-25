@@ -95,6 +95,8 @@ public abstract class BaseScene extends ScreenAdapter {
         uiManager.addText(text, batch2, white);
     }
     
+	// reset scene when game restarts 
+    protected abstract void resetScene();
   
     @Override
     public void dispose() {

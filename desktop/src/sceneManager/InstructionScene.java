@@ -76,4 +76,10 @@ public class InstructionScene extends BaseScene {
     	BitmapFont font = new BitmapFont();
         return super.calculateTextWidth(text, font);
     }
+    
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	
+    };
 }

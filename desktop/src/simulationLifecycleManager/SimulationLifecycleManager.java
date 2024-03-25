@@ -71,6 +71,7 @@ public class SimulationLifecycleManager implements CollisionObserver{
         }
         entityManager.resetEntities(); // reset entities to original position
         sceneManager.setCurrentScene(SceneType.EARTH_SCENE); // revert back to game scene when restartGame is called
+        sceneManager.resetScene();
     }
     
     // Overrides the onCollisionOccured from collisionObserver interface

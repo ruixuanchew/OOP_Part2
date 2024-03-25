@@ -78,4 +78,10 @@ public class EarthScene2 extends BasePlanetScene {
     @Override
     protected void showDialog() {
     }
+    
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	
+    };
 }

@@ -32,6 +32,7 @@ public class Player implements Entity {
 		
 	}
 	
+	// get methods
 	public float getPosX() {
 		return posX;
 	}
@@ -64,6 +65,7 @@ public class Player implements Entity {
 		return velocity;
 	}
 	
+	// set methodss
 	public void setPosX(float x) {
 		this.posX = x;
 	}
@@ -101,6 +103,7 @@ public class Player implements Entity {
 		return new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
 	}
 	
+	// draw entities
 	@Override 
 	public void draw(SpriteBatch batch) {
 		

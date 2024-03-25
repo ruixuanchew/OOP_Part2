@@ -40,6 +40,7 @@ public class VenusScene extends BasePlanetScene{
 	 private void initializeScene() {
 		Random random = new Random();
 		
+		// create fireball entities
 		for (int i = 0; i < 5; i++) {
             float posX = random.nextInt(Gdx.graphics.getWidth());
             float posY = random.nextInt(Gdx.graphics.getHeight());
@@ -134,4 +135,11 @@ public class VenusScene extends BasePlanetScene{
 	        }
     	}
     }
+	
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	System.out.println("Venus scene resetted!");
+    	fireballRendered = false;
+    };
 }

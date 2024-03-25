@@ -95,7 +95,7 @@ public class CollisionManager implements CollisionInterface {
 		System.out.println("\u001B[31m" + "Collision detected between player and entity!" + "\u001B[0m");
 		
 		// check if collided entity is an enemy
-		if (entity.getType().equals("asteroid") || entity.getType().equals("fireball")) {	
+		if (entity.getType().equals("asteroid") || entity.getType().equals("fireball") || entity.getType().equals("rock")) {	
 			entityManager.remove(entity); 
 			Player playerObject = (Player) player; //downcast player to player tag to access function
 			playerObject.takeDamage();

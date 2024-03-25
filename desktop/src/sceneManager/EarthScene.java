@@ -107,4 +107,10 @@ public class EarthScene extends BasePlanetScene{
         }
 	    renderStages();
 	}
+	
+	// reset scene when game restarts
+	@Override 
+    protected void resetScene() {
+    	
+    };
 }
