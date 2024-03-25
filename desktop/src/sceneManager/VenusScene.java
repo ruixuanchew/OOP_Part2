@@ -33,7 +33,7 @@ public class VenusScene extends BasePlanetScene{
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
 		mapManager.loadMap("Venus.tmx"); // load Venus map from Tiled
-		player = sceneManager.getPlayer(); // retrieve Player from SceneManager
+		player = entityManager.getPlayer(); // retrieve Player from SceneManager
        
         initializeScene();
 	}

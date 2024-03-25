@@ -68,14 +68,6 @@ public class SceneManager {
     public synchronized void switchToScene(SceneType sceneType) {
         setCurrentScene(sceneType);
     }
-    // make Player a global variable that all scenes can access
-    public void setPlayer(Entity player) {
-        this.player = player;
-    }
-
-    public Entity getPlayer() {
-        return this.player;
-    }
     
     // reset the scene when player restarts the game
     public synchronized void resetScene() {

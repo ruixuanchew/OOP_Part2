@@ -49,7 +49,7 @@ public class SimulationLifecycleManager implements CollisionObserver{
     
     // Save game state whenever a scene switch happens
     public void saveGameState() {
-    	Entity player = sceneManager.getPlayer();
+    	Entity player = entityManager.getPlayer();
 
         if (player instanceof Player) {
             Player playerEntity = (Player) player;
@@ -60,14 +60,14 @@ public class SimulationLifecycleManager implements CollisionObserver{
     }
 
     public void restartGame() {
-        Entity player = sceneManager.getPlayer();
+        Entity player = entityManager.getPlayer();
 
         if (player instanceof Player) {
             Player playerEntity = (Player) player;
             // Set the player's health to full when the game is restarted
             playerEntity.setHealth(100);
             player.setPosX(0);
-            player.setPosY(0);
+            player.setPosY(20);
         }
         entityManager.resetEntities(); // reset entities to original position
         sceneManager.setCurrentScene(SceneType.EARTH_SCENE); // revert back to game scene when restartGame is called

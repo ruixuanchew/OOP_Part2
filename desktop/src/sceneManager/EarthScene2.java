@@ -27,7 +27,7 @@ public class EarthScene2 extends BasePlanetScene {
         // call loadMap method from MapManager to load the current map
         mapManager = new MapManager();
         mapManager.loadMap("Earth2.tmx"); // load Space map from Tiled
-        player = sceneManager.getPlayer(); // retrieve Player from SceneManager
+        player = entityManager.getPlayer(); // retrieve Player from SceneManager
 
         // Initialize the scene
         initializeScene();

@@ -47,7 +47,7 @@ public class EarthScene extends BasePlanetScene{
 		entityManager.add(player); // add player entity to the entity list
 		 /* set player in SceneManager to this created player entity. This allows other
 		 scenes to retrieve this particular player entity using getPlayer */
-		sceneManager.setPlayer(player);
+		entityManager.setPlayer(player);
 
 		// flag entity
 		flag = entityFactory.createEntity("flag.png", 570, 400, false, "flag");

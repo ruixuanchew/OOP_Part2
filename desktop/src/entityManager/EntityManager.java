@@ -11,6 +11,7 @@ import playerControllerManager.PlayerControllerManager;
 public class EntityManager {
 	private List<Entity> entityList;
 	private List<Entity> collidableEntityList;
+	private Entity player;
 	
 	public EntityManager() {
 		entityList = new ArrayList<>();
@@ -55,6 +56,15 @@ public class EntityManager {
 		}
 	}
 
+	// make Player a global variable that all scenes can access
+	public void setPlayer(Entity player) {
+		this.player = player;
+	}
+
+	public Entity getPlayer() {
+		return this.player;
+	}
+
 	public List<Entity> getCollidableEntityList() {
 		return collidableEntityList;
 	}
@@ -76,3 +86,5 @@ public class EntityManager {
 		pcManager.update(deltaTime);
 	}
 }
+
+

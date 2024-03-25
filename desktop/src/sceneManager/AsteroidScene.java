@@ -33,7 +33,7 @@ public class AsteroidScene extends BasePlanetScene{
 		// call loadMap method from MapManager to load the current map
 		mapManager = new MapManager();
 		mapManager.loadMap("space.tmx"); // load Space map from Tiled
-		player = sceneManager.getPlayer(); // retrieve Player from SceneManager
+		player = entityManager.getPlayer(); // retrieve Player from SceneManager
 
         initializeScene();
 	}
