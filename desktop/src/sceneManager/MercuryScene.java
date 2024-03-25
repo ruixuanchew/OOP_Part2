@@ -141,6 +141,7 @@ public class MercuryScene extends BasePlanetScene{
     protected void resetScene() {
     	System.out.println("Mercury scene resetted!");
     	rockRendered = false;
+    	showDialogFlag = true;
     };
 
 }

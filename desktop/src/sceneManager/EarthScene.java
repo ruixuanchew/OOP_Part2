@@ -111,6 +111,6 @@ public class EarthScene extends BasePlanetScene{
 	// reset scene when game restarts
 	@Override 
     protected void resetScene() {
-    	
+		showDialogFlag = true;
     };
 }

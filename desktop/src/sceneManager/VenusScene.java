@@ -141,5 +141,6 @@ public class VenusScene extends BasePlanetScene{
     protected void resetScene() {
     	System.out.println("Venus scene resetted!");
     	fireballRendered = false;
+    	showDialogFlag = true;
     };
 }
