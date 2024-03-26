@@ -50,7 +50,7 @@ public class GameMaster extends Game {
         pcManager = new PlayerControllerManager(entityManager, sceneManager);
 
         // Initialize the SimulationLifecycleManager
-        slManager = new SimulationLifecycleManager(sceneManager, entityManager);
+        slManager = SimulationLifecycleManager.getInstance(sceneManager, entityManager);
         
         // Initialize the CollisionManager
         cManager = new CollisionManager(sceneManager, pcManager, entityManager, ioManager, slManager);

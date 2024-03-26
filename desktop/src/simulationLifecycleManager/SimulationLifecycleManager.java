@@ -17,17 +17,26 @@ import collisionManager.CollisionObserver;
  */
 // Now extends CollisionObserver
 public class SimulationLifecycleManager implements CollisionObserver{
+    private static SimulationLifecycleManager instance;
     private ErrorHandler errorHandler;
     private SceneManager sceneManager;
     private EntityManager entityManager;
     private Preferences preferences;
 
-    public SimulationLifecycleManager(SceneManager sceneManager, EntityManager entityManager) {
+    private SimulationLifecycleManager(SceneManager sceneManager, EntityManager entityManager) {
         this.sceneManager = sceneManager;
         this.entityManager = entityManager;
         errorHandler = new ErrorHandler();
         preferences = Gdx.app.getPreferences("GamePreferences");
         
+    }
+
+    // Singleton design pattern, provide global point of access to single instance of Simulation Lifecycle Manager
+    public static SimulationLifecycleManager getInstance(SceneManager sceneManager, EntityManager entityManager) {
+        if (instance == null) {
+            instance = new SimulationLifecycleManager(sceneManager, entityManager);
+        }
+        return instance;
     }
 
     public ErrorHandler getErrorHandler() {
