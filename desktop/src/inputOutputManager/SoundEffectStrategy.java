@@ -1,5 +1,10 @@
 package inputOutputManager;
 
+/**
+ * Implementation of the SoundStrategy interface. Provides a strategy for playing sound effects when certain
+ * events occur in the game. This is part of the Strategy design pattern.
+ */
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 

@@ -12,8 +12,8 @@ import collisionManager.CollisionObserver;
 
 /**
  * SimulationLifecycleManager is used to manage the lifecycle of the game. It provides methods to
- * start the game, end the game, and restart the game. It also contains an ErrorHandler to handle
- * exceptions that occur when the game is started.
+ * start the game, end the game, and restart the game. Singleton design pattern is used to ensure that
+ * only one instance of SimulationLifecycleManager is created.
  */
 // Now extends CollisionObserver
 public class SimulationLifecycleManager implements CollisionObserver{
