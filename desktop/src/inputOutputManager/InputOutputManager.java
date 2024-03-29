@@ -6,8 +6,6 @@ package inputOutputManager;
  */
 
 public class InputOutputManager {
-
-    //private BackgroundMusic bgMusic;
     private InputHandler inputHandler;
     private SoundStrategy backgroundMusicStrategy;
     private SoundStrategy soundEffectStrategy;
